@@ -4,7 +4,7 @@ import AdminLayout from "@/components/layout/AdminLayout";
 import ImageUploader from "@/components/admin/ImageUploader";
 import RichEditor from "@/components/admin/RichEditor";
 import { useState, useEffect } from "react";
-import { Save, Loader2, Globe, Instagram, Linkedin, Facebook } from "lucide-react";
+import { Save, Loader2, Globe, Instagram, Linkedin, Facebook, Phone, Mail } from "lucide-react";
 
 const PageEditor = () => {
   const [content, setContent] = useState({
@@ -327,6 +327,39 @@ const PageEditor = () => {
                   onChange={(e) => setContent({ ...content, metaDescription: e.target.value })}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                 ></textarea>
+              </div>
+            </div>
+          </section>
+
+          {/* Contacts & Socials */}
+          <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+            <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Контакти та Соцмережі (Футер)</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase border-b border-outline-variant/10 pb-2">Контакти</h3>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Phone size={14}/> Телефон</label>
+                  <input type="text" value={content.contactPhone || ""} onChange={(e) => setContent({ ...content, contactPhone: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="+38 (000) 000-00-00" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Mail size={14}/> Email</label>
+                  <input type="text" value={content.contactEmail || ""} onChange={(e) => setContent({ ...content, contactEmail: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="info@..." />
+                </div>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase border-b border-outline-variant/10 pb-2">Соцмережі (посилання)</h3>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Instagram size={14}/> Instagram</label>
+                  <input type="text" value={content.instagram || ""} onChange={(e) => setContent({ ...content, instagram: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="https://instagram.com/..." />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Facebook size={14}/> Facebook</label>
+                  <input type="text" value={content.facebook || ""} onChange={(e) => setContent({ ...content, facebook: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="https://facebook.com/..." />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Linkedin size={14}/> LinkedIn</label>
+                  <input type="text" value={content.linkedin || ""} onChange={(e) => setContent({ ...content, linkedin: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="https://linkedin.com/..." />
+                </div>
               </div>
             </div>
           </section>
