@@ -1,9 +1,27 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log('Seeding database...');
+
+  // 0. ADMIN USER
+  const adminEmail = 'admin@voltpremium.ua';
+  const existingAdmin = await prisma.user.findUnique({ where: { email: adminEmail } });
+  
+  if (!existingAdmin) {
+    const hashedPassword = await bcrypt.hash('admin123', 10);
+    await prisma.user.create({
+      data: {
+        name: 'Admin',
+        email: adminEmail,
+        password: hashedPassword,
+        role: 'ADMIN',
+      }
+    });
+    console.log('Admin user created (admin@voltpremium.ua / admin123)');
+  }
 
   // 1. SERVICES
   const services = [
