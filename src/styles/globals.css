@@ -1,0 +1,195 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+
+@theme {
+  /* Colors */
+  --color-inverse-surface: #e5e1e4;
+  --color-on-surface: #e5e1e4;
+  --color-secondary: #c8c6c9;
+  --color-primary-fixed: #d5f000;
+  --color-on-tertiary-fixed: #1b1b21;
+  --color-surface-container: #201f22;
+  --color-surface-container-highest: #353437;
+  --color-surface-bright: #39393b;
+  --color-inverse-on-surface: #313032;
+  --color-secondary-fixed: #e4e1e5;
+  --color-on-secondary: #303033;
+  --color-on-background: #e5e1e4;
+  --color-tertiary: #ffffff;
+  --color-on-secondary-fixed-variant: #47464a;
+  --color-error-container: #93000a;
+  --color-on-primary-container: #5e6b00;
+  --color-secondary-fixed-dim: #c8c6c9;
+  --color-surface-dim: #131315;
+  --color-outline: #909378;
+  --color-surface-variant: #353437;
+  --color-secondary-container: #47464a;
+  --color-surface-tint: #bbd200;
+  --color-primary-fixed-dim: #bbd200;
+  --color-primary-container: #d5f000;
+  --color-tertiary-container: #e3e1ea;
+  --color-surface-container-high: #2a2a2c;
+  --color-on-primary: #2d3400;
+  --color-on-primary-fixed: #191e00;
+  --color-on-primary-fixed-variant: #424b00;
+  --color-surface-container-lowest: #0e0e10;
+  --color-surface-container-low: #1c1b1d;
+  --color-surface: #131315;
+  --color-tertiary-fixed: #e3e1ea;
+  --color-inverse-primary: #586400;
+  --color-on-surface-variant: #c7c9ab;
+  --color-on-error-container: #ffdad6;
+  --color-error: #ffb4ab;
+  --color-on-tertiary-container: #64646b;
+  --color-on-secondary-fixed: #1b1b1e;
+  --color-on-error: #690005;
+  --color-primary: #ffffff;
+  --color-on-secondary-container: #b6b4b8;
+  --color-on-tertiary: #303037;
+  --color-on-tertiary-fixed-variant: #46464d;
+  --color-background: #131315;
+  --color-outline-variant: #464932;
+  --color-tertiary-fixed-dim: #c7c5ce;
+
+  /* Border Radius */
+  --radius: 0.25rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --spacing-gutter: 24px;
+  --spacing-base: 8px;
+  --spacing-margin-desktop: 48px;
+  --spacing-margin-mobile: 16px;
+  --spacing-container-max: 1280px;
+
+  /* Font Families */
+  --font-family-body-md: "Inter", sans-serif;
+  --font-family-headline-xl: "Inter", sans-serif;
+  --font-family-display-lg-mobile: "Inter", sans-serif;
+  --font-family-body-lg: "Inter", sans-serif;
+  --font-family-label-md: "Inter", sans-serif;
+  --font-family-label-sm: "Inter", sans-serif;
+  --font-family-display-lg: "Inter", sans-serif;
+  --font-family-headline-lg: "Inter", sans-serif;
+
+  /* Font Sizes */
+  --font-size-body-md: 16px;
+  --font-size-headline-xl: 36px;
+  --font-size-display-lg-mobile: 40px;
+  --font-size-body-lg: 18px;
+  --font-size-label-md: 14px;
+  --font-size-label-sm: 12px;
+  --font-size-display-lg: 64px;
+  --font-size-headline-lg: 28px;
+}
+
+body {
+  background-color: #131315;
+  color: #e5e1e4;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+}
+
+.btn-primary {
+  background-color: #d5f000;
+  color: #191e00;
+  padding: 1.25rem 2.5rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 20px rgba(213, 240, 0, 0.4);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+}
+
+.btn-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 1.25rem 2.5rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.btn-secondary:active {
+  transform: scale(0.95);
+}
+
+.card-tech {
+  background-color: #201f22;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(144, 147, 120, 0.2);
+  transition: all 0.5s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-tech:hover {
+  border-color: rgba(213, 240, 0, 0.4);
+}
+
+.inner-glow:hover {
+  box-shadow: inset 0 0 10px rgba(213, 240, 0, 0.2), 0 0 15px rgba(213, 240, 0, 0.1);
+}
+
+.glass-card {
+  background: rgba(26, 26, 27, 0.8);
+  backdrop-filter: blur(12px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0e0e10; }
+::-webkit-scrollbar-thumb { background: #353437; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #464932; }
+
+html {
+  scroll-behavior: smooth;
+  background-color: #131315;
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(213, 240, 0, 0.3);
+}
+
+.hero-gradient {
+  background: radial-gradient(circle at 20% 50%, rgba(213, 240, 0, 0.05) 0%, transparent 50%);
+}
+
+/* Quill Editor Global Classes */
+.ql-align-center { text-align: center !important; }
+.ql-align-right { text-align: right !important; }
+.ql-align-justify { text-align: justify !important; }
+
+.ql-size-small { font-size: 0.75em !important; }
+.ql-size-large { font-size: 1.5em !important; }
+.ql-size-huge { font-size: 2.5em !important; }
+
+.prose .ql-align-center img { margin-left: auto; margin-right: auto; }
+.prose .ql-align-right img { margin-left: auto; margin-right: 0; }

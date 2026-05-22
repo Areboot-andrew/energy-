@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="uk"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VOLT PREMIUM | Професійні електромонтажні рішення</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#e5e1e4",
+                    "on-surface": "#e5e1e4",
+                    "secondary": "#c8c6c9",
+                    "primary-fixed": "#d5f000",
+                    "on-tertiary-fixed": "#1b1b21",
+                    "surface-container": "#201f22",
+                    "surface-container-highest": "#353437",
+                    "surface-bright": "#39393b",
+                    "inverse-on-surface": "#313032",
+                    "secondary-fixed": "#e4e1e5",
+                    "on-secondary": "#303033",
+                    "on-background": "#e5e1e4",
+                    "tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#47464a",
+                    "error-container": "#93000a",
+                    "on-primary-container": "#5e6b00",
+                    "secondary-fixed-dim": "#c8c6c9",
+                    "surface-dim": "#131315",
+                    "outline": "#909378",
+                    "surface-variant": "#353437",
+                    "secondary-container": "#47464a",
+                    "surface-tint": "#bbd200",
+                    "primary-fixed-dim": "#bbd200",
+                    "primary-container": "#d5f000",
+                    "tertiary-container": "#e3e1ea",
+                    "surface-container-high": "#2a2a2c",
+                    "on-primary": "#2d3400",
+                    "on-primary-fixed": "#191e00",
+                    "on-primary-fixed-variant": "#424b00",
+                    "surface-container-lowest": "#0e0e10",
+                    "surface-container-low": "#1c1b1d",
+                    "surface": "#131315",
+                    "tertiary-fixed": "#e3e1ea",
+                    "inverse-primary": "#586400",
+                    "on-surface-variant": "#c7c9ab",
+                    "on-error-container": "#ffdad6",
+                    "error": "#ffb4ab",
+                    "on-tertiary-container": "#64646b",
+                    "on-secondary-fixed": "#1b1b1e",
+                    "on-error": "#690005",
+                    "primary": "#ffffff",
+                    "on-secondary-container": "#b6b4b8",
+                    "on-tertiary": "#303037",
+                    "on-tertiary-fixed-variant": "#46464d",
+                    "background": "#131315",
+                    "outline-variant": "#464932",
+                    "tertiary-fixed-dim": "#c7c5ce"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "base": "8px",
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["28px", {"lineHeight": "1.3", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .inner-glow:hover {
+            box-shadow: inset 0 0 10px rgba(213, 240, 0, 0.2), 0 0 15px rgba(213, 240, 0, 0.1);
+        }
+        .glass-card {
+            background: rgba(26, 26, 27, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0e0e10; }
+        ::-webkit-scrollbar-thumb { background: #353437; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #464932; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<header class="w-full sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant/30">
+<nav class="flex justify-between items-center max-w-container-max mx-auto px-margin-desktop py-base">
+<div class="font-display-lg text-headline-xl tracking-tighter text-primary-fixed flex items-center gap-2">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                VOLT PREMIUM
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary-fixed font-bold border-b-2 border-primary-fixed pb-1 font-label-md" href="#services">Послуги</a>
+<a class="text-secondary-fixed-dim hover:text-primary-fixed transition-colors duration-300 font-label-md" href="#pricing">Ціни</a>
+<a class="text-secondary-fixed-dim hover:text-primary-fixed transition-colors duration-300 font-label-md" href="#about">Про нас</a>
+<a class="text-secondary-fixed-dim hover:text-primary-fixed transition-colors duration-300 font-label-md" href="#contacts">Контакти</a>
+</div>
+<button class="bg-primary-fixed text-on-primary-fixed px-6 py-3 rounded-lg font-bold hover:shadow-[0_0_15px_rgba(213,240,0,0.3)] transition-all duration-200 active:scale-95 font-label-md">
+                Замовити дзвінок
+            </button>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center overflow-hidden px-margin-desktop">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10"></div>
+<img class="w-full h-full object-cover grayscale opacity-40" data-alt="A macro photograph of a perfectly organized high-end industrial electrical panel with neon yellow wire accents. The lighting is dramatic and moody, emphasizing the surgical precision of the cable management. The scene is shot in a high-tech dark-mode aesthetic with deep charcoal backgrounds and vibrant electric glows. The atmosphere is professional, ultra-modern, and conveys absolute engineering reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChVJ1F6cbkh-npXnQ9rwyIEnw-UeToIqUIb-iXF4XFQSOPAK212xiOJ0H6TDgVABajS8N8_Y1tyRqChGbkT8OV3LjqOqgNIlXYCvDH3qiyCrTfYTOPGA3A-QzXvCD2oK7ahuZsSP2anP8txTU1sBpptQY_W3hQocStjN9D7z2xfzBCHJUU4qLEnRfeU6Y8ajrcP2QXWdL-OYyfEWvjyJqf5jpLL5SeGwDHtoxNXr204MhyK-xn-bR4c-CE2bWp6XNfzT7j_7eeJaHG"/>
+</div>
+<div class="relative z-20 max-w-container-max mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center">
+<div class="space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-fixed/30 bg-primary-fixed/5 text-primary-fixed font-label-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-fixed opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-fixed"></span>
+</span>
+                        Turnkey Електромонтаж
+                    </div>
+<h1 class="font-display-lg text-display-lg leading-[1.05] tracking-tight">
+                        Енергія Вашого Прогресу <span class="text-primary-fixed">Під Ключ</span>
+</h1>
+<p class="text-secondary-fixed-dim text-body-lg max-w-lg">
+                        Професійні інженерні рішення для преміальної нерухомості та комерційних об'єктів. Від щитка до повного "Розумного дому".
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-lg font-bold text-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.4)] transition-all">
+                            Отримати консультацію
+                        </button>
+<button class="border border-white/20 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/5 transition-all">
+                            Наші роботи
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Bento Grid -->
+<section class="py-24 px-margin-desktop max-w-container-max mx-auto" id="services">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+<div class="max-w-xl">
+<span class="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">Що ми робимо</span>
+<h2 class="font-headline-xl text-display-lg-mobile md:text-headline-xl">Комплексні рішення для будь-якої складності</h2>
+</div>
+<div class="h-px bg-outline-variant/30 flex-grow mx-8 mb-4 hidden md:block"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 grid-rows-2 gap-6 h-auto md:h-[800px]">
+<!-- Item 1 -->
+<div class="md:col-span-2 md:row-span-1 bg-surface-container rounded-xl p-8 border border-outline-variant/20 group hover:border-primary-fixed/40 transition-all flex flex-col justify-between overflow-hidden relative">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary-fixed text-4xl mb-4">settings_input_component</span>
+<h3 class="font-headline-lg text-white mb-2">Монтаж щитків та кабелів</h3>
+<p class="text-secondary-fixed-dim max-w-md">Професійна розводка та збірка силових щитів згідно стандартів IEC. Ідеальний кабель-менеджмент.</p>
+</div>
+<img class="absolute right-0 bottom-0 w-1/2 h-full object-cover opacity-20 grayscale group-hover:scale-105 transition-transform" data-alt="A detailed, high-contrast close-up of a modern circuit breaker panel in a luxury home. The wiring is exceptionally neat and color-coded, illuminated by cool LED strips that give the metallic surfaces a high-tech sheen. The composition uses leading lines and deep shadows to create a sense of organized power and electronic sophistication, set against a dark architectural background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEy33X9avuuM-cd5yfARFV5e8JoQfRgccHkE962-COuA6cDkmRY7tkwxvXa8t05dWbU_rKpE-hc4aClG3znnSqKM3vgJ2081EDe1dRN-urzqIugR1gFgnaTKIza78gezbRZ78tRdXUEXGsOzN2s8sya1677RJ9wNekKFhqzyOjf34EzKOLEkAcPAPNONFQZhHUlTeQ5wcuTm9KRJluhBKXgPbjL0HpNS87wn_SQ4rF7lFuvMJnrZ7xgVFYouVsa_TQCev1ebS3fVpZ"/>
+</div>
+<!-- Item 2 -->
+<div class="md:col-span-1 md:row-span-2 bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all flex flex-col justify-center text-center space-y-6">
+<span class="material-symbols-outlined text-primary-fixed text-6xl mx-auto" style="font-variation-settings: 'FILL' 1;">solar_power</span>
+<h3 class="font-headline-lg text-white">Сонячні станції та інвертори</h3>
+<p class="text-secondary-fixed-dim">Енергонезалежність вашого дому. Монтаж панелей, АКБ та налаштування інверторів для безперебійного живлення.</p>
+<div class="pt-4">
+<div class="bg-primary-fixed/10 rounded-lg p-4 text-primary-fixed border border-primary-fixed/20">
+                            Автономність до 48 годин
+                        </div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all">
+<span class="material-symbols-outlined text-primary-fixed text-4xl mb-4">ev_station</span>
+<h3 class="font-headline-lg text-white mb-2">Зарядки для EV</h3>
+<p class="text-secondary-fixed-dim">Встановлення швидких зарядних станцій для Tesla, Audi e-tron та інших електрокарів.</p>
+</div>
+<!-- Item 4 -->
+<div class="bg-surface-container rounded-xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all">
+<span class="material-symbols-outlined text-primary-fixed text-4xl mb-4">home_iot_device</span>
+<h3 class="font-headline-lg text-white mb-2">Розумний Дім</h3>
+<p class="text-secondary-fixed-dim">Повна автоматизація світла, штор та клімату. Керування з вашого смартфона.</p>
+</div>
+</div>
+</section>
+<!-- Cost Calculator -->
+<section class="py-24 bg-surface-container-lowest px-margin-desktop">
+<div class="max-w-4xl mx-auto bg-surface-container rounded-2xl p-8 md:p-12 border border-outline-variant/20 shadow-2xl">
+<div class="text-center mb-12">
+<h2 class="font-headline-xl text-white mb-4">Розрахуйте вартість проєкту</h2>
+<p class="text-secondary-fixed-dim">Отримайте попередню оцінку за 30 секунд</p>
+</div>
+<div class="space-y-10">
+<div>
+<div class="flex justify-between mb-4">
+<label class="text-on-surface font-label-md">Кількість кімнат</label>
+<span class="text-primary-fixed font-bold" id="room-val">2 кімнати</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-fixed" id="room-slider" max="5" min="1" step="1" type="range" value="2"/>
+</div>
+<div>
+<label class="text-on-surface font-label-md mb-4 block">Рівень інсталяції</label>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<button class="package-btn border border-primary-fixed bg-primary-fixed text-on-primary-fixed p-4 rounded-lg font-bold transition-all" data-multiplier="1">Base</button>
+<button class="package-btn border border-outline-variant p-4 rounded-lg text-secondary hover:border-primary-fixed transition-all" data-multiplier="1.5">Standard</button>
+<button class="package-btn border border-outline-variant p-4 rounded-lg text-secondary hover:border-primary-fixed transition-all" data-multiplier="2.5">Premium</button>
+</div>
+</div>
+<div class="bg-background rounded-xl p-8 border border-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-6">
+<div>
+<p class="text-secondary-fixed-dim text-sm uppercase tracking-widest">Орієнтовна вартість</p>
+<div class="text-4xl md:text-5xl font-bold text-white mt-2">від <span class="text-primary-fixed" id="total-price">15,000</span> <span class="text-2xl">₴</span></div>
+</div>
+<button class="w-full md:w-auto bg-white text-black px-8 py-4 rounded-lg font-bold hover:bg-primary-fixed transition-colors">
+                            Детальний кошторис
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Table -->
+<section class="py-24 px-margin-desktop max-w-container-max mx-auto" id="pricing">
+<h2 class="font-headline-xl text-center mb-16">Прозоре ціноутворення</h2>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30">
+<th class="py-6 text-secondary-fixed-dim font-label-md">Послуга</th>
+<th class="py-6 text-secondary-fixed-dim font-label-md">Одиниця</th>
+<th class="py-6 text-secondary-fixed-dim font-label-md text-right">Ціна (₴)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-6 font-body-lg group-hover:text-primary-fixed transition-colors">Монтаж кабелю в гофрі</td>
+<td class="py-6 text-secondary-fixed-dim">м.п.</td>
+<td class="py-6 text-right font-bold text-white">45</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-6 font-body-lg group-hover:text-primary-fixed transition-colors">Встановлення підрозетника</td>
+<td class="py-6 text-secondary-fixed-dim">шт.</td>
+<td class="py-6 text-right font-bold text-white">120</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-6 font-body-lg group-hover:text-primary-fixed transition-colors">Збірка силового щита</td>
+<td class="py-6 text-secondary-fixed-dim">модуль</td>
+<td class="py-6 text-right font-bold text-white">250</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-6 font-body-lg group-hover:text-primary-fixed transition-colors">Штроблення стін (бетон)</td>
+<td class="py-6 text-secondary-fixed-dim">м.п.</td>
+<td class="py-6 text-right font-bold text-white">180</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-6 font-body-lg group-hover:text-primary-fixed transition-colors">Монтаж LED стрічки</td>
+<td class="py-6 text-secondary-fixed-dim">м.п.</td>
+<td class="py-6 text-right font-bold text-white">150</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- About Us -->
+<section class="py-24 bg-surface-dim overflow-hidden" id="about">
+<div class="max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<div class="relative">
+<div class="aspect-square rounded-2xl overflow-hidden relative z-10">
+<img class="w-full h-full object-cover" data-alt="A cinematic, shallow depth-of-field shot of a professional electrician's hands using a high-end digital multimeter to test a complex circuit. The environment is a clean, modern workspace with brushed aluminum textures and glowing cyan and yellow indicator lights. The focus is sharp on the tool's screen, representing data-driven precision and Scandinavian high-tech minimalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCOglMuUShCLmdfVTl-9ihZary75cjlipfTJV0V-aZwwNVhmeqtvkTdPH9We9ihKiSbVWFkqILmPT9tN6RuigESbG3X08ytk4KDes3UmLbKmooUlCoVtIWgWt3gW73Qk3Sd4VlKg3gu0AYBcBN0n8iBNEppglJ1fQvkGOEt8GQ02fqGXWPerUor6Xwikid9WrkEEMGdbQsSk2_boSP93YiPQewcqUVtDAuDiSNwqQ3xazxjVOzd6nMDd-oppuDsJNNDHP27LZAp4UX"/>
+</div>
+<div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary-fixed/20 blur-[100px] z-0"></div>
+<div class="absolute top-10 left-10 p-6 glass-card rounded-xl border border-white/10 z-20">
+<div class="text-4xl font-bold text-primary-fixed mb-1">10+</div>
+<div class="text-white font-label-sm uppercase tracking-widest">Років досвіду</div>
+</div>
+</div>
+<div class="space-y-8">
+<h2 class="font-headline-xl">VOLT PREMIUM: Хірургічна точність у кожному контакті</h2>
+<p class="text-secondary-fixed-dim text-body-lg leading-relaxed">
+                        Ми не просто прокладаємо дроти. Ми створюємо нервову систему вашого будинку. Наш підхід базується на скандинавських принципах якості: мінімалізм у виконанні, максимальна функціональність та бескомпромісна безпека.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed text-xl">verified</span>
+</div>
+<span class="text-white font-body-md">Сертифіковані інженери Schneider &amp; ABB</span>
+</li>
+<li class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed text-xl">security</span>
+</div>
+<span class="text-white font-body-md">Гарантія на роботи 5 років</span>
+</li>
+<li class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed text-xl">architecture</span>
+</div>
+<span class="text-white font-body-md">Власна база дизайн-проєктів</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Contact Form -->
+<section class="py-24 px-margin-desktop" id="contacts">
+<div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="lg:col-span-5 space-y-12">
+<div>
+<h2 class="font-display-lg text-headline-xl mb-6">Готові розпочати проєкт?</h2>
+<p class="text-secondary-fixed-dim text-body-lg">Залиште заявку, і наш технічний спеціаліст зв'яжеться з вами для уточнення деталей.</p>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-6">
+<div class="p-4 bg-surface-container rounded-lg border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary-fixed text-3xl">phone_in_talk</span>
+</div>
+<div>
+<p class="text-secondary-fixed-dim text-sm">Телефон</p>
+<p class="text-white font-headline-lg">+38 (097) 555-01-99</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="p-4 bg-surface-container rounded-lg border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary-fixed text-3xl">alternate_email</span>
+</div>
+<div>
+<p class="text-secondary-fixed-dim text-sm">Email</p>
+<p class="text-white font-headline-lg">info@voltpremium.ua</p>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<a class="w-12 h-12 rounded-lg bg-surface-container border border-outline-variant/20 flex items-center justify-center hover:bg-primary-fixed hover:text-black transition-all" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+<a class="w-12 h-12 rounded-lg bg-surface-container border border-outline-variant/20 flex items-center justify-center hover:bg-primary-fixed hover:text-black transition-all" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+</a>
+</div>
+</div>
+<div class="lg:col-span-7 bg-surface-container p-8 rounded-2xl border border-outline-variant/20">
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-sm text-secondary-fixed-dim">Ім'я</label>
+<input class="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-4 text-white focus:border-primary-fixed focus:ring-1 focus:ring-primary-fixed outline-none transition-all" placeholder="Олександр" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-secondary-fixed-dim">Телефон</label>
+<input class="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-4 text-white focus:border-primary-fixed focus:ring-1 focus:ring-primary-fixed outline-none transition-all" placeholder="+380" type="tel"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-secondary-fixed-dim">Тип послуги</label>
+<select class="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-4 text-white focus:border-primary-fixed focus:ring-1 focus:ring-primary-fixed outline-none transition-all appearance-none">
+<option>Повний електромонтаж</option>
+<option>Сонячні станції</option>
+<option>Розумний дім</option>
+<option>Встановлення EV зарядки</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-secondary-fixed-dim">Коментар</label>
+<textarea class="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-4 text-white focus:border-primary-fixed focus:ring-1 focus:ring-primary-fixed outline-none transition-all" placeholder="Опишіть ваш проєкт..." rows="4"></textarea>
+</div>
+<button class="w-full bg-primary-fixed text-on-primary-fixed py-5 rounded-lg font-bold text-lg hover:shadow-[0_0_15px_rgba(213,240,0,0.3)] transition-all">
+                            Відправити запит
+                        </button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 bg-surface-container-lowest border-t border-outline-variant/20">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter max-w-container-max mx-auto px-margin-desktop">
+<div class="space-y-6">
+<div class="font-headline-xl text-headline-xl font-bold text-primary-fixed">VOLT PREMIUM</div>
+<p class="text-secondary-fixed-dim font-body-md max-w-xs">
+                    Професійні електромонтажні рішення для життя та бізнесу. Надійність, що вимірюється роками.
+                </p>
+</div>
+<div class="space-y-6">
+<h4 class="text-white font-label-md uppercase tracking-widest">Швидкі посилання</h4>
+<div class="flex flex-col gap-3">
+<a class="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="#services">Послуги</a>
+<a class="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="#pricing">Ціни</a>
+<a class="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="#contacts">Контакти</a>
+<a class="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="#">Політика конфіденційності</a>
+</div>
+</div>
+<div class="space-y-6">
+<h4 class="text-white font-label-md uppercase tracking-widest">Графік роботи</h4>
+<div class="space-y-2 text-secondary-fixed-dim font-body-md">
+<p>Пн — Пт: 09:00 - 19:00</p>
+<p>Сб: 10:00 - 16:00</p>
+<p>Нд: Вихідний</p>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-desktop mt-16 pt-8 border-t border-outline-variant/10 text-center">
+<p class="text-secondary-fixed-dim font-label-sm">© 2024 VOLT PREMIUM. Професійні електромонтажні рішення.</p>
+</div>
+</footer>
+<script>
+        // Cost Calculator Logic
+        const roomSlider = document.getElementById('room-slider');
+        const roomValDisplay = document.getElementById('room-val');
+        const totalPriceDisplay = document.getElementById('total-price');
+        const packageBtns = document.querySelectorAll('.package-btn');
+        
+        let currentMultiplier = 1;
+        const basePerRoom = 7500;
+
+        function updatePrice() {
+            const rooms = parseInt(roomSlider.value);
+            const total = rooms * basePerRoom * currentMultiplier;
+            totalPriceDisplay.textContent = total.toLocaleString();
+            roomValDisplay.textContent = rooms + (rooms === 1 ? ' кімната' : rooms < 5 ? ' кімнати' : ' кімнат');
+        }
+
+        roomSlider.addEventListener('input', updatePrice);
+
+        packageBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                packageBtns.forEach(b => {
+                    b.classList.remove('bg-primary-fixed', 'text-on-primary-fixed', 'border-primary-fixed');
+                    b.classList.add('border-outline-variant', 'text-secondary');
+                });
+                btn.classList.add('bg-primary-fixed', 'text-on-primary-fixed', 'border-primary-fixed');
+                btn.classList.remove('border-outline-variant', 'text-secondary');
+                currentMultiplier = parseFloat(btn.dataset.multiplier);
+                updatePrice();
+            });
+        });
+
+        // Initialize price
+        updatePrice();
+    </script>
+</body></html>

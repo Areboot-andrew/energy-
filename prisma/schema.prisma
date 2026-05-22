@@ -1,0 +1,167 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  phone     String?
+  password  String
+  role      String   @default("CLIENT")
+  createdAt DateTime @default(now())
+}
+
+model BlogPost {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  content         String
+  image           String?
+  metaTitle       String?
+  metaDescription String?
+  published       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model PortfolioProject {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  title            String
+  category         String
+  coverImage       String
+  shortDescription String
+  content          String   // Rich Text
+  totalPrice       String?
+  metaTitle        String?
+  metaDescription  String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  media            ProjectMedia[]
+}
+
+model ProjectMedia {
+  id         String   @id @default(cuid())
+  url        String
+  type       String   @default("IMAGE") // IMAGE or VIDEO
+  projectId  String
+  project    PortfolioProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
+model PriceItem {
+  id        String   @id @default(cuid())
+  name      String
+  unit      String
+  price     Float
+  category  String?
+  updatedAt DateTime @updatedAt
+}
+
+model ClientRequest {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  serviceType String
+  comment     String?
+  totalPrice  Float?
+  status      String   @default("NEW")
+  createdAt   DateTime @default(now())
+}
+
+model ServicePage {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  description     String
+  icon            String
+  advantages      String   // JSON stringified array of strings
+  metaTitle       String?
+  metaDescription String?
+  image           String?
+  content         String?  // Rich text or long description
+  estimatedPrice  String?
+  components      String?  // JSON or text
+  included        String?  // JSON or text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model StandardItem {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model WorkStep {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PageContent {
+  id                String  @id @default("singleton")
+  heroTitle         String  @default("Енергія Вашого Прогресу Під Ключ")
+  heroBadgeText     String  @default("Turnkey Електромонтаж")
+  heroSub           String  @default("Професійні інженерні рішення для преміальної нерухомості та комерційних об'єктів.")
+  heroImage         String?
+  aboutTitle        String  @default("VOLT PREMIUM: Хірургічна точність у кожному контакті")
+  aboutText         String  @default("Ми не просто прокладаємо дроти. Ми створюємо нервову систему вашого будинку.")
+  aboutBadgeNumber  String  @default("10+")
+  aboutBadgeText    String  @default("Років досвіду")
+  aboutBullets      String  @default("[{\"icon\":\"verified\",\"text\":\"Сертифіковані інженери Schneider & ABB\"},{\"icon\":\"security\",\"text\":\"Гарантія на роботи 5 років\"},{\"icon\":\"architecture\",\"text\":\"Власна база дизайн-проєктів\"}]")
+  aboutImage        String?
+  servicesTitle     String  @default("Комплексні рішення для будь-якої складності")
+  servicesSub       String  @default("Що ми робимо")
+  portfolioTitle    String  @default("Галерея виконаних робіт")
+  pricingTitle      String  @default("Прозоре ціноутворення")
+  faqTitle          String  @default("Поширені запитання")
+  videoblogTitle    String  @default("Експертний погляд")
+  videoblogSub      String  @default("Відеоблог")
+  blogTitle         String  @default("Корисні матеріали")
+  videoUrl          String?
+  videos            String  @default("[]")
+  instagram         String?
+  linkedin          String?
+  facebook          String?
+  metaTitle         String?
+  metaDescription   String?
+  contactPhone      String  @default("+38 (097) 555-01-99")
+  contactEmail      String  @default("info@voltpremium.ua")
+  pricingSeoTitle   String?
+  pricingSeoText    String?
+  portfolioSeoTitle String?
+  portfolioSeoText  String?
+  portfolioVideoUrl String?
+}
+
+model CalculatorConfig {
+  id          String @id @default("singleton")
+  basePerRoom Float  @default(7500)
+}
