@@ -46,12 +46,12 @@ const Hero = () => {
           dangerouslySetInnerHTML={{ __html: content.heroSub }}
         />
           <div className="flex flex-wrap gap-4">
-            <button className="bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-lg font-bold text-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.4)] transition-all">
+            <a href="#contacts" className="bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-lg font-bold text-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.4)] transition-all">
               Отримати консультацію
-            </button>
-            <button className="border border-white/20 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/5 transition-all">
+            </a>
+            <a href="/portfolio" className="border border-white/20 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/5 transition-all">
               Наші роботи
-            </button>
+            </a>
           </div>
         </div>
       </div>
