@@ -23,6 +23,11 @@ RUN npx prisma generate
 # Next.js telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
 
+# Dummy vars to allow build to pass if NextAuth/Prisma checks them during build
+ENV NEXTAUTH_SECRET="dummy-secret-for-build"
+ENV NEXTAUTH_URL="http://localhost:3000"
+ENV DATABASE_URL="file:./dev.db"
+
 # Build Next.js
 RUN npm run build
 
