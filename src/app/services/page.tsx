@@ -25,16 +25,12 @@ export default async function ServicesPage() {
 
   // Render icon helper
   const renderIcon = (iconName: string) => {
-    if (!iconName) return <span className="material-symbols-outlined text-primary-fixed text-4xl mb-4">settings_input_component</span>;
-    
-    if (/^[A-Z]/.test(iconName)) {
-      const IconComponent = (Icons as any)[iconName];
-      if (IconComponent) {
-        return <IconComponent className="text-primary-fixed mb-4" size={36} />;
-      }
+    if (!iconName) return <Icons.Zap className="text-primary-fixed mb-4" size={36} />;
+    const IconComponent = (Icons as any)[iconName];
+    if (IconComponent) {
+      return <IconComponent className="text-primary-fixed mb-4" size={36} />;
     }
-    
-    return <span className="material-symbols-outlined text-primary-fixed text-4xl mb-4">{iconName}</span>;
+    return <Icons.Zap className="text-primary-fixed mb-4" size={36} />;
   };
 
   return (

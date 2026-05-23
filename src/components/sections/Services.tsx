@@ -21,18 +21,12 @@ const Services = () => {
   }, []);
 
   const renderIcon = (iconName: string) => {
-    // If it's empty, use a fallback
-    if (!iconName) return <span className="material-symbols-outlined text-primary-fixed text-4xl mb-4">settings_input_component</span>;
-    
-    // Check if it's a Lucide icon (PascalCase)
-    if (/^[A-Z]/.test(iconName)) {
-      const IconComponent = (Icons as any)[iconName];
-      if (IconComponent) {
-        return <IconComponent className="text-primary-fixed mb-4" size={36} />;
-      }
+    if (!iconName) return <Icons.Zap className="text-primary-fixed mb-4" size={36} />;
+    const IconComponent = (Icons as any)[iconName];
+    if (IconComponent) {
+      return <IconComponent className="text-primary-fixed mb-4" size={36} />;
     }
-    
-    return <span className="material-symbols-outlined text-primary-fixed text-4xl mb-4">{iconName}</span>;
+    return <Icons.Zap className="text-primary-fixed mb-4" size={36} />;
   };
 
   const getGridClasses = (index: number) => {
@@ -80,7 +74,7 @@ const Services = () => {
       <div className="mt-16 text-center">
         <Link href="/services" className="inline-flex items-center gap-2 px-8 py-4 bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 hover:border-primary-fixed/50 rounded-full font-bold text-white transition-all group">
           Всі послуги
-          <span className="material-symbols-outlined text-primary-fixed group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          <Icons.ArrowRight className="text-primary-fixed group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
     </section>

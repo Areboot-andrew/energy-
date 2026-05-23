@@ -154,9 +154,35 @@ export async function GET() {
         };
       }
 
+        const iconMap: Record<string, string> = {
+          "settings_input_component": "Cable",
+          "solar_power": "Sun",
+          "ev_station": "Car",
+          "home_iot_device": "Home",
+          "electrical_services": "Zap",
+          "lightbulb": "Lightbulb",
+          "battery_charging_full": "BatteryCharging",
+          "thunderstorm": "Zap",
+          "architecture": "PenTool"
+        };
+        
+        let newIcon = s.icon;
+        if (s.icon && iconMap[s.icon]) {
+          newIcon = iconMap[s.icon];
+        } else if (s.icon && s.icon.includes('_')) {
+          newIcon = "Zap";
+        } else if (s.icon && /^[a-z]+$/.test(s.icon)) {
+          newIcon = s.icon.charAt(0).toUpperCase() + s.icon.slice(1);
+        }
+
+        if (newIcon !== s.icon) {
+          if (!updateData) updateData = {};
+          updateData.icon = newIcon;
+        }
+
       // 3. Apply the update if we generated data
       if (updateData) {
-        if (!s.image) {
+        if (updateData.image === undefined && !s.image) {
           updateData.image = "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80";
         }
         await prisma.servicePage.update({

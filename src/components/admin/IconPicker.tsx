@@ -42,14 +42,9 @@ export default function IconPicker({ value, onChange }: IconPickerProps) {
     icon.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Helper to safely render an icon dynamically
   const renderIcon = (iconName: string, size = 24) => {
     const IconComponent = (Icons as any)[iconName];
     if (!IconComponent) {
-      // Fallback for legacy material icons
-      if (iconName && !/^[A-Z]/.test(iconName) || iconName.includes('_')) {
-        return <span className="material-symbols-outlined" style={{ fontSize: size }}>{iconName.toLowerCase()}</span>;
-      }
       return <div className="w-[24px] h-[24px] flex items-center justify-center text-xs">?</div>;
     }
     return <IconComponent size={size} />;
@@ -64,7 +59,7 @@ export default function IconPicker({ value, onChange }: IconPickerProps) {
         <div className="flex items-center gap-3">
           {value ? (
             <div className="text-primary-fixed flex items-center justify-center">
-              {renderIcon(value.includes('_') || /^[a-z]/.test(value) ? value : value.charAt(0).toUpperCase() + value.slice(1))}
+              {renderIcon(value)}
             </div>
           ) : (
             <div className="w-6 h-6 border border-dashed border-secondary-fixed-dim rounded-full flex items-center justify-center text-secondary-fixed-dim text-xs">?</div>
