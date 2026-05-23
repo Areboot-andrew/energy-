@@ -94,6 +94,7 @@ export default function ServicesAdminPage() {
 
   const handleEdit = (service: any) => {
     setEditingId(service.id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     let advantagesStr = "";
     try {
       const arr = JSON.parse(service.advantages);
@@ -103,11 +104,11 @@ export default function ServicesAdminPage() {
     } catch (e) {}
 
     setFormData({
-      slug: service.slug,
-      title: service.title,
-      description: service.description,
-      icon: service.icon,
-      advantages: advantagesStr,
+      slug: service.slug || "",
+      title: service.title || "",
+      description: service.description || "",
+      icon: service.icon || "",
+      advantages: advantagesStr || "",
       metaTitle: service.metaTitle || "",
       metaDescription: service.metaDescription || "",
       estimatedPrice: service.estimatedPrice || "",
@@ -157,7 +158,7 @@ export default function ServicesAdminPage() {
                 <input
                   type="text"
                   required
-                  value={formData.slug}
+                  value={formData.slug || ""}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                   placeholder="napryklad-posluga"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
@@ -168,7 +169,7 @@ export default function ServicesAdminPage() {
                 <input
                   type="text"
                   required
-                  value={formData.title}
+                  value={formData.title || ""}
                   onChange={handleTitleChange}
                   placeholder="Введіть заголовок (напр. Монтаж освітлення)"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
@@ -210,7 +211,7 @@ export default function ServicesAdminPage() {
                 <textarea
                   rows={3}
                   required
-                  value={formData.description}
+                  value={formData.description || ""}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Короткий опис послуги для карток на головній сторінці..."
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
@@ -277,8 +278,9 @@ export default function ServicesAdminPage() {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Meta Title</label>
                 <input
                   type="text"
-                  value={formData.metaTitle}
+                  value={formData.metaTitle || ""}
                   onChange={(e) => setFormData({ ...formData, metaTitle: e.target.value })}
+                  placeholder={formData.title ? `${formData.title} | VOLT PREMIUM` : "SEO заголовок сторінки"}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -286,8 +288,9 @@ export default function ServicesAdminPage() {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Meta Description</label>
                 <textarea
                   rows={2}
-                  value={formData.metaDescription}
+                  value={formData.metaDescription || ""}
                   onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
+                  placeholder={formData.description ? formData.description.slice(0, 150) + "..." : "SEO опис сторінки (до 160 символів)"}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                 ></textarea>
               </div>

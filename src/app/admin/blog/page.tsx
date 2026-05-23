@@ -69,13 +69,13 @@ const BlogAdmin = () => {
   const handleEdit = (post: any) => {
     setEditingId(post.id);
     setCurrentPost({
-      title: post.title,
-      slug: post.slug,
-      image: post.image,
+      slug: post.slug || "",
+      title: post.title || "",
+      image: post.image || "",
       content: post.content || "",
       metaTitle: post.metaTitle || "",
       metaDescription: post.metaDescription || "",
-      published: post.published
+      published: Boolean(post.published)
     });
     setIsEditing(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -125,7 +125,7 @@ const BlogAdmin = () => {
                 <input
                   type="text"
                   required
-                  value={currentPost.title}
+                  value={currentPost.title || ""}
                   onChange={handleTitleChange}
                   placeholder="Введіть заголовок статті..."
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
@@ -136,7 +136,7 @@ const BlogAdmin = () => {
                 <input
                   type="text"
                   required
-                  value={currentPost.slug}
+                  value={currentPost.slug || ""}
                   onChange={(e) => setCurrentPost({ ...currentPost, slug: e.target.value })}
                   placeholder="napryklad-stattya"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
@@ -148,7 +148,7 @@ const BlogAdmin = () => {
               <input
                 type="text"
                 required
-                value={currentPost.image}
+                value={currentPost.image || ""}
                 onChange={(e) => setCurrentPost({ ...currentPost, image: e.target.value })}
                 placeholder="https://..."
                 className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
@@ -158,9 +158,9 @@ const BlogAdmin = () => {
               <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Контент (Текст статті)</label>
               <div className="bg-background rounded-lg border border-outline-variant/30 text-white">
                 <RichEditor
-                  value={currentPost.content}
+                  value={currentPost.content || ""}
                   onChange={(val) => setCurrentPost({ ...currentPost, content: val })}
-                  placeholder="Напишіть статтю (можна вставляти картинки, списки, жирний шрифт)..."
+                  placeholder="Напишіть статтю..."
                 />
               </div>
             </div>
@@ -170,17 +170,18 @@ const BlogAdmin = () => {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Meta Title</label>
                 <input
                   type="text"
-                  value={currentPost.metaTitle}
+                  value={currentPost.metaTitle || ""}
                   onChange={(e) => setCurrentPost({ ...currentPost, metaTitle: e.target.value })}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
-                  placeholder="SEO Заголовок"
+                  placeholder={currentPost.title ? `${currentPost.title} | Блог VOLT PREMIUM` : "SEO Заголовок"}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Meta Description</label>
                 <textarea
                   rows={3}
-                  value={currentPost.metaDescription}
+                  required
+                  value={currentPost.metaDescription || ""}
                   onChange={(e) => setCurrentPost({ ...currentPost, metaDescription: e.target.value })}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                   placeholder="SEO Опис"
