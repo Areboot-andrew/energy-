@@ -5,14 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      # Mount the prisma directory so the SQLite DB persists across container restarts
-      - prisma_data:/app/prisma
     environment:
-      - DATABASE_URL=file:/app/prisma/dev.db
-      # Add NEXTAUTH_SECRET and NEXTAUTH_URL here for production
+      # These will be overridden by Coolify Environment Variables, but we provide defaults for local testing
       - NEXTAUTH_URL=http://localhost:3000
       - NEXTAUTH_SECRET=my_super_secret_key_123
-
-volumes:
-  prisma_data:

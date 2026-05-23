@@ -7,15 +7,24 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function generateMetadata(): Promise<Metadata> {
-  const content = await prisma.pageContent.findUnique({
-    where: { id: "singleton" },
-  });
+export const dynamic = 'force-dynamic';
 
-  return {
-    title: content?.metaTitle || "VOLT PREMIUM | Професійні електромонтажні рішення",
-    description: content?.metaDescription || "Професійні інженерні рішення для преміальної нерухомості та комерційних об'єктів. Від щитка до повного 'Розумного дому'.",
-  };
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const content = await prisma.pageContent.findUnique({
+      where: { id: "singleton" },
+    });
+
+    return {
+      title: content?.metaTitle || "VOLT PREMIUM | Професійні електромонтажні рішення",
+      description: content?.metaDescription || "Професійні інженерні рішення для преміальної нерухомості та комерційних об'єктів. Від щитка до повного 'Розумного дому'.",
+    };
+  } catch (error) {
+    return {
+      title: "VOLT PREMIUM | Професійні електромонтажні рішення",
+      description: "Професійні інженерні рішення для преміальної нерухомості та комерційних об'єктів. Від щитка до повного 'Розумного дому'.",
+    };
+  }
 }
 
 import { Providers } from "@/components/Providers";
