@@ -88,9 +88,6 @@ const Header = () => {
               </Link>
             </div>
           )}
-
-            </div>
-          )}
           
           <button 
             className="md:hidden text-white hover:text-primary-fixed transition-colors ml-2"
