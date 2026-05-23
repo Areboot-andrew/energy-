@@ -44,9 +44,14 @@ export default function IconPicker({ value, onChange }: IconPickerProps) {
 
   // Helper to safely render an icon dynamically
   const renderIcon = (iconName: string, size = 24) => {
-    // lowercase the first letter for the prop just in case, but lucide exports are PascalCase
     const IconComponent = (Icons as any)[iconName];
-    if (!IconComponent) return <div className="w-[24px] h-[24px] flex items-center justify-center text-xs">?</div>;
+    if (!IconComponent) {
+      // Fallback for legacy material icons
+      if (iconName && !/^[A-Z]/.test(iconName) || iconName.includes('_')) {
+        return <span className="material-symbols-outlined" style={{ fontSize: size }}>{iconName.toLowerCase()}</span>;
+      }
+      return <div className="w-[24px] h-[24px] flex items-center justify-center text-xs">?</div>;
+    }
     return <IconComponent size={size} />;
   };
 
@@ -58,8 +63,8 @@ export default function IconPicker({ value, onChange }: IconPickerProps) {
       >
         <div className="flex items-center gap-3">
           {value ? (
-            <div className="text-primary-fixed">
-              {renderIcon(value.charAt(0).toUpperCase() + value.slice(1))}
+            <div className="text-primary-fixed flex items-center justify-center">
+              {renderIcon(value.includes('_') || /^[a-z]/.test(value) ? value : value.charAt(0).toUpperCase() + value.slice(1))}
             </div>
           ) : (
             <div className="w-6 h-6 border border-dashed border-secondary-fixed-dim rounded-full flex items-center justify-center text-secondary-fixed-dim text-xs">?</div>
