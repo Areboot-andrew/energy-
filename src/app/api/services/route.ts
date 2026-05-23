@@ -24,6 +24,13 @@ export async function POST(request: Request) {
         advantages: body.advantages,
         category: body.category || 'Основні послуги',
         isFeatured: body.isFeatured || false,
+        metaTitle: body.metaTitle,
+        metaDescription: body.metaDescription,
+        estimatedPrice: body.estimatedPrice,
+        content: body.content,
+        components: body.components,
+        included: body.included,
+        image: body.image,
       }
     });
     return NextResponse.json(service);

@@ -41,6 +41,23 @@ export default function ServicesAdminPage() {
     }
   };
 
+  const generateSlug = (text: string) => {
+    const translit: { [key: string]: string } = {
+      'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e', 'є': 'ye', 'ж': 'zh', 'з': 'z', 'и': 'y', 'і': 'i', 'ї': 'yi', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ь': '', 'ю': 'yu', 'я': 'ya',
+      ' ': '-', '_': '-', ',': '', '.': '', '?': '', '!': '', '(': '', ')': '', '"': '', "'": '', '«': '', '»': ''
+    };
+    return text.toLowerCase().split('').map(char => translit[char] || char).join('').replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTitle = e.target.value;
+    if (!editingId && (!formData.slug || formData.slug === generateSlug(formData.title))) {
+      setFormData({ ...formData, title: newTitle, slug: generateSlug(newTitle) });
+    } else {
+      setFormData({ ...formData, title: newTitle });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -142,6 +159,7 @@ export default function ServicesAdminPage() {
                   required
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                  placeholder="napryklad-posluga"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -151,7 +169,8 @@ export default function ServicesAdminPage() {
                   type="text"
                   required
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={handleTitleChange}
+                  placeholder="Введіть заголовок (напр. Монтаж освітлення)"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -193,6 +212,7 @@ export default function ServicesAdminPage() {
                   required
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  placeholder="Короткий опис послуги для карток на головній сторінці..."
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                 ></textarea>
               </div>
@@ -202,6 +222,7 @@ export default function ServicesAdminPage() {
                   rows={5}
                   value={formData.advantages}
                   onChange={(e) => setFormData({ ...formData, advantages: e.target.value })}
+                  placeholder="Швидкий монтаж&#10;Гарантія 5 років&#10;Безкоштовний проєкт"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                 ></textarea>
               </div>
@@ -220,7 +241,8 @@ export default function ServicesAdminPage() {
                   rows={3}
                   value={formData.components}
                   onChange={(e) => setFormData({ ...formData, components: e.target.value })}
-                  className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
+                  placeholder='[{"name":"Кабель","desc":"Мідний ВВГнг"},{"name":"Автомат","desc":"Eaton"}]'
+                  className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none font-mono text-xs"
                 ></textarea>
               </div>
               <div className="space-y-2">
@@ -229,7 +251,8 @@ export default function ServicesAdminPage() {
                   rows={3}
                   value={formData.included}
                   onChange={(e) => setFormData({ ...formData, included: e.target.value })}
-                  className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
+                  placeholder='["Виїзд майстра", "Складання кошторису", "Закупівля матеріалів"]'
+                  className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none font-mono text-xs"
                 ></textarea>
               </div>
               <div className="space-y-2">
@@ -238,6 +261,7 @@ export default function ServicesAdminPage() {
                   type="text"
                   value={formData.estimatedPrice}
                   onChange={(e) => setFormData({ ...formData, estimatedPrice: e.target.value })}
+                  placeholder="від 15 000 грн"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
