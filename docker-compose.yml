@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
     volumes:
       # Mount the prisma directory so the SQLite DB persists across container restarts
       - prisma_data:/app/prisma
