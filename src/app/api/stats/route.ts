@@ -6,7 +6,7 @@ export async function GET() {
     const [requestCount, blogCount, galleryCount, latestRequests] = await Promise.all([
       prisma.clientRequest.count(),
       prisma.blogPost.count(),
-      prisma.galleryImage.count(),
+      prisma.portfolioProject.count(),
       prisma.clientRequest.findMany({
         take: 5,
         orderBy: { createdAt: 'desc' },
@@ -16,7 +16,7 @@ export async function GET() {
     return NextResponse.json({
       requestCount,
       blogCount,
-      galleryCount,
+      portfolioCount: galleryCount,
       latestRequests,
     });
   } catch (error) {

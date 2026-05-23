@@ -15,7 +15,7 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState<Stat[]>([
     { label: "Заявки", value: 0, color: "text-primary-fixed" },
     { label: "Пости в блозі", value: 0, color: "text-white" },
-    { label: "Зображень в галереї", value: 0, color: "text-white" },
+    { label: "Проєктів портфоліо", value: 0, color: "text-white" },
   ]);
   const [latestRequests, setLatestRequests] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +27,7 @@ const AdminDashboard = () => {
         setStats([
           { label: "Заявки", value: data.requestCount || 0, color: "text-primary-fixed" },
           { label: "Пости в блозі", value: data.blogCount || 0, color: "text-white" },
-          { label: "Зображень в галереї", value: data.galleryCount || 0, color: "text-white" },
+          { label: "Проєктів портфоліо", value: data.portfolioCount || 0, color: "text-white" },
         ]);
         setLatestRequests(data.latestRequests || []);
         setLoading(false);
