@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import initialData from './initial-data.json';
 
 const prisma = new PrismaClient();
 
@@ -126,6 +127,33 @@ async function main() {
     for (const p of prices) {
       await prisma.priceItem.create({ data: p });
     }
+  }
+
+  // 6. PORTFOLIO PROJECTS
+  const portfolioCount = await prisma.portfolioProject.count();
+  if (portfolioCount === 0 && initialData && initialData.PortfolioProject) {
+    for (const p of initialData.PortfolioProject) {
+      // Remove sqlite timestamp fields and generate new ones
+      const { createdAt, updatedAt, id, ...data } = p;
+      await prisma.portfolioProject.create({ data });
+    }
+    console.log('Restored Portfolio Projects');
+  }
+
+  // 7. BLOG POSTS
+  const blogCount = await prisma.blogPost.count();
+  if (blogCount === 0 && initialData && initialData.BlogPost) {
+    for (const b of initialData.BlogPost) {
+      // Remove sqlite timestamp fields, set published to boolean
+      const { createdAt, updatedAt, id, published, ...data } = b;
+      await prisma.blogPost.create({ 
+        data: {
+          ...data,
+          published: Boolean(published)
+        } 
+      });
+    }
+    console.log('Restored Blog Posts');
   }
 
   console.log('Database seeded successfully!');
