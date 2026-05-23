@@ -1,5 +1,3 @@
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
@@ -32,8 +30,6 @@ export default async function ServicesPage() {
 
   return (
     <main className="min-h-screen bg-background selection:bg-primary-fixed/30 text-on-background font-sans overflow-x-hidden">
-      <Header />
-      
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-margin-desktop max-w-container-max mx-auto text-center">
         <h1 className="font-headline-xl text-display-md-mobile md:text-display-lg text-white mb-6">
@@ -83,8 +79,6 @@ export default async function ServicesPage() {
           </div>
         ))}
       </section>
-
-      <Footer />
     </main>
   );
 }

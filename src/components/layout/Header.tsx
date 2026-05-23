@@ -11,8 +11,8 @@ const Header = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [content, setContent] = useState({
-    contactPhone: "+38 (097) 555-01-99",
-    contactEmail: "info@voltpremium.ua"
+    contactPhone: "+38 098 732 85 63",
+    contactEmail: "tarasbuina2@icloud.com"
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 

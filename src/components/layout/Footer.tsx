@@ -7,11 +7,11 @@ import { useSession } from "next-auth/react";
 const Footer = () => {
   const { data: session } = useSession();
   const [socials, setSocials] = useState({
-    instagram: "#",
+    instagram: "https://www.instagram.com/electric_lviv?igsh=OGY2NDgwaGJsbDl3",
     linkedin: "#",
     facebook: "#",
-    contactPhone: "+38 (097) 555-01-99",
-    contactEmail: "info@voltpremium.ua"
+    contactPhone: "+38 098 732 85 63",
+    contactEmail: "tarasbuina2@icloud.com"
   });
 
   useEffect(() => {
@@ -99,6 +99,13 @@ const Footer = () => {
               <span className="material-symbols-outlined text-primary-fixed text-xl">alternate_email</span>
               {socials.contactEmail}
             </a>
+            <div className="flex items-start gap-3 text-secondary-fixed-dim pt-2">
+              <span className="material-symbols-outlined text-primary-fixed text-xl mt-0.5">location_on</span>
+              <span>
+                Офіс (для зустрічі):<br/>
+                м. Львів, вул. Івана Огієнка, 15
+              </span>
+            </div>
           </div>
         </div>
       </div>
