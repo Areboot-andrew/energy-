@@ -3,9 +3,22 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET() {
   try {
-    const content = await prisma.pageContent.findUnique({
+    let content = await prisma.pageContent.findUnique({
       where: { id: 'singleton' },
     });
+    
+    // Auto-update legacy contacts from demo data
+    if (content && (content.contactPhone === "+38 (097) 555-01-99" || content.contactEmail === "info@voltpremium.ua")) {
+      content = await prisma.pageContent.update({
+        where: { id: 'singleton' },
+        data: {
+          contactPhone: "+38 098 732 85 63",
+          contactEmail: "tarasbuina2@icloud.com",
+          instagram: "https://www.instagram.com/electric_lviv?igsh=OGY2NDgwaGJsbDl3",
+        }
+      });
+    }
+
     return NextResponse.json(content || {
       heroTitle: "Енергія Вашого Прогресу Під Ключ",
       heroSub: "Професійні інженерні рішення для преміальної нерухомості та комерційних об'єктів. Від щитка до повного 'Розумного дому'.",
