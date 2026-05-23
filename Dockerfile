@@ -28,6 +28,9 @@ ENV NEXTAUTH_SECRET="dummy-secret-for-build"
 ENV NEXTAUTH_URL="http://localhost:3000"
 ENV DATABASE_URL="file:./dev.db"
 
+# Initialize empty SQLite DB so static page generation doesn't crash
+RUN npx prisma db push
+
 # Build Next.js
 RUN npm run build
 
