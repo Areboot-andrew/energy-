@@ -3,10 +3,7 @@ set -e
 
 echo "Starting Next.js Docker Entrypoint..."
 
-# Ensure Prisma client is generated for the correct platform
-echo "Generating Prisma Client..."
-npx prisma@6 generate
-
+# (Prisma Client is already generated during the Docker build stage)
 # Apply migrations / push schema to the DB
 echo "Pushing DB schema..."
 npx prisma@6 db push --accept-data-loss
