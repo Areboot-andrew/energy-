@@ -133,8 +133,7 @@ async function main() {
   const portfolioCount = await prisma.portfolioProject.count();
   if (portfolioCount === 0 && initialData && initialData.PortfolioProject) {
     for (const p of initialData.PortfolioProject) {
-      // Remove sqlite timestamp fields and generate new ones
-      const { createdAt, updatedAt, id, ...data } = p;
+      const { createdAt, updatedAt, ...data } = p;
       await prisma.portfolioProject.create({ data });
     }
     console.log('Restored Portfolio Projects');
@@ -144,16 +143,52 @@ async function main() {
   const blogCount = await prisma.blogPost.count();
   if (blogCount === 0 && initialData && initialData.BlogPost) {
     for (const b of initialData.BlogPost) {
-      // Remove sqlite timestamp fields, set published to boolean
-      const { createdAt, updatedAt, id, published, ...data } = b;
+      const { createdAt, updatedAt, published, ...data } = b;
       await prisma.blogPost.create({ 
-        data: {
-          ...data,
-          published: Boolean(published)
-        } 
+        data: { ...data, published: Boolean(published) } 
       });
     }
     console.log('Restored Blog Posts');
+  }
+
+  // 8. PROJECT MEDIA
+  const mediaCount = await prisma.projectMedia.count();
+  if (mediaCount === 0 && initialData && initialData.ProjectMedia) {
+    for (const m of initialData.ProjectMedia) {
+      const { createdAt, updatedAt, ...data } = m;
+      await prisma.projectMedia.create({ data });
+    }
+    console.log('Restored Project Media');
+  }
+
+  // 9. CLIENT REQUESTS
+  const requestCount = await prisma.clientRequest.count();
+  if (requestCount === 0 && initialData && initialData.ClientRequest) {
+    for (const r of initialData.ClientRequest) {
+      const { createdAt, ...data } = r;
+      await prisma.clientRequest.create({ data });
+    }
+    console.log('Restored Client Requests');
+  }
+
+  // 10. PAGE CONTENT
+  const pageContentCount = await prisma.pageContent.count();
+  if (pageContentCount === 0 && initialData && initialData.PageContent) {
+    for (const p of initialData.PageContent) {
+      const { createdAt, updatedAt, ...data } = p;
+      await prisma.pageContent.create({ data });
+    }
+    console.log('Restored Page Content');
+  }
+
+  // 11. CALCULATOR CONFIG
+  const calcCount = await prisma.calculatorConfig.count();
+  if (calcCount === 0 && initialData && initialData.CalculatorConfig) {
+    for (const c of initialData.CalculatorConfig) {
+      const { createdAt, updatedAt, ...data } = c;
+      await prisma.calculatorConfig.create({ data });
+    }
+    console.log('Restored Calculator Config');
   }
 
   console.log('Database seeded successfully!');
