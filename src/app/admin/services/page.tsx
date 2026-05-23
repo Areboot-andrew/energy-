@@ -159,7 +159,7 @@ export default function ServicesAdminPage() {
                   type="text"
                   required
                   value={formData.slug || ""}
-                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
                   placeholder="napryklad-posluga"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
@@ -182,7 +182,7 @@ export default function ServicesAdminPage() {
                     type="text"
                     required
                     value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
                     className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                     placeholder="Напр: Електромонтаж"
                   />
@@ -192,7 +192,7 @@ export default function ServicesAdminPage() {
                     <input
                       type="checkbox"
                       checked={formData.isFeatured}
-                      onChange={(e) => setFormData({ ...formData, isFeatured: e.target.checked })}
+                      onChange={(e) => setFormData(prev => ({ ...prev, isFeatured: e.target.checked }))}
                       className="w-5 h-5 accent-primary-fixed"
                     />
                     <span className="text-sm font-bold text-white">Показувати на головній</span>
@@ -203,7 +203,7 @@ export default function ServicesAdminPage() {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Іконка</label>
                 <IconPicker
                   value={formData.icon}
-                  onChange={(val) => setFormData({ ...formData, icon: val })}
+                  onChange={(val) => setFormData(prev => ({ ...prev, icon: val }))}
                 />
               </div>
               <div className="space-y-2">
@@ -212,7 +212,7 @@ export default function ServicesAdminPage() {
                   rows={3}
                   required
                   value={formData.description || ""}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   placeholder="Короткий опис послуги для карток на головній сторінці..."
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                 ></textarea>
@@ -222,7 +222,7 @@ export default function ServicesAdminPage() {
                 <textarea
                   rows={5}
                   value={formData.advantages}
-                  onChange={(e) => setFormData({ ...formData, advantages: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, advantages: e.target.value }))}
                   placeholder="Швидкий монтаж&#10;Гарантія 5 років&#10;Безкоштовний проєкт"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                 ></textarea>
@@ -233,7 +233,7 @@ export default function ServicesAdminPage() {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Контент (детальний опис)</label>
                 <RichEditor
                   value={formData.content}
-                  onChange={(val) => setFormData({ ...formData, content: val })}
+                  onChange={(val) => setFormData(prev => ({ ...prev, content: val }))}
                 />
               </div>
               <div className="space-y-2">
@@ -241,7 +241,7 @@ export default function ServicesAdminPage() {
                 <textarea
                   rows={3}
                   value={formData.components}
-                  onChange={(e) => setFormData({ ...formData, components: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, components: e.target.value }))}
                   placeholder='[{"name":"Кабель","desc":"Мідний ВВГнг"},{"name":"Автомат","desc":"Eaton"}]'
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none font-mono text-xs"
                 ></textarea>
@@ -251,7 +251,7 @@ export default function ServicesAdminPage() {
                 <textarea
                   rows={3}
                   value={formData.included}
-                  onChange={(e) => setFormData({ ...formData, included: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, included: e.target.value }))}
                   placeholder='["Виїзд майстра", "Складання кошторису", "Закупівля матеріалів"]'
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none font-mono text-xs"
                 ></textarea>
@@ -261,7 +261,7 @@ export default function ServicesAdminPage() {
                 <input
                   type="text"
                   value={formData.estimatedPrice}
-                  onChange={(e) => setFormData({ ...formData, estimatedPrice: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, estimatedPrice: e.target.value }))}
                   placeholder="від 15 000 грн"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
@@ -270,7 +270,7 @@ export default function ServicesAdminPage() {
               <ImageUploader
                 label="Головне зображення послуги"
                 value={formData.image}
-                onChange={(url) => setFormData({ ...formData, image: url })}
+                onChange={(url) => setFormData(prev => ({ ...prev, image: url }))}
               />
 
               {/* SEO */}
@@ -279,7 +279,7 @@ export default function ServicesAdminPage() {
                 <input
                   type="text"
                   value={formData.metaTitle || ""}
-                  onChange={(e) => setFormData({ ...formData, metaTitle: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, metaTitle: e.target.value }))}
                   placeholder={formData.title ? `${formData.title} | VOLT PREMIUM` : "SEO заголовок сторінки"}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
@@ -289,7 +289,7 @@ export default function ServicesAdminPage() {
                 <textarea
                   rows={2}
                   value={formData.metaDescription || ""}
-                  onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, metaDescription: e.target.value }))}
                   placeholder={formData.description ? formData.description.slice(0, 150) + "..." : "SEO опис сторінки (до 160 символів)"}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                 ></textarea>

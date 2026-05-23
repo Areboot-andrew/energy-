@@ -137,7 +137,7 @@ const BlogAdmin = () => {
                   type="text"
                   required
                   value={currentPost.slug || ""}
-                  onChange={(e) => setCurrentPost({ ...currentPost, slug: e.target.value })}
+                  onChange={(e) => setCurrentPost(prev => ({ ...prev, slug: e.target.value }))}
                   placeholder="napryklad-stattya"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
@@ -149,7 +149,7 @@ const BlogAdmin = () => {
                 type="text"
                 required
                 value={currentPost.image || ""}
-                onChange={(e) => setCurrentPost({ ...currentPost, image: e.target.value })}
+                onChange={(e) => setCurrentPost(prev => ({ ...prev, image: e.target.value }))}
                 placeholder="https://..."
                 className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
               />
@@ -159,7 +159,7 @@ const BlogAdmin = () => {
               <div className="bg-background rounded-lg border border-outline-variant/30 text-white">
                 <RichEditor
                   value={currentPost.content || ""}
-                  onChange={(val) => setCurrentPost({ ...currentPost, content: val })}
+                  onChange={(val) => setCurrentPost(prev => ({ ...prev, content: val }))}
                   placeholder="Напишіть статтю..."
                 />
               </div>
@@ -171,7 +171,7 @@ const BlogAdmin = () => {
                 <input
                   type="text"
                   value={currentPost.metaTitle || ""}
-                  onChange={(e) => setCurrentPost({ ...currentPost, metaTitle: e.target.value })}
+                  onChange={(e) => setCurrentPost(prev => ({ ...prev, metaTitle: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                   placeholder={currentPost.title ? `${currentPost.title} | Блог VOLT PREMIUM` : "SEO Заголовок"}
                 />
@@ -182,7 +182,7 @@ const BlogAdmin = () => {
                   rows={3}
                   required
                   value={currentPost.metaDescription || ""}
-                  onChange={(e) => setCurrentPost({ ...currentPost, metaDescription: e.target.value })}
+                  onChange={(e) => setCurrentPost(prev => ({ ...prev, metaDescription: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                   placeholder="SEO Опис"
                 ></textarea>
