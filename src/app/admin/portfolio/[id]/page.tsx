@@ -61,6 +61,23 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
     setMedia([...media, { url, type }]);
   };
 
+  const generateSlug = (text: string) => {
+    const translit: { [key: string]: string } = {
+      'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e', 'є': 'ye', 'ж': 'zh', 'з': 'z', 'и': 'y', 'і': 'i', 'ї': 'yi', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ь': '', 'ю': 'yu', 'я': 'ya',
+      ' ': '-', '_': '-', ',': '', '.': '', '?': '', '!': '', '(': '', ')': '', '"': '', "'": '', '«': '', '»': ''
+    };
+    return text.toLowerCase().split('').map(char => translit[char] || char).join('').replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const title = e.target.value;
+    if (isNew && (!formData.slug || formData.slug === generateSlug(formData.title))) {
+      setFormData({ ...formData, title, slug: generateSlug(title) });
+    } else {
+      setFormData({ ...formData, title });
+    }
+  };
+
   const handleRemoveMedia = (index: number) => {
     const newMedia = [...media];
     newMedia.splice(index, 1);
@@ -121,7 +138,7 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
                   type="text"
                   required
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={handleTitleChange}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white"
                   placeholder="Монтаж Ajax в котеджі..."
                 />

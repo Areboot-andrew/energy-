@@ -27,6 +27,23 @@ const BlogAdmin = () => {
     fetch("/api/blog").then(res => res.json()).then(data => setPosts(data));
   }, []);
 
+  const generateSlug = (text: string) => {
+    const translit: { [key: string]: string } = {
+      'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e', 'є': 'ye', 'ж': 'zh', 'з': 'z', 'и': 'y', 'і': 'i', 'ї': 'yi', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ь': '', 'ю': 'yu', 'я': 'ya',
+      ' ': '-', '_': '-', ',': '', '.': '', '?': '', '!': '', '(': '', ')': '', '"': '', "'": '', '«': '', '»': ''
+    };
+    return text.toLowerCase().split('').map(char => translit[char] || char).join('').replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTitle = e.target.value;
+    if (!editingId && (!currentPost.slug || currentPost.slug === generateSlug(currentPost.title))) {
+      setCurrentPost({ ...currentPost, title: newTitle, slug: generateSlug(newTitle) });
+    } else {
+      setCurrentPost({ ...currentPost, title: newTitle });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const method = editingId ? "PATCH" : "POST";
@@ -109,14 +126,8 @@ const BlogAdmin = () => {
                   type="text"
                   required
                   value={currentPost.title}
-                  onChange={(e) => {
-                    const title = e.target.value;
-                    setCurrentPost({ 
-                      ...currentPost, 
-                      title, 
-                      slug: editingId ? currentPost.slug : title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '') 
-                    });
-                  }}
+                  onChange={handleTitleChange}
+                  placeholder="Введіть заголовок статті..."
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -127,6 +138,7 @@ const BlogAdmin = () => {
                   required
                   value={currentPost.slug}
                   onChange={(e) => setCurrentPost({ ...currentPost, slug: e.target.value })}
+                  placeholder="napryklad-stattya"
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -138,6 +150,7 @@ const BlogAdmin = () => {
                 required
                 value={currentPost.image}
                 onChange={(e) => setCurrentPost({ ...currentPost, image: e.target.value })}
+                placeholder="https://..."
                 className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
               />
             </div>
