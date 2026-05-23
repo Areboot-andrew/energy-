@@ -119,26 +119,55 @@ export async function GET() {
     let updatedCount = 0;
 
     for (const s of services) {
-      const data = richData[s.slug];
-      if (data) {
+      let updateData: any = null;
+
+      // 1. If we have custom rich data for this slug, use it
+      if (richData[s.slug]) {
+        updateData = { ...richData[s.slug] };
+      } 
+      // 2. Otherwise, if it has empty fields, generate generic rich data based on title
+      else if (!s.content || !s.components || !s.included || !s.metaTitle) {
+        updateData = {
+          content: `<h2>Професійні послуги: ${s.title}</h2>
+          <p>Наша команда експертів виконує роботи з напрямку "${s.title}" на найвищому рівні. Ми дотримуємося європейських стандартів якості, використовуючи лише сертифіковані матеріали та передові інженерні рішення.</p>
+          <h3>Наші переваги:</h3>
+          <ul>
+            <li>Висока кваліфікація інженерів та майстрів</li>
+            <li>Точне дотримання строків виконання</li>
+            <li>Гарантія на виконані роботи та матеріали</li>
+            <li>Індивідуальний підхід до кожного клієнта</li>
+          </ul>`,
+          components: JSON.stringify([
+            { name: "Консультація та розрахунок", desc: "Детальний аналіз об'єкту перед початком робіт" },
+            { name: "Преміум матеріали", desc: "Використання надійних комплектуючих від світових брендів" },
+            { name: "Сучасний інструмент", desc: "Професійне обладнання для точного та швидкого монтажу" }
+          ]),
+          included: JSON.stringify([
+            "Попередній виїзд спеціаліста на об'єкт",
+            "Складання кошторису",
+            "Виконання робіт згідно з технічним завданням",
+            "Прибирання після монтажу"
+          ]),
+          estimatedPrice: "За домовленістю",
+          metaTitle: `${s.title} | Інженерні рішення | VOLT PREMIUM`,
+          metaDescription: `Якісне виконання робіт: ${s.title}. Комплексний підхід, професійний інструмент та преміум матеріали від VOLT PREMIUM.`
+        };
+      }
+
+      // 3. Apply the update if we generated data
+      if (updateData) {
+        if (!s.image) {
+          updateData.image = "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80";
+        }
         await prisma.servicePage.update({
           where: { id: s.id },
-          data: {
-            content: data.content,
-            components: data.components,
-            included: data.included,
-            estimatedPrice: data.estimatedPrice,
-            metaTitle: data.metaTitle,
-            metaDescription: data.metaDescription,
-            // Only update image if it's missing or if we want a specific one
-            ...(s.image ? {} : { image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" })
-          }
+          data: updateData
         });
         updatedCount++;
       }
     }
 
-    return NextResponse.json({ success: true, message: `Updated ${updatedCount} key services with high-quality SEO content.` });
+    return NextResponse.json({ success: true, message: `Updated ${updatedCount} services with high-quality SEO content.` });
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error', details: error }, { status: 500 });
   }
