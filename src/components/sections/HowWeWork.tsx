@@ -41,8 +41,8 @@ export default function HowWeWork() {
             transition={{ delay: index * 0.1 }}
             className="relative z-10 flex flex-col items-center text-center group"
           >
-            <div className="w-24 h-24 rounded-3xl bg-surface-container border border-outline-variant/20 flex items-center justify-center mb-6 group-hover:border-primary-fixed/50 group-hover:shadow-[0_0_30px_rgba(213,240,0,0.15)] transition-all relative overflow-hidden">
-              <div className="absolute inset-0 bg-primary-fixed/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="w-24 h-24 rounded-3xl bg-surface-container border border-outline-variant/20 flex items-center justify-center mb-6 group-hover:border-primary-fixed/50 group-hover:shadow-[0_0_30px_rgba(213,240,0,0.15)] transition-all relative">
+              <div className="absolute inset-0 rounded-3xl bg-primary-fixed/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               {step.icon.startsWith('<svg') ? (
                 <div dangerouslySetInnerHTML={{ __html: step.icon }} className="w-10 h-10 text-primary-fixed" />
               ) : (
