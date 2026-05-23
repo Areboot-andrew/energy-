@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
+import * as Icons from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Всі Послуги | VOLT PREMIUM",
@@ -25,6 +26,14 @@ export default async function ServicesPage() {
   // Render icon helper
   const renderIcon = (iconName: string) => {
     if (!iconName) return <span className="material-symbols-outlined text-primary-fixed text-4xl mb-4">settings_input_component</span>;
+    
+    if (/^[A-Z]/.test(iconName)) {
+      const IconComponent = (Icons as any)[iconName];
+      if (IconComponent) {
+        return <IconComponent className="text-primary-fixed mb-4" size={36} />;
+      }
+    }
+    
     return <span className="material-symbols-outlined text-primary-fixed text-4xl mb-4">{iconName}</span>;
   };
 

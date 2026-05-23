@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import * as Icons from "lucide-react";
 
 const Services = () => {
   const [servicesList, setServicesList] = useState<any[]>([]);
@@ -22,12 +23,15 @@ const Services = () => {
   const renderIcon = (iconName: string) => {
     // If it's empty, use a fallback
     if (!iconName) return <span className="material-symbols-outlined text-primary-fixed text-4xl mb-4">settings_input_component</span>;
-    // Check if it's an SVG (e.g., from our IconPicker, which usually outputs PascalCase names for Lucide or raw SVG).
-    // For now we assume if it's a short word it's a material icon, or just render it. 
-    // Wait, the new standard for services icon is from IconPicker which gives Lucide names. 
-    // Actually, let's keep it simple. If it's a long string it might be SVG, otherwise material.
-    // For maximum compatibility, let's just render the name if it's material-symbols or try to use it.
-    // Assuming the user might use IconPicker, let's just use the icon string. If it's material, we use the span.
+    
+    // Check if it's a Lucide icon (PascalCase)
+    if (/^[A-Z]/.test(iconName)) {
+      const IconComponent = (Icons as any)[iconName];
+      if (IconComponent) {
+        return <IconComponent className="text-primary-fixed mb-4" size={36} />;
+      }
+    }
+    
     return <span className="material-symbols-outlined text-primary-fixed text-4xl mb-4">{iconName}</span>;
   };
 
