@@ -34,6 +34,7 @@ const Services = () => {
   const getGridClasses = (index: number) => {
     if (index === 0) return "md:col-span-2 md:row-span-1";
     if (index === 1) return "md:col-span-1 md:row-span-2";
+    if (index === 4) return "md:col-span-3 md:row-span-1"; // Full width for the 5th item
     return "md:col-span-1 md:row-span-1";
   };
 
@@ -46,8 +47,8 @@ const Services = () => {
         </div>
         <div className="h-px bg-outline-variant/30 flex-grow mx-8 mb-4 hidden md:block"></div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 grid-rows-2 gap-6 h-auto md:h-[800px]">
-        {servicesList.length > 0 ? servicesList.slice(0, 4).map((service, idx) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-fr gap-6 h-auto md:min-h-[800px]">
+        {servicesList.length > 0 ? servicesList.map((service, idx) => (
           <Link 
             key={service.id} 
             href={`/services/${service.slug}`} 

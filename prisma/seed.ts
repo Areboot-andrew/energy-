@@ -25,61 +25,28 @@ async function main() {
   }
 
   // 1. SERVICES
-  const services = [
-    {
-      slug: 'elektromontazh',
-      title: 'Монтаж щитків та кабелів',
-      description: 'Професійна розводка та збірка силових щитів згідно стандартів IEC. Ідеальний кабель-менеджмент.',
-      icon: 'settings_input_component',
-      image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1000',
-      advantages: '["Акуратне укладання кабелів","Маркування кожної лінії","Використання негорючих матеріалів","Відповідність ГОСТ та IEC"]'
-    },
-    {
-      slug: 'sonyachni-stantsiyi',
-      title: 'Сонячні станції та інвертори',
-      description: 'Енергонезалежність вашого дому. Монтаж панелей, АКБ та налаштування інверторів для безперебійного живлення.',
-      icon: 'solar_power',
-      image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1000',
-      advantages: '["Автономність до 48 годин","Економія на тарифах","Екологічна енергія","Захист від блекаутів"]'
-    },
-    {
-      slug: 'zaryadni-stantsiyi',
-      title: 'Зарядки для EV',
-      description: 'Встановлення швидких зарядних станцій для Tesla, Audi e-tron та інших електрокарів.',
-      icon: 'ev_station',
-      image: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=1000',
-      advantages: '["Потужність до 22кВт","Динамічне балансування","Керування зі смартфона","Гарантія 3 роки"]'
-    },
-    {
-      slug: 'rozumnyy-dim',
-      title: 'Розумний Дім',
-      description: 'Повна автоматизація світла, штор та клімату. Керування з вашого смартфона.',
-      icon: 'home_iot_device',
-      image: 'https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=1000',
-      advantages: '["Сценарії освітлення","Клімат-контроль","Голосове керування","Інтеграція Apple HomeKit"]'
+  if (initialData && initialData.ServicePage) {
+    for (const s of initialData.ServicePage) {
+      const { createdAt, updatedAt, ...data } = s;
+      await prisma.servicePage.upsert({
+        where: { slug: data.slug },
+        update: data,
+        create: data,
+      });
     }
-  ];
-
-  for (const s of services) {
-    await prisma.servicePage.upsert({
-      where: { slug: s.slug },
-      update: s,
-      create: s,
-    });
   }
 
   // 2. FAQs
-  const faqs = [
-    { question: 'Скільки часу займає монтаж електрики у квартирі?', answer: 'Зазвичай чорновий електромонтаж у 2-кімнатній квартирі займає 7-10 робочих днів. Збірка та підключення щита – ще 1-2 дні.', order: 1 },
-    { question: 'Які комплектуючі ви використовуєте?', answer: 'Ми працюємо виключно з перевіреними європейськими брендами: автоматика Hager, Schneider Electric, ABB. Кабельна продукція – Запорізький завод кольорових металів (ЗЗКМ) або Одескабель.', order: 2 },
-    { question: 'Чи надаєте ви гарантію на роботи?', answer: 'Так, ми надаємо офіційну гарантію 5 років на всі електромонтажні роботи та 2 роки на встановлену автоматику.', order: 3 },
-    { question: 'Що таке "Розумний дім" і чи потрібен він мені?', answer: 'Розумний дім дозволяє автоматизувати рутину: вимикати все світло однією кнопкою біля виходу, керувати кліматом та шторами зі смартфона. Ми можемо зробити як базову автоматизацію, так і повний комплекс.', order: 4 },
-  ];
-  
-  const faqCount = await prisma.fAQ.count();
-  if (faqCount === 0) {
-    for (const f of faqs) {
-      await prisma.fAQ.create({ data: f });
+  if (initialData && initialData.FAQ) {
+    for (const f of initialData.FAQ) {
+      const { createdAt, updatedAt, id, ...data } = f;
+      // Because FAQ has no unique field besides ID, we will just delete all and recreate or find by ID
+      const exists = await prisma.fAQ.findUnique({ where: { id } });
+      if (exists) {
+        await prisma.fAQ.update({ where: { id }, data });
+      } else {
+        await prisma.fAQ.create({ data: { ...data, id } });
+      }
     }
   }
 

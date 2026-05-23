@@ -357,7 +357,7 @@
       "createdAt": 1779451543919,
       "updatedAt": 1779460219133,
       "components": "[{\"name\":\"Контролер розумного дому (Хаб)\",\"desc\":\"Центр управління системою\"},{\"name\":\"Реле та димери\",\"desc\":\"Для управління освітленням та розетками\"},{\"name\":\"Датчики\",\"desc\":\"Руху, температури, протікання води, відкриття вікон/дверей\"},{\"name\":\"Терморегулятори\",\"desc\":\"Для клімат-контролю\"}]",
-      "content": "\n        <div class=\"space-y-8\">\n          <div>\n            <h2 class=\"text-3xl font-bold text-white mb-4\">Системи \"Розумний Дім\"</h2>\n            <p class=\"text-gray-300 text-lg leading-relaxed mb-4\">Автоматизація освітлення, клімат-контролю, безпеки та мультимедіа. Ми проектуємо системи, що роблять ваше життя комфортнішим, а дім — безпечнішим.</p>\n          </div>\n          \n          <div class=\"bg-surface-container-low p-6 rounded-2xl border border-outline-variant/20\">\n            <h3 class=\"text-2xl font-bold text-primary-fixed mb-4\">Варіанти реалізації та ціни</h3>\n            <div class=\"space-y-6\">\n              <div class=\"border-l-4 border-primary-fixed pl-4\">\n                <h4 class=\"text-xl font-bold text-white mb-1\">Базова автоматизація (Ajax Systems)</h4>\n                <p class=\"text-gray-300 mb-2\">Бездротове рішення. Ідеально для готових ремонтів. Управління кранами води, розетками, світлом та охорона.</p>\n                <p class=\"text-primary-fixed font-bold\">Бюджет: від 15 000 ₴</p>\n              </div>\n              <div class=\"border-l-4 border-primary-fixed pl-4\">\n                <h4 class=\"text-xl font-bold text-white mb-1\">Професійні дротові системи (KNX, Loxone)</h4>\n                <p class=\"text-gray-300 mb-2\">Міжнародний стандарт автоматизації преміум-класу. Встановлюється на етапі чорнового ремонту. Інтеграція ВСЬОГО.</p>\n                <p class=\"text-primary-fixed font-bold\">Бюджет: від 150 000 ₴ (залежить від об'єкта)</p>\n              </div>\n            </div>\n          </div>\n\n          <div>\n            <h3 class=\"text-2xl font-bold text-white mb-4\">Основні виробники</h3>\n            <ul class=\"list-none space-y-3 text-gray-300\">\n              <li class=\"flex items-center gap-3\"><span class=\"material-symbols-outlined text-primary-fixed\">verified</span> <strong>Loxone (Австрія):</strong> Мінісервер, що замінює десятки окремих контролерів.</li>\n              <li class=\"flex items-center gap-3\"><span class=\"material-symbols-outlined text-primary-fixed\">verified</span> <strong>KNX:</strong> Відкритий протокол, підтримується сотнями брендів (Gira, Jung, ABB).</li>\n              <li class=\"flex items-center gap-3\"><span class=\"material-symbols-outlined text-primary-fixed\">verified</span> <strong>Ajax (Україна):</strong> Найкраща в Європі бездротова система безпеки з елементами Smart Home.</li>\n            </ul>\n          </div>\n        </div>\n      ",
+      "content": "<h2>Комфорт на кінчиках пальців</h2><p>Розумний дім — це не іграшка, а інтелектуальна система, яка керує кліматом, безпекою та освітленням, підлаштовуючись під ваші звички.</p><h3>Що ми автоматизуємо:</h3><ul><li><strong>Освітлення:</strong> диміювання, сценарії 'Я вдома', 'Кіно', 'Ніч'.</li><li><strong>Клімат:</strong> керування кондиціонерами, теплою підлогою та котлом з однієї панелі.</li><li><strong>Безпека:</strong> захист від протікання води (Ajax, Neptun), імітація присутності.</li><li><strong>Моторизація:</strong> автоматичні штори та жалюзі (Somfy).</li></ul><h3>Бренди, яким ми довіряємо:</h3><p>Ми використовуємо надійні дротові рішення <strong>KNX, Loxone</strong> для великих будинків та бездротові екосистеми <strong>Apple HomeKit, Ajax, Aqara</strong> для квартир з готовим ремонтом.</p>",
       "estimatedPrice": "від 15 000 ₴",
       "image": "https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=1000",
       "included": "[\"Проектування архітектури розумного дому\",\"Прокладання кабельних ліній\",\"Встановлення та підключення обладнання\",\"Програмування сценаріїв та налаштування додатку\",\"Тестування та інструктаж користувачів\"]",
@@ -374,7 +374,7 @@
       "createdAt": 1779451543924,
       "updatedAt": 1779460219125,
       "components": "[{\"name\":\"Сонячні панелі (Tier 1)\",\"desc\":\"Високоефективні монокристалічні модулі\"},{\"name\":\"Гібридний інвертор\",\"desc\":\"Для перетворення струму та заряду АКБ (Deye, Victron)\"},{\"name\":\"Акумуляторні батареї\",\"desc\":\"Літій-залізо-фосфатні (LiFePO4) блоки (Pylontech, Dyness)\"},{\"name\":\"Система кріплення\",\"desc\":\"Алюмінієві та оцинковані профілі\"}]",
-      "content": "\n        <div class=\"space-y-8\">\n          <div>\n            <h2 class=\"text-3xl font-bold text-white mb-4\">Гібридні Сонячні Електростанції</h2>\n            <p class=\"text-gray-300 text-lg leading-relaxed mb-4\">В умовах відключень світла власна сонячна станція (СЕС) з акумуляторами — це гарантія повної енергонезалежності. Ваша техніка (холодильники, котли, інтернет) працюватиме безперебійно.</p>\n          </div>\n          \n          <div class=\"bg-surface-container-low p-6 rounded-2xl border border-outline-variant/20\">\n            <h3 class=\"text-2xl font-bold text-primary-fixed mb-4\">Мінімальні розрахунки систем (Під ключ)</h3>\n            <div class=\"grid grid-cols-1 md:grid-cols-2 gap-6\">\n              <div class=\"bg-surface-container p-5 rounded-xl border border-outline-variant/10\">\n                <h4 class=\"text-xl font-bold text-white mb-2\">Станція 5 кВт</h4>\n                <p class=\"text-primary-fixed text-2xl font-bold mb-3\">~ 200 000 ₴</p>\n                <ul class=\"text-sm text-gray-400 space-y-2\">\n                  <li>✔ Інвертор Deye 5kW</li>\n                  <li>✔ АКБ Pylontech 5.12 kWh</li>\n                  <li>✔ Панелі 5 кВт</li>\n                  <li>✔ Монтаж та пусконалагодження</li>\n                </ul>\n              </div>\n              <div class=\"bg-surface-container p-5 rounded-xl border border-outline-variant/10\">\n                <h4 class=\"text-xl font-bold text-white mb-2\">Станція 10-12 кВт</h4>\n                <p class=\"text-primary-fixed text-2xl font-bold mb-3\">~ 400 000 ₴</p>\n                <ul class=\"text-sm text-gray-400 space-y-2\">\n                  <li>✔ 3-фазний інвертор Deye 12kW</li>\n                  <li>✔ АКБ Pylontech 10-15 kWh</li>\n                  <li>✔ Панелі 10 кВт</li>\n                  <li>✔ Монтаж на даху</li>\n                </ul>\n              </div>\n            </div>\n          </div>\n\n          <div>\n            <h3 class=\"text-2xl font-bold text-white mb-4\">Використовуване обладнання</h3>\n            <p class=\"text-gray-300 mb-4\">Ми є партнерами провідних світових брендів у сфері зеленої енергетики:</p>\n            <ul class=\"list-disc list-inside text-gray-300 space-y-2\">\n              <li><strong class=\"text-white\">Інвертори:</strong> Deye, Victron Energy, Huawei.</li>\n              <li><strong class=\"text-white\">Акумулятори (LiFePO4):</strong> Pylontech, Dyness. (Безпечні, ресурс понад 6000 циклів).</li>\n              <li><strong class=\"text-white\">Сонячні панелі:</strong> Tier-1 виробники (Longi Solar, JA Solar, Trina).</li>\n            </ul>\n          </div>\n        </div>\n      ",
+      "content": "<h2>Енергонезалежність преміум-класу</h2><p>Ми проєктуємо та встановлюємо гібридні та автономні сонячні електростанції. Ви забудете про відключення світла та зменшите рахунки за електроенергію.</p><h3>Наше обладнання (Tier-1):</h3><ul><li><strong>Інвертори:</strong> Deye, Victron Energy, SunSynk</li><li><strong>Панелі:</strong> Jinko Solar, Trina Solar (двосторонні N-type)</li><li><strong>Акумулятори:</strong> LiFePO4 від Pylontech та Dyness (ресурс понад 6000 циклів)</li></ul><h3>Що ви отримуєте:</h3><ol><li>Безперебійне живлення всього будинку при відключеннях.</li><li>Заробіток за 'Зеленим тарифом' або Net Billing.</li><li>Повний моніторинг системи з телефону 24/7.</li></ol>",
       "estimatedPrice": "від 200 000 ₴",
       "image": "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1000",
       "included": "[\"Аудит об'єкта та енергоспоживання\",\"3D-моделювання розміщення панелей\",\"Монтаж кріплень та сонячних фотомодулів\",\"Підключення інвертора та АКБ\",\"Пусконалагоджувальні роботи та налаштування моніторингу\"]",
@@ -465,6 +465,17 @@
       "included": "[\"Проектні розрахунки\",\"Земляні роботи\",\"Монтаж системи на даху та фасаді\",\"Видача протоколу вимірювань\"]",
       "metaDescription": null,
       "metaTitle": null
+    },
+    {
+      "id": "srv-turnkey",
+      "slug": "elektryka-pid-klyuch",
+      "title": "Електрика під ключ",
+      "description": "Повний цикл робіт від голого бетону до першого увімкнення світла. Безтурботний ремонт для власників.",
+      "icon": "key",
+      "advantages": "[\"Проєкт у подарунок\",\"Закупівля матеріалів\",\"Гарантія 5 років\",\"Авторський нагляд\"]",
+      "content": "<h2>Ремонт без стресу</h2><p>Послуга «Електрика під ключ» створена для тих, хто цінує свій час. Вам не потрібно бігати по магазинах і вибирати автомати. Ми беремо на себе абсолютно всі етапи:</p><ul><li><strong>Створення проєкту:</strong> розробка детального плану під ваш дизайн.</li><li><strong>Закупівля:</strong> ми самі привозимо якісний кабель та автоматику зі знижкою.</li><li><strong>Чорнові роботи:</strong> штроблення, прокладання трас, монтаж підрозетників.</li><li><strong>Збірка щита:</strong> серце вашої квартири з надійним захистом.</li><li><strong>Чистові роботи:</strong> встановлення розеток, люстр, LED-стрічок.</li></ul>",
+      "createdAt": 1779529703619,
+      "updatedAt": 1779529703619
     }
   ],
   "FAQ": [
@@ -499,6 +510,38 @@
       "order": 4,
       "createdAt": 1779460219151,
       "updatedAt": 1779460219151
+    },
+    {
+      "id": "faq-5",
+      "question": "Чи можна встановити розумний дім у готовій квартирі?",
+      "answer": "Так! Існують бездротові протоколи (наприклад Zigbee, Z-Wave, Apple HomeKit), які дозволяють інтегрувати розумні реле, вимикачі та датчики без прокладання нових проводів.",
+      "order": 5,
+      "createdAt": 1779529703619,
+      "updatedAt": 1779529703619
+    },
+    {
+      "id": "faq-6",
+      "question": "Які бренди сонячних панелей та інверторів ви ставите?",
+      "answer": "Ми працюємо з Tier-1 брендами: інвертори Deye, SunSynk, Victron Energy; панелі Jinko Solar, Risen, Trina; акумулятори Pylontech, Dyness. Це гарантує стабільну роботу на десятиліття.",
+      "order": 6,
+      "createdAt": 1779529703619,
+      "updatedAt": 1779529703619
+    },
+    {
+      "id": "faq-7",
+      "question": "Чи робите ви електромонтаж 'під ключ'?",
+      "answer": "Так, це наш основний напрямок! Від порожніх стін (бетону) до фінального встановлення кожної розетки, світильника і налаштування розумного дому. Ви отримуєте повністю готовий об'єкт.",
+      "order": 7,
+      "createdAt": 1779529703619,
+      "updatedAt": 1779529703619
+    },
+    {
+      "id": "faq-8",
+      "question": "Що входить у проєкт електропостачання?",
+      "answer": "Проєкт включає план розташування розеток і вимикачів, схему кабельних трас, однолінійну схему щита, розрахунок навантажень та повну специфікацію всіх матеріалів до останнього гвинтика.",
+      "order": 8,
+      "createdAt": 1779529703619,
+      "updatedAt": 1779529703619
     }
   ],
   "StandardItem": [
