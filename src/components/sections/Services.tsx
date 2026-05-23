@@ -48,7 +48,7 @@ const Services = () => {
         <div className="h-px bg-outline-variant/30 flex-grow mx-8 mb-4 hidden md:block"></div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-fr gap-6 h-auto md:min-h-[800px]">
-        {servicesList.length > 0 ? servicesList.map((service, idx) => (
+        {servicesList.length > 0 ? servicesList.filter((s: any) => s.isFeatured).slice(0, 5).map((service, idx) => (
           <Link 
             key={service.id} 
             href={`/services/${service.slug}`} 
@@ -72,6 +72,12 @@ const Services = () => {
             Немає доданих послуг
           </div>
         )}
+      </div>
+      <div className="mt-16 text-center">
+        <Link href="/services" className="inline-flex items-center gap-2 px-8 py-4 bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 hover:border-primary-fixed/50 rounded-full font-bold text-white transition-all group">
+          Всі послуги
+          <span className="material-symbols-outlined text-primary-fixed group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </Link>
       </div>
     </section>
   );

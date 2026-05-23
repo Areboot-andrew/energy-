@@ -21,7 +21,9 @@ export async function POST(request: Request) {
         title: body.title,
         description: body.description,
         icon: body.icon,
-        advantages: body.advantages, // Expected to be stringified JSON from client or we stringify here. If client sends JSON string, we just pass it. Let's assume client sends string.
+        advantages: body.advantages,
+        category: body.category || 'Основні послуги',
+        isFeatured: body.isFeatured || false,
       }
     });
     return NextResponse.json(service);

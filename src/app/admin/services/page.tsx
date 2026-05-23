@@ -25,6 +25,8 @@ export default function ServicesAdminPage() {
     components: "",
     included: "",
     image: "",
+    isFeatured: false,
+    category: "Основні послуги",
   });
 
   useEffect(() => {
@@ -96,6 +98,8 @@ export default function ServicesAdminPage() {
       components: service.components || "",
       included: service.included || "",
       image: service.image || "",
+      isFeatured: Boolean(service.isFeatured),
+      category: service.category || "Основні послуги",
     });
   };
 
@@ -112,7 +116,7 @@ export default function ServicesAdminPage() {
     setFormData({
       slug: "", title: "", description: "", icon: "", advantages: "",
       metaTitle: "", metaDescription: "", estimatedPrice: "", content: "",
-      components: "", included: "", image: ""
+      components: "", included: "", image: "", isFeatured: false, category: "Основні послуги"
     });
   };
 
@@ -150,6 +154,30 @@ export default function ServicesAdminPage() {
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Категорія</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
+                    placeholder="Напр: Електромонтаж"
+                  />
+                </div>
+                <div className="space-y-2 flex flex-col justify-end">
+                  <label className="flex items-center gap-3 cursor-pointer p-3 border border-outline-variant/30 rounded-lg bg-background hover:border-primary-fixed transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={formData.isFeatured}
+                      onChange={(e) => setFormData({ ...formData, isFeatured: e.target.checked })}
+                      className="w-5 h-5 accent-primary-fixed"
+                    />
+                    <span className="text-sm font-bold text-white">Показувати на головній</span>
+                  </label>
+                </div>
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Іконка</label>
@@ -267,8 +295,11 @@ export default function ServicesAdminPage() {
             {services.map((service) => (
               <div key={service.id} className="bg-surface-container p-4 rounded-xl border border-outline-variant/20 flex justify-between items-start">
                 <div>
-                  <h3 className="text-lg font-bold text-white">{service.title}</h3>
-                  <p className="text-sm text-secondary-fixed-dim">/{service.slug}</p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-lg font-bold text-white">{service.title}</h3>
+                    {service.isFeatured && <span className="text-xs bg-primary-fixed/20 text-primary-fixed px-2 py-0.5 rounded">Головна</span>}
+                  </div>
+                  <p className="text-sm text-secondary-fixed-dim">/{service.slug} • {service.category}</p>
                 </div>
                 <div className="flex gap-2">
                   <button onClick={() => handleEdit(service)} className="p-2 text-primary-fixed hover:bg-primary-fixed/10 rounded-lg">

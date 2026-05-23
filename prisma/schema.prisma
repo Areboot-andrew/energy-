@@ -92,6 +92,8 @@ model ServicePage {
   estimatedPrice  String?
   components      String?  // JSON or text
   included        String?  // JSON or text
+  isFeatured      Boolean  @default(false)
+  category        String   @default("Основні послуги")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }

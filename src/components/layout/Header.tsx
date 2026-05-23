@@ -30,7 +30,7 @@ const Header = () => {
         
         <div className="hidden md:flex items-center gap-8">
           {[
-            { label: "Послуги", href: "/#services" },
+            { label: "Послуги", href: "/services" },
             { label: "Ціни", href: "/#pricing" },
             { label: "Про нас", href: "/#about" },
             { label: "Стандарти якості", href: "/standards" },
