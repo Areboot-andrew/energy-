@@ -98,7 +98,7 @@ const PageEditor = () => {
                 <input
                   type="text"
                   value={content.heroBadgeText || ""}
-                  onChange={(e) => setContent({ ...content, heroBadgeText: e.target.value })}
+                  onChange={(e) => setContent(prev => ({ ...prev, heroBadgeText: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -107,7 +107,7 @@ const PageEditor = () => {
                 <input
                   type="text"
                   value={content.heroTitle || ""}
-                  onChange={(e) => setContent({ ...content, heroTitle: e.target.value })}
+                  onChange={(e) => setContent(prev => ({ ...prev, heroTitle: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -116,7 +116,7 @@ const PageEditor = () => {
                 <div className="bg-background rounded-lg border border-outline-variant/30 text-white">
                   <RichEditor
                     value={content.heroSub}
-                    onChange={(val) => setContent({ ...content, heroSub: val })}
+                    onChange={(val) => setContent(prev => ({ ...prev, heroSub: val }))}
                     placeholder="Напишіть тут текст..."
                   />
                 </div>
@@ -124,7 +124,7 @@ const PageEditor = () => {
               <ImageUploader
                 label="Головне зображення"
                 value={content.heroImage}
-                onChange={(url) => setContent({ ...content, heroImage: url })}
+                onChange={(url) => setContent(prev => ({ ...prev, heroImage: url }))}
               />
             </div>
           </section>
@@ -138,7 +138,7 @@ const PageEditor = () => {
                 <input
                   type="text"
                   value={content.aboutTitle || ""}
-                  onChange={(e) => setContent({ ...content, aboutTitle: e.target.value })}
+                  onChange={(e) => setContent(prev => ({ ...prev, aboutTitle: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -147,7 +147,7 @@ const PageEditor = () => {
                 <div className="bg-background rounded-lg border border-outline-variant/30 text-white">
                   <RichEditor
                     value={content.aboutText || ""}
-                    onChange={(val) => setContent({ ...content, aboutText: val })}
+                    onChange={(val) => setContent(prev => ({ ...prev, aboutText: val }))}
                     placeholder="Напишіть тут текст..."
                   />
                 </div>
@@ -159,7 +159,7 @@ const PageEditor = () => {
                   <input
                     type="text"
                     value={content.aboutBadgeNumber || ""}
-                    onChange={(e) => setContent({ ...content, aboutBadgeNumber: e.target.value })}
+                    onChange={(e) => setContent(prev => ({ ...prev, aboutBadgeNumber: e.target.value }))}
                     className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                   />
                 </div>
@@ -168,7 +168,7 @@ const PageEditor = () => {
                   <input
                     type="text"
                     value={content.aboutBadgeText || ""}
-                    onChange={(e) => setContent({ ...content, aboutBadgeText: e.target.value })}
+                    onChange={(e) => setContent(prev => ({ ...prev, aboutBadgeText: e.target.value }))}
                     className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                   />
                 </div>
@@ -188,7 +188,7 @@ const PageEditor = () => {
               <ImageUploader
                 label="Зображення про нас"
                 value={content.aboutImage}
-                onChange={(url) => setContent({ ...content, aboutImage: url })}
+                onChange={(url) => setContent(prev => ({ ...prev, aboutImage: url }))}
               />
             </div>
           </section>
@@ -199,11 +199,11 @@ const PageEditor = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок секції</label>
-                <input type="text" value={content.servicesTitle || ""} onChange={(e) => setContent({ ...content, servicesTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <input type="text" value={content.servicesTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, servicesTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок</label>
-                <input type="text" value={content.servicesSub || ""} onChange={(e) => setContent({ ...content, servicesSub: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <input type="text" value={content.servicesSub || ""} onChange={(e) => setContent(prev => ({ ...prev, servicesSub: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
             </div>
           </section>
@@ -214,19 +214,19 @@ const PageEditor = () => {
             <div className="space-y-6">
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Головний заголовок секції</label>
-                <input type="text" value={content.portfolioTitle || ""} onChange={(e) => setContent({ ...content, portfolioTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <input type="text" value={content.portfolioTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, portfolioTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
               
               <div className="pt-4 border-t border-outline-variant/10 space-y-4">
                 <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase">SEO Опис під галереєю</h3>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Заголовок</label>
-                  <input type="text" value={content.portfolioSeoTitle || ""} onChange={(e) => setContent({ ...content, portfolioSeoTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                  <input type="text" value={content.portfolioSeoTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, portfolioSeoTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Текст (Rich Text)</label>
                   <div className="bg-background rounded-lg border border-outline-variant/30 text-white">
-                    <RichEditor value={content.portfolioSeoText || ""} onChange={(val) => setContent({ ...content, portfolioSeoText: val })} placeholder="SEO текст для розділу портфоліо..." />
+                    <RichEditor value={content.portfolioSeoText || ""} onChange={(val) => setContent(prev => ({ ...prev, portfolioSeoText: val }))} placeholder="SEO текст для розділу портфоліо..." />
                   </div>
                 </div>
               </div>
@@ -239,19 +239,19 @@ const PageEditor = () => {
             <div className="space-y-6">
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Головний заголовок секції</label>
-                <input type="text" value={content.pricingTitle || ""} onChange={(e) => setContent({ ...content, pricingTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <input type="text" value={content.pricingTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, pricingTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
               
               <div className="pt-4 border-t border-outline-variant/10 space-y-4">
                 <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase">SEO Опис під цінами</h3>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Заголовок</label>
-                  <input type="text" value={content.pricingSeoTitle || ""} onChange={(e) => setContent({ ...content, pricingSeoTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                  <input type="text" value={content.pricingSeoTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, pricingSeoTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Текст (Rich Text)</label>
                   <div className="bg-background rounded-lg border border-outline-variant/30 text-white">
-                    <RichEditor value={content.pricingSeoText || ""} onChange={(val) => setContent({ ...content, pricingSeoText: val })} placeholder="SEO текст для розділу цін..." />
+                    <RichEditor value={content.pricingSeoText || ""} onChange={(val) => setContent(prev => ({ ...prev, pricingSeoText: val }))} placeholder="SEO текст для розділу цін..." />
                   </div>
                 </div>
               </div>
@@ -265,11 +265,11 @@ const PageEditor = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок секції</label>
-                  <input type="text" value={content.videoblogTitle || ""} onChange={(e) => setContent({ ...content, videoblogTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                  <input type="text" value={content.videoblogTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, videoblogTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок</label>
-                  <input type="text" value={content.videoblogSub || ""} onChange={(e) => setContent({ ...content, videoblogSub: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                  <input type="text" value={content.videoblogSub || ""} onChange={(e) => setContent(prev => ({ ...prev, videoblogSub: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
                 </div>
               </div>
               <div className="space-y-2 pt-4">
@@ -297,11 +297,11 @@ const PageEditor = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">FAQ - Заголовок</label>
-                <input type="text" value={content.faqTitle || ""} onChange={(e) => setContent({ ...content, faqTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <input type="text" value={content.faqTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, faqTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Блог - Заголовок</label>
-                <input type="text" value={content.blogTitle || ""} onChange={(e) => setContent({ ...content, blogTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <input type="text" value={content.blogTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, blogTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
             </div>
           </section>
@@ -315,7 +315,7 @@ const PageEditor = () => {
                 <input
                   type="text"
                   value={content.metaTitle || ""}
-                  onChange={(e) => setContent({ ...content, metaTitle: e.target.value })}
+                  onChange={(e) => setContent(prev => ({ ...prev, metaTitle: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -324,7 +324,7 @@ const PageEditor = () => {
                 <textarea
                   rows={3}
                   value={content.metaDescription || ""}
-                  onChange={(e) => setContent({ ...content, metaDescription: e.target.value })}
+                  onChange={(e) => setContent(prev => ({ ...prev, metaDescription: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                 ></textarea>
               </div>
@@ -339,26 +339,26 @@ const PageEditor = () => {
                 <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase border-b border-outline-variant/10 pb-2">Контакти</h3>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Phone size={14}/> Телефон</label>
-                  <input type="text" value={content.contactPhone || ""} onChange={(e) => setContent({ ...content, contactPhone: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="+38 (000) 000-00-00" />
+                  <input type="text" value={content.contactPhone || ""} onChange={(e) => setContent(prev => ({ ...prev, contactPhone: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="+38 (000) 000-00-00" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Mail size={14}/> Email</label>
-                  <input type="text" value={content.contactEmail || ""} onChange={(e) => setContent({ ...content, contactEmail: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="info@..." />
+                  <input type="text" value={content.contactEmail || ""} onChange={(e) => setContent(prev => ({ ...prev, contactEmail: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="info@..." />
                 </div>
               </div>
               <div className="space-y-4">
                 <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase border-b border-outline-variant/10 pb-2">Соцмережі (посилання)</h3>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Instagram size={14}/> Instagram</label>
-                  <input type="text" value={content.instagram || ""} onChange={(e) => setContent({ ...content, instagram: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="https://instagram.com/..." />
+                  <input type="text" value={content.instagram || ""} onChange={(e) => setContent(prev => ({ ...prev, instagram: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="https://instagram.com/..." />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Facebook size={14}/> Facebook</label>
-                  <input type="text" value={content.facebook || ""} onChange={(e) => setContent({ ...content, facebook: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="https://facebook.com/..." />
+                  <input type="text" value={content.facebook || ""} onChange={(e) => setContent(prev => ({ ...prev, facebook: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="https://facebook.com/..." />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Linkedin size={14}/> LinkedIn</label>
-                  <input type="text" value={content.linkedin || ""} onChange={(e) => setContent({ ...content, linkedin: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="https://linkedin.com/..." />
+                  <input type="text" value={content.linkedin || ""} onChange={(e) => setContent(prev => ({ ...prev, linkedin: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="https://linkedin.com/..." />
                 </div>
               </div>
             </div>
