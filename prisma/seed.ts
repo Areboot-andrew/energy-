@@ -75,9 +75,11 @@ async function main() {
     { question: 'Що таке "Розумний дім" і чи потрібен він мені?', answer: 'Розумний дім дозволяє автоматизувати рутину: вимикати все світло однією кнопкою біля виходу, керувати кліматом та шторами зі смартфона. Ми можемо зробити як базову автоматизацію, так і повний комплекс.', order: 4 },
   ];
   
-  await prisma.fAQ.deleteMany({});
-  for (const f of faqs) {
-    await prisma.fAQ.create({ data: f });
+  const faqCount = await prisma.fAQ.count();
+  if (faqCount === 0) {
+    for (const f of faqs) {
+      await prisma.fAQ.create({ data: f });
+    }
   }
 
   // 3. WORK STEPS
@@ -88,9 +90,11 @@ async function main() {
     { title: 'Чистовий монтаж та здача', description: 'Встановлення розеток, вимикачів, світильників. Пусконалагоджувальні роботи та здача об\'єкта в експлуатацію.', icon: 'task_alt', order: 4 },
   ];
 
-  await prisma.workStep.deleteMany({});
-  for (const s of steps) {
-    await prisma.workStep.create({ data: s });
+  const workStepCount = await prisma.workStep.count();
+  if (workStepCount === 0) {
+    for (const s of steps) {
+      await prisma.workStep.create({ data: s });
+    }
   }
 
   // 4. STANDARDS
@@ -101,9 +105,11 @@ async function main() {
     { title: 'Чистота на об\'єкті', description: 'Ми прибираємо за собою кожен день. Використовуємо промислові пилососи при штробленні.', icon: 'cleaning_services', order: 4 },
   ];
 
-  await prisma.standardItem.deleteMany({});
-  for (const s of standards) {
-    await prisma.standardItem.create({ data: s });
+  const standardCount = await prisma.standardItem.count();
+  if (standardCount === 0) {
+    for (const s of standards) {
+      await prisma.standardItem.create({ data: s });
+    }
   }
 
   // 5. PRICING
@@ -115,9 +121,11 @@ async function main() {
     { name: 'Монтаж сонячних панелей (за 1 кВт)', unit: 'кВт', price: 3000, category: 'Альтернативна енергія' },
   ];
 
-  await prisma.priceItem.deleteMany({});
-  for (const p of prices) {
-    await prisma.priceItem.create({ data: p });
+  const priceCount = await prisma.priceItem.count();
+  if (priceCount === 0) {
+    for (const p of prices) {
+      await prisma.priceItem.create({ data: p });
+    }
   }
 
   console.log('Database seeded successfully!');
