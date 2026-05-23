@@ -86,9 +86,7 @@ const Header = () => {
               </Link>
             </div>
           )}
-          <button className="bg-primary-fixed text-on-primary-fixed px-6 py-3 rounded-lg font-bold hover:shadow-[0_0_15px_rgba(213,240,0,0.3)] transition-all duration-200 active:scale-95 font-label-md text-label-md">
-            Замовити дзвінок
-          </button>
+
         </div>
       </nav>
     </header>
