@@ -52,9 +52,9 @@ export default function ServicesAdminPage() {
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
     if (!editingId && (!formData.slug || formData.slug === generateSlug(formData.title))) {
-      setFormData({ ...formData, title: newTitle, slug: generateSlug(newTitle) });
+      setFormData(prev => ({ ...prev, title: newTitle, slug: generateSlug(newTitle) }));
     } else {
-      setFormData({ ...formData, title: newTitle });
+      setFormData(prev => ({ ...prev, title: newTitle }));
     }
   };
 

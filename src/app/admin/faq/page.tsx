@@ -94,7 +94,7 @@ export default function FAQAdminPage() {
                   type="number"
                   required
                   value={formData.order}
-                  onChange={(e) => setFormData({ ...formData, order: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, order: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -104,7 +104,7 @@ export default function FAQAdminPage() {
                   type="text"
                   required
                   value={formData.question}
-                  onChange={(e) => setFormData({ ...formData, question: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, question: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -114,7 +114,7 @@ export default function FAQAdminPage() {
                   rows={4}
                   required
                   value={formData.answer}
-                  onChange={(e) => setFormData({ ...formData, answer: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, answer: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                 ></textarea>
               </div>

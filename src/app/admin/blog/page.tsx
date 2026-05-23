@@ -38,9 +38,9 @@ const BlogAdmin = () => {
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
     if (!editingId && (!currentPost.slug || currentPost.slug === generateSlug(currentPost.title))) {
-      setCurrentPost({ ...currentPost, title: newTitle, slug: generateSlug(newTitle) });
+      setCurrentPost(prev => ({ ...prev, title: newTitle, slug: generateSlug(newTitle) }));
     } else {
-      setCurrentPost({ ...currentPost, title: newTitle });
+      setCurrentPost(prev => ({ ...prev, title: newTitle }));
     }
   };
 

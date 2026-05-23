@@ -94,7 +94,7 @@ export default function StandardsAdminPage() {
                   type="text"
                   required
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -102,7 +102,7 @@ export default function StandardsAdminPage() {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Іконка</label>
                 <IconPicker
                   value={formData.icon}
-                  onChange={(val) => setFormData({ ...formData, icon: val })}
+                  onChange={(val) => setFormData(prev => ({ ...prev, icon: val }))}
                 />
               </div>
               <div className="space-y-2">
@@ -111,7 +111,7 @@ export default function StandardsAdminPage() {
                   rows={3}
                   required
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"
                 ></textarea>
               </div>

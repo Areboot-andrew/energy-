@@ -72,9 +72,9 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
     if (isNew && (!formData.slug || formData.slug === generateSlug(formData.title))) {
-      setFormData({ ...formData, title, slug: generateSlug(title) });
+      setFormData(prev => ({ ...prev, title, slug: generateSlug(title) }));
     } else {
-      setFormData({ ...formData, title });
+      setFormData(prev => ({ ...prev, title }));
     }
   };
 
@@ -149,7 +149,7 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
                   type="text"
                   required
                   value={formData.slug}
-                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white"
                   placeholder="ajax-cottage"
                 />
@@ -158,7 +158,7 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Категорія</label>
                 <select
                   value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white"
                 >
                   <option>Щити</option>
@@ -173,7 +173,7 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
                 <input
                   type="text"
                   value={formData.totalPrice}
-                  onChange={(e) => setFormData({ ...formData, totalPrice: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, totalPrice: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white"
                   placeholder="від 120 000 ₴"
                 />
@@ -186,7 +186,7 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
                 rows={3}
                 required
                 value={formData.shortDescription}
-                onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
+                onChange={(e) => setFormData(prev => ({ ...prev, shortDescription: e.target.value }))}
                 className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white resize-none"
                 placeholder="2-кімнатна квартира, повна автоматизація..."
               ></textarea>
@@ -195,7 +195,7 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
             <ImageUploader
               label="Головне фото (Обкладинка)"
               value={formData.coverImage}
-              onChange={(url) => setFormData({ ...formData, coverImage: url })}
+              onChange={(url) => setFormData(prev => ({ ...prev, coverImage: url }))}
             />
           </section>
 
@@ -205,7 +205,7 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
             <div className="space-y-2">
               <RichEditor
                 value={formData.content}
-                onChange={(val) => setFormData({ ...formData, content: val })}
+                onChange={(val) => setFormData(prev => ({ ...prev, content: val }))}
                 placeholder="Напишіть тут повний опис проєкту, які роботи були виконані, які матеріали використані..."
               />
             </div>
@@ -220,7 +220,7 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
                 <input
                   type="text"
                   value={formData.metaTitle}
-                  onChange={(e) => setFormData({ ...formData, metaTitle: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, metaTitle: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white"
                   placeholder="Заголовок для Google"
                 />
@@ -230,7 +230,7 @@ export default function EditPortfolioProject({ params }: { params: Promise<{ id:
                 <textarea
                   rows={3}
                   value={formData.metaDescription}
-                  onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, metaDescription: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white resize-none"
                   placeholder="Опис для Google"
                 ></textarea>

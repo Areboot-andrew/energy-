@@ -97,7 +97,7 @@ export default function HowWeWorkAdminPage() {
                   type="number"
                   required
                   value={formData.order}
-                  onChange={(e) => setFormData({ ...formData, order: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, order: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -107,7 +107,7 @@ export default function HowWeWorkAdminPage() {
                   type="text"
                   required
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
                   className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
                 />
               </div>
@@ -115,14 +115,14 @@ export default function HowWeWorkAdminPage() {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Іконка</label>
                 <IconPicker
                   value={formData.icon}
-                  onChange={(val) => setFormData({ ...formData, icon: val })}
+                  onChange={(val) => setFormData(prev => ({ ...prev, icon: val }))}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Детальний опис (можна з форматуванням)</label>
                 <RichEditor
                   value={formData.description}
-                  onChange={(val) => setFormData({ ...formData, description: val })}
+                  onChange={(val) => setFormData(prev => ({ ...prev, description: val }))}
                 />
               </div>
 
