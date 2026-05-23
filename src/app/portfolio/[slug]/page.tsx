@@ -38,14 +38,14 @@ export default async function ProjectPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-background text-on-background pb-24 pt-32">
-      <div className="max-w-container-max mx-auto px-margin-desktop">
-        <Link href="/portfolio" className="text-secondary-fixed-dim hover:text-white flex items-center gap-2 mb-8 w-fit transition-colors">
+    <main className="min-h-screen bg-background text-on-background pb-16 pt-24 md:pb-24 md:pt-32">
+      <div className="max-w-container-max mx-auto px-4 md:px-margin-desktop">
+        <Link href="/portfolio" className="text-secondary-fixed-dim hover:text-white flex items-center gap-2 mb-6 md:mb-8 w-fit transition-colors">
           <ArrowLeft size={18} /> До всіх проєктів
         </Link>
         
         {/* Header Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-12 md:mb-16">
           <div className="relative aspect-video rounded-2xl overflow-hidden border border-outline-variant/30">
             {project.coverImage.endsWith(".mp4") || project.coverImage.endsWith(".webm") ? (
               <video src={project.coverImage} className="w-full h-full object-cover" autoPlay loop muted playsInline controls />
@@ -76,7 +76,7 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Content Section (Rich Text) */}
-        <div className="max-w-4xl mx-auto mb-20 bg-surface-container-low p-8 md:p-12 rounded-3xl border border-outline-variant/20 prose prose-invert prose-lg prose-headings:text-white prose-a:text-primary-fixed">
+        <div className="max-w-4xl mx-auto mb-12 md:mb-20 bg-surface-container-low p-6 md:p-12 rounded-3xl border border-outline-variant/20 prose prose-invert prose-lg prose-headings:text-white prose-a:text-primary-fixed">
           <div dangerouslySetInnerHTML={{ __html: project.content }} />
         </div>
 

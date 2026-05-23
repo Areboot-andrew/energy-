@@ -17,7 +17,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[921px] flex items-center overflow-hidden px-margin-desktop">
+    <section className="relative min-h-[100vh] md:min-h-[921px] flex items-center overflow-hidden px-4 md:px-margin-desktop py-20 md:py-0">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10"></div>
         <img className="w-full h-full object-cover grayscale opacity-40" src={content.heroImage || "https://lh3.googleusercontent.com/aida-public/AB6AXuChVJ1F6cbkh-npXnQ9rwyIEnw-UeToIqUIb-iXF4XFQSOPAK212xiOJ0H6TDgVABajS8N8_Y1tyRqChGbkT8OV3LjqOqgNIlXYCvDH3qiyCrTfYTOPGA3A-QzXvCD2oK7ahuZsSP2anP8txTU1sBpptQY_W3hQocStjN9D7z2xfzBCHJUU4qLEnRfeU6Y8ajrcP2QXWdL-OYyfEWvjyJqf5jpLL5SeGwDHtoxNXr204MhyK-xn-bR4c-CE2bWp6XNfzT7j_7eeJaHG"} alt="Hero"/>
@@ -31,7 +31,7 @@ const Hero = () => {
             </span>
             {content.heroBadgeText}
           </div>
-          <h1 className="font-display-lg text-display-lg leading-[1.05] tracking-tight">
+          <h1 className="font-display-lg text-4xl sm:text-5xl lg:text-display-lg leading-[1.1] md:leading-[1.05] tracking-tight text-white">
             {content.heroTitle.includes("Під Ключ") ? (
               <>
                 {content.heroTitle.split("Під Ключ")[0]}
@@ -45,11 +45,11 @@ const Hero = () => {
           className="text-secondary-fixed-dim font-body-lg md:font-body-xl mb-12 max-w-2xl mx-auto prose prose-invert prose-p:text-secondary-fixed-dim prose-a:text-primary-fixed"
           dangerouslySetInnerHTML={{ __html: content.heroSub }}
         />
-          <div className="flex flex-wrap gap-4">
-            <a href="#contacts" className="bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-lg font-bold text-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.4)] transition-all">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+            <a href="#contacts" className="bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-lg font-bold text-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.4)] transition-all w-full sm:w-auto text-center flex items-center justify-center">
               Отримати консультацію
             </a>
-            <a href="/portfolio" className="border border-white/20 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/5 transition-all">
+            <a href="/portfolio" className="border border-white/20 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/5 transition-all w-full sm:w-auto text-center flex items-center justify-center">
               Наші роботи
             </a>
           </div>

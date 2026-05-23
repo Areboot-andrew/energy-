@@ -42,9 +42,9 @@ export default async function ServicePage({ params }: Props) {
   const included = service.included ? JSON.parse(service.included) as any[] : [];
 
   return (
-    <main className="min-h-screen bg-background text-on-background pb-24">
+    <main className="min-h-screen bg-background text-on-background pb-16 md:pb-24">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-margin-desktop overflow-hidden border-b border-outline-variant/20">
+      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 px-4 md:px-margin-desktop overflow-hidden border-b border-outline-variant/20">
         <div className="absolute inset-0 z-0">
           {service.image ? (
             <img src={service.image} alt={service.title} className="w-full h-full object-cover opacity-20" />
@@ -55,15 +55,15 @@ export default async function ServicePage({ params }: Props) {
         </div>
         
         <div className="relative z-10 max-w-container-max mx-auto">
-          <div className="flex flex-col md:flex-row items-start gap-12">
+          <div className="flex flex-col lg:flex-row items-start gap-8 md:gap-12">
             <div className="flex-1">
-              <div className="inline-flex items-center gap-3 bg-surface-container/80 backdrop-blur px-4 py-2 rounded-full border border-outline-variant/30 mb-8">
+              <div className="inline-flex items-center gap-3 bg-surface-container/80 backdrop-blur px-4 py-2 rounded-full border border-outline-variant/30 mb-6 md:mb-8">
                 <span className="material-symbols-outlined text-primary-fixed" style={{ fontVariationSettings: "'FILL' 1" }}>
                   {service.icon || 'bolt'}
                 </span>
                 <span className="text-on-surface-variant font-label-lg uppercase tracking-wider">Преміум Послуга</span>
               </div>
-              <h1 className="font-headline-xl text-display-lg-mobile md:text-display-lg mb-6 bg-gradient-to-br from-on-background to-on-surface-variant bg-clip-text text-transparent">
+              <h1 className="font-headline-xl text-4xl sm:text-5xl md:text-display-lg mb-4 md:mb-6 bg-gradient-to-br from-on-background to-on-surface-variant bg-clip-text text-transparent">
                 {service.title}
               </h1>
               <p className="text-secondary-fixed-dim text-xl leading-relaxed max-w-3xl">
@@ -86,8 +86,8 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <div className="max-w-container-max mx-auto px-margin-desktop py-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-8 space-y-16">
+      <div className="max-w-container-max mx-auto px-4 md:px-margin-desktop py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
+        <div className="lg:col-span-8 space-y-12 md:space-y-16">
           {/* Content Section */}
           {service.content && (
             <section className="prose prose-invert prose-lg max-w-none prose-headings:font-headline-lg prose-p:text-on-surface-variant prose-a:text-primary-fixed">
@@ -166,8 +166,8 @@ export default async function ServicePage({ params }: Props) {
       </div>
 
       {/* CTA Section */}
-      <section className="py-16 px-margin-desktop max-w-container-max mx-auto">
-        <div className="relative overflow-hidden bg-surface-container rounded-3xl p-8 md:p-16 border border-outline-variant/20 text-center max-w-4xl mx-auto">
+      <section className="py-12 md:py-16 px-4 md:px-margin-desktop max-w-container-max mx-auto">
+        <div className="relative overflow-hidden bg-surface-container rounded-3xl p-6 md:p-16 border border-outline-variant/20 text-center max-w-4xl mx-auto">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-fixed to-transparent opacity-50" />
           <h2 className="font-headline-lg text-on-background mb-6">Готові розпочати проект?</h2>
           <p className="text-on-surface-variant mb-10 text-xl max-w-2xl mx-auto">Залиште заявку на безкоштовну консультацію, і ми підберемо найкраще рішення для вашого об'єкту.</p>

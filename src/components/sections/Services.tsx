@@ -32,32 +32,32 @@ const Services = () => {
   };
 
   const getGridClasses = (index: number) => {
-    if (index === 0) return "md:col-span-2 md:row-span-1";
-    if (index === 1) return "md:col-span-1 md:row-span-2";
-    if (index === 4) return "md:col-span-3 md:row-span-1"; // Full width for the 5th item
-    return "md:col-span-1 md:row-span-1";
+    if (index === 0) return "sm:col-span-2 lg:col-span-2 lg:row-span-1";
+    if (index === 1) return "sm:col-span-1 lg:col-span-1 lg:row-span-2";
+    if (index === 4) return "sm:col-span-2 lg:col-span-3 lg:row-span-1"; 
+    return "sm:col-span-1 lg:col-span-1 lg:row-span-1";
   };
 
   return (
-    <section className="py-24 px-margin-desktop max-w-container-max mx-auto" id="services">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+    <section className="py-16 md:py-24 px-4 md:px-margin-desktop max-w-container-max mx-auto" id="services">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-16 gap-4">
         <div className="max-w-xl">
-          <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">{content.servicesSub}</span>
-          <h2 className="font-headline-xl text-display-lg-mobile md:text-headline-xl">{content.servicesTitle}</h2>
+          <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-2 md:mb-4 block">{content.servicesSub}</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">{content.servicesTitle}</h2>
         </div>
         <div className="h-px bg-outline-variant/30 flex-grow mx-8 mb-4 hidden md:block"></div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-fr gap-6 h-auto md:min-h-[800px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-4 md:gap-6 h-auto lg:min-h-[800px]">
         {servicesList.length > 0 ? servicesList.filter((s: any) => s.isFeatured).slice(0, 5).map((service, idx) => (
           <Link 
             key={service.id} 
             href={`/services/${service.slug}`} 
-            className={`${getGridClasses(idx)} bg-surface-container rounded-xl p-8 border border-outline-variant/20 group hover:border-primary-fixed/40 transition-all flex flex-col justify-between overflow-hidden relative block`}
+            className={`${getGridClasses(idx)} bg-surface-container rounded-xl p-6 md:p-8 border border-outline-variant/20 group hover:border-primary-fixed/40 transition-all flex flex-col justify-between overflow-hidden relative block`}
           >
             <div className="relative z-10">
               {renderIcon(service.icon)}
-              <h3 className="font-headline-lg text-white mb-2">{service.title}</h3>
-              <p className="text-secondary-fixed-dim max-w-md">{service.description}</p>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{service.title}</h3>
+              <p className="text-sm md:text-base text-secondary-fixed-dim max-w-md line-clamp-3">{service.description}</p>
             </div>
             {service.image && (
               <img 

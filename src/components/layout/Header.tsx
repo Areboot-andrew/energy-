@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const pathname = usePathname();
@@ -13,6 +14,7 @@ const Header = () => {
     contactPhone: "+38 (097) 555-01-99",
     contactEmail: "info@voltpremium.ua"
   });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/content").then(res => res.json()).then(data => {
@@ -87,8 +89,68 @@ const Header = () => {
             </div>
           )}
 
+            </div>
+          )}
+          
+          <button 
+            className="md:hidden text-white hover:text-primary-fixed transition-colors ml-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-background border-b border-outline-variant/30 flex flex-col items-center py-6 gap-6 shadow-2xl animate-in slide-in-from-top-2">
+          {[
+            { label: "Послуги", href: "/services" },
+            { label: "Ціни", href: "/#pricing" },
+            { label: "Про нас", href: "/#about" },
+            { label: "Стандарти якості", href: "/standards" },
+            { label: "Контакти", href: "/#contacts" },
+          ].map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link 
+                key={item.label}
+                className={`text-lg transition-colors duration-300 font-bold ${
+                  isActive ? "text-primary-fixed" : "text-white hover:text-primary-fixed"
+                }`} 
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+          
+          <div className="flex flex-col items-center mt-4 border-t border-outline-variant/30 pt-6 w-3/4">
+            <a href={`tel:${content.contactPhone.replace(/[^\d+]/g, '')}`} className="text-white font-bold text-lg hover:text-primary-fixed transition-colors mb-2">
+              {content.contactPhone}
+            </a>
+            {session ? (
+              <Link
+                href="/admin"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-primary-fixed font-bold text-lg mt-4 flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined text-xl">admin_panel_settings</span>
+                Адмін Панель
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-bold mt-4"
+              >
+                Увійти
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 };

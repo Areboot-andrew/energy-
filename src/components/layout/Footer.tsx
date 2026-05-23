@@ -21,8 +21,8 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="w-full py-16 bg-surface-container-lowest border-t border-outline-variant/20">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter max-w-container-max mx-auto px-margin-desktop">
+    <footer className="w-full py-12 md:py-16 bg-surface-container-lowest border-t border-outline-variant/20">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-gutter max-w-container-max mx-auto px-4 md:px-margin-desktop">
         <div className="space-y-6">
           <div className="font-headline-xl text-headline-xl font-bold text-primary-fixed">VOLT PREMIUM</div>
           <p className="text-secondary-fixed-dim font-body-md max-w-xs">
@@ -102,7 +102,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-container-max mx-auto px-margin-desktop mt-16 pt-8 border-t border-outline-variant/10 text-center">
+      <div className="max-w-container-max mx-auto px-4 md:px-margin-desktop mt-12 md:mt-16 pt-8 border-t border-outline-variant/10 text-center">
         <p className="text-secondary-fixed-dim font-label-sm">© {new Date().getFullYear()} VOLT PREMIUM. Професійні електромонтажні рішення.</p>
       </div>
     </footer>
