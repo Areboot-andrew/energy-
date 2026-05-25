@@ -63,8 +63,8 @@ const RegisterPage = () => {
              <span className="material-symbols-outlined text-primary-fixed text-6xl" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
              <h2 className="text-2xl font-bold text-white">Вітаємо!</h2>
              <p className="text-secondary-fixed-dim">Ваш акаунт успішно створено. Тепер ви можете увійти в систему.</p>
-             <Link href="/admin" className="block w-full bg-primary-fixed text-on-primary-fixed py-4 rounded-lg font-bold text-lg hover:shadow-[0_0_15px_rgba(213,240,0,0.3)] transition-all text-center">
-                Увійти в кабінет
+             <Link href="/login" className="block w-full bg-primary-fixed text-on-primary-fixed py-4 rounded-lg font-bold text-lg hover:shadow-[0_0_15px_rgba(213,240,0,0.3)] transition-all text-center">
+                Увійти
              </Link>
           </div>
         ) : (
@@ -120,7 +120,7 @@ const RegisterPage = () => {
             </button>
             
             <p className="text-center text-secondary-fixed-dim text-sm mt-6">
-              Вже маєте акаунт? <Link href="/admin" className="text-primary-fixed hover:underline">Увійти</Link>
+              Вже маєте акаунт? <Link href="/login" className="text-primary-fixed hover:underline">Увійти</Link>
             </p>
           </form>
         )}

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
@@ -25,7 +25,12 @@ const LoginPage = () => {
     });
 
     if (res?.ok) {
-      router.push("/admin");
+      const session = await getSession();
+      if (session?.user?.role === "ADMIN") {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
     } else {
       alert("Невірний email або пароль");
       setLoading(false);
