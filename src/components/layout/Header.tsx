@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import ContactButton from "@/components/ui/ContactButton";
 
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
@@ -40,6 +41,16 @@ const Header = () => {
             { label: "Контакти", href: "/#contacts" },
           ].map((item) => {
             const isActive = pathname === item.href;
+            if (item.label === "Контакти") {
+              return (
+                <ContactButton 
+                  key={item.label}
+                  className="transition-colors duration-300 font-label-md text-label-md text-secondary-fixed-dim hover:text-primary-fixed"
+                >
+                  {item.label}
+                </ContactButton>
+              );
+            }
             return (
               <Link 
                 key={item.label}
@@ -111,6 +122,16 @@ const Header = () => {
             { label: "Контакти", href: "/#contacts" },
           ].map((item) => {
             const isActive = pathname === item.href;
+            if (item.label === "Контакти") {
+              return (
+                <ContactButton 
+                  key={item.label}
+                  className="text-lg transition-colors duration-300 font-bold text-white hover:text-primary-fixed"
+                >
+                  {item.label}
+                </ContactButton>
+              );
+            }
             return (
               <Link 
                 key={item.label}

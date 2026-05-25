@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { PrismaClient } from "@prisma/client";
+import ContactButton from "@/components/ui/ContactButton";
 import Link from "next/link";
 
 const prisma = new PrismaClient();
@@ -73,10 +74,10 @@ export default async function StandardsPage() {
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-fixed to-transparent opacity-50" />
           <h2 className="font-headline-lg text-on-background mb-6">Переконайтеся у нашій якості</h2>
           <p className="text-on-surface-variant mb-10 text-xl max-w-2xl mx-auto">Довірте свій об'єкт професіоналам, які не йдуть на компроміси в питаннях безпеки та надійності.</p>
-          <Link href="/#contact" className="inline-flex items-center gap-2 bg-primary-fixed text-on-primary-fixed font-label-lg px-8 py-4 rounded-xl hover:opacity-90 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-fixed/20">
-            <span>Обговорити проект</span>
+          <ContactButton className="inline-flex items-center gap-2 bg-primary-fixed text-on-primary-fixed font-label-lg px-8 py-4 rounded-xl hover:opacity-90 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-fixed/20">
+            <span>Замовити безкоштовний огляд</span>
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
-          </Link>
+          </ContactButton>
         </div>
       </section>
     </main>

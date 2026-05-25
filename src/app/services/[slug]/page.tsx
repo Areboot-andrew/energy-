@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Metadata } from "next";
 import { PrismaClient } from "@prisma/client";
+import ContactButton from "@/components/ui/ContactButton";
 
 const prisma = new PrismaClient();
 
@@ -76,9 +77,9 @@ export default async function ServicePage({ params }: Props) {
                 <div className="sticky top-32 bg-surface-container p-8 rounded-3xl border border-outline-variant/30 shadow-2xl backdrop-blur-md">
                   <p className="text-on-surface-variant font-label-md mb-2 uppercase tracking-wide">Орієнтовна Вартість</p>
                   <p className="text-4xl font-headline-lg text-primary-fixed mb-6">{service.estimatedPrice}</p>
-                  <Link href="/#contact" className="block text-center bg-primary-fixed text-on-primary-fixed font-label-lg px-6 py-4 rounded-xl hover:opacity-90 transition-all hover:shadow-lg hover:shadow-primary-fixed/20">
+                  <ContactButton className="block text-center bg-primary-fixed text-on-primary-fixed font-label-lg px-6 py-4 rounded-xl hover:opacity-90 transition-all hover:shadow-lg hover:shadow-primary-fixed/20">
                     Залишити Заявку
-                  </Link>
+                  </ContactButton>
                 </div>
               </div>
             )}
@@ -171,10 +172,10 @@ export default async function ServicePage({ params }: Props) {
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-fixed to-transparent opacity-50" />
           <h2 className="font-headline-lg text-on-background mb-6">Готові розпочати проект?</h2>
           <p className="text-on-surface-variant mb-10 text-xl max-w-2xl mx-auto">Залиште заявку на безкоштовну консультацію, і ми підберемо найкраще рішення для вашого об'єкту.</p>
-          <Link href="/#contact" className="inline-flex items-center gap-2 bg-primary-fixed text-on-primary-fixed font-label-lg px-8 py-4 rounded-xl hover:opacity-90 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-fixed/20">
+          <ContactButton className="inline-flex items-center gap-2 bg-primary-fixed text-on-primary-fixed font-label-lg px-8 py-4 rounded-xl hover:opacity-90 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-fixed/20">
             <span>Зв'язатися з нами</span>
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
-          </Link>
+          </ContactButton>
         </div>
       </section>
     </main>

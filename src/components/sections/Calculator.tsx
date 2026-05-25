@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import ContactButton from "@/components/ui/ContactButton";
 
 interface CalculatorProps {
   onPriceChange?: (price: number) => void;
@@ -89,12 +90,12 @@ const Calculator = ({ onPriceChange }: CalculatorProps) => {
                 від <span className="text-primary-fixed" id="total-price">{total.toLocaleString()}</span> <span className="text-2xl">₴</span>
               </div>
             </div>
-            <a 
-              href="#contacts"
-              className="w-full md:w-auto text-center bg-white text-black px-8 py-4 rounded-lg font-bold hover:bg-primary-fixed transition-colors"
+            <ContactButton 
+              price={total}
+              className="mt-6 w-full md:w-auto text-center bg-primary-fixed text-on-primary-fixed font-bold py-4 px-8 rounded-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.3)] transition-all block"
             >
-              Детальний кошторис
-            </a>
+              Залишити заявку
+            </ContactButton>
           </div>
         </div>
       </div>

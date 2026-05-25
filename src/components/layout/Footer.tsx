@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import ContactButton from "@/components/ui/ContactButton";
 import { useSession } from "next-auth/react";
 
 const Footer = () => {
@@ -68,7 +69,7 @@ const Footer = () => {
             <Link className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="/#pricing">Ціни</Link>
             <Link className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="/portfolio">Наші роботи</Link>
             <Link className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="/standards">Стандарти якості</Link>
-            <Link className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="/#contacts">Контакти</Link>
+            <ContactButton className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md text-left">Контакти</ContactButton>
             <div className="h-px bg-outline-variant/20 my-1" />
             {session ? (
               <Link className="text-primary-fixed hover:text-primary-fixed-dim transition-colors font-body-md flex items-center gap-2" href="/admin">

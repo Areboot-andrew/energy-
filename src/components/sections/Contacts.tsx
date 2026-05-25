@@ -2,15 +2,14 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Phone, Mail, MapPin, Instagram, Facebook, Send } from "lucide-react";
-import ContactModal from "@/components/ui/ContactModal";
+import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
+import ContactButton from "@/components/ui/ContactButton";
 
 interface ContactsProps {
   initialPrice?: number;
 }
 
 const Contacts = ({ initialPrice }: ContactsProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [content, setContent] = useState({
     contactPhone: "+38 098 732 85 63",
     contactEmail: "tarasbuina2@icloud.com",
@@ -95,13 +94,9 @@ const Contacts = ({ initialPrice }: ContactsProps) => {
             </div>
 
             <div className="pt-4">
-              <button 
-                onClick={() => setIsModalOpen(true)}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary-fixed text-on-primary-fixed font-bold rounded-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.3)] transition-all"
-              >
-                <Send size={20} />
-                Залишити заявку онлайн
-              </button>
+              <ContactButton className="w-full sm:w-auto bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-xl font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_30px_rgba(213,240,0,0.4)] transition-all flex items-center justify-center gap-2">
+                <span>Залишити заявку онлайн</span>
+              </ContactButton>
             </div>
           </div>
 

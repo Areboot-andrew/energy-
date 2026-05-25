@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Clock, Facebook, Twitter, Link as LinkIcon } from "lucide-react";
 import { notFound } from "next/navigation";
+import ContactButton from "@/components/ui/ContactButton";
 
 const prisma = new PrismaClient();
 
@@ -90,9 +91,9 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="mt-20 p-10 bg-surface-container rounded-2xl border border-outline-variant/20">
             <h3 className="text-2xl font-bold text-white mb-4">Маєте питання щодо вашого проєкту?</h3>
             <p className="text-secondary-fixed-dim mb-8">Замовте безкоштовну консультацію нашого інженера вже сьогодні.</p>
-            <Link href="/#contact" className="inline-block bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-xl font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_30px_rgba(213,240,0,0.4)] transition-all">
+            <ContactButton className="inline-block bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-xl font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_30px_rgba(213,240,0,0.4)] transition-all">
               Зв'язатися з нами
-            </Link>
+            </ContactButton>
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import ContactButton from "@/components/ui/ContactButton";
 
 const Hero = () => {
   const [content, setContent] = useState({
@@ -46,12 +48,12 @@ const Hero = () => {
           dangerouslySetInnerHTML={{ __html: content.heroSub }}
         />
           <div className="flex flex-col sm:flex-row flex-wrap gap-4">
-            <a href="#contacts" className="bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-lg font-bold text-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.4)] transition-all w-full sm:w-auto text-center flex items-center justify-center">
-              Отримати консультацію
-            </a>
-            <a href="/portfolio" className="border border-white/20 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/5 transition-all w-full sm:w-auto text-center flex items-center justify-center">
+            <ContactButton className="bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-lg font-bold text-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.4)] transition-all w-full sm:w-auto text-center flex items-center justify-center">
+              Безкоштовний прорахунок
+            </ContactButton>
+            <Link href="/portfolio" className="border border-white/20 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/5 transition-all w-full sm:w-auto text-center flex items-center justify-center">
               Наші роботи
-            </a>
+            </Link>
           </div>
         </div>
       </div>
