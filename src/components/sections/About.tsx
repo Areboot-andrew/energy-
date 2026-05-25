@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const About = () => {
   const [content, setContent] = useState({
@@ -60,6 +62,15 @@ const About = () => {
               </motion.li>
             ))}
           </ul>
+          <div className="pt-8">
+            <Link 
+              href="/about"
+              className="inline-flex items-center gap-3 px-8 py-4 border border-primary-fixed text-primary-fixed hover:bg-primary-fixed hover:text-on-primary-fixed font-bold rounded-full transition-all group"
+            >
+              Детальніше про компанію
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -3,74 +3,74 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
-interface PriceItem {
-  id: string;
-  name: string;
-  unit: string;
-  price: number;
-}
-
-const defaultPrices = [
-  { name: "Монтаж кабелю в гофрі", unit: "м.п.", price: 45 },
-  { name: "Встановлення підрозетника", unit: "шт.", price: 120 },
-  { name: "Збірка силового щита", unit: "модуль", price: 250 },
-  { name: "Штроблення стін (бетон)", unit: "м.п.", price: 180 },
-  { name: "Монтаж LED стрічки", unit: "м.п.", price: 150 },
-];
+import { CheckCircle2, ArrowRight } from "lucide-react";
 
 const Pricing = () => {
-  const [prices, setPrices] = useState<PriceItem[]>([]);
   const [content, setContent] = useState({ pricingTitle: "Прозоре ціноутворення", pricingSeoText: "" });
 
   useEffect(() => {
-    fetch("/api/prices")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setPrices(data);
-        } else {
-          setPrices(defaultPrices as PriceItem[]);
-        }
-      })
-      .catch(() => {
-        setPrices(defaultPrices as PriceItem[]);
-      });
-    
     fetch("/api/content").then(res => res.json()).then(data => {
       if (data.pricingTitle) setContent(data);
     });
   }, []);
 
+  const packages = [
+    {
+      title: "Чорновий монтаж",
+      price: "від 150 ₴ / м.п.",
+      features: ["Штроблення без пилу", "Прокладання кабелю в гофрі", "Встановлення підрозетників", "Збірка тимчасового щита"]
+    },
+    {
+      title: "Електрика під ключ",
+      price: "від 800 ₴ / м²",
+      features: ["Повний комплекс робіт", "Збірка щита (Hager/ABB)", "Захист від перепадів напруги", "Встановлення розеток та світла"]
+    },
+    {
+      title: "Розумний дім",
+      price: "Індивідуально",
+      features: ["Проєктування системи", "Управління освітленням", "Клімат-контроль", "Система антипотоп"]
+    }
+  ];
+
   return (
     <section className="py-24 px-margin-desktop max-w-container-max mx-auto" id="pricing">
-      <h2 className="font-headline-xl text-center mb-16">{content.pricingTitle}</h2>
-      <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="border-b border-outline-variant/30">
-              <th className="py-6 text-secondary-fixed-dim font-label-md">Послуга</th>
-              <th className="py-6 text-secondary-fixed-dim font-label-md">Одиниця</th>
-              <th className="py-6 text-secondary-fixed-dim font-label-md text-right">Ціна (₴)</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-outline-variant/10">
-            {prices.slice(0, 5).map((item) => (
-              <tr key={item.id || item.name} className="hover:bg-surface-container-low transition-colors group">
-                <td className="py-6 font-body-lg group-hover:text-primary-fixed transition-colors">
-                  {item.name}
-                </td>
-                <td className="py-6 text-secondary-fixed-dim">{item.unit}</td>
-                <td className="py-6 text-right font-bold text-white">{item.price}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="text-center mb-16">
+        <h2 className="font-headline-xl mb-6">{content.pricingTitle}</h2>
+        <p className="text-secondary-fixed-dim text-lg max-w-2xl mx-auto">
+          Ми пропонуємо чесні ціни за найвищу якість роботи. Виберіть пакет послуг або ознайомтеся з повним прайс-листом для детального розрахунку.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        {packages.map((pkg, idx) => (
+          <motion.div 
+            key={idx}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.1 }}
+            className="bg-surface-container border border-outline-variant/20 rounded-2xl p-8 flex flex-col hover:border-primary-fixed/40 transition-colors relative group overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-primary-fixed/10 transition-colors"></div>
+            
+            <h3 className="text-2xl font-bold text-white mb-2 relative z-10">{pkg.title}</h3>
+            <div className="text-3xl font-headline-md text-primary-fixed mb-8 relative z-10">{pkg.price}</div>
+            
+            <ul className="space-y-4 mb-8 flex-grow relative z-10">
+              {pkg.features.map((feature, fidx) => (
+                <li key={fidx} className="flex items-start gap-3">
+                  <CheckCircle2 className="text-primary-fixed shrink-0 mt-0.5" size={20} />
+                  <span className="text-secondary-fixed-dim">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
       </div>
       
       {content.pricingSeoText && (
         <div 
-          className="mt-12 text-secondary-fixed-dim text-sm prose prose-invert prose-sm prose-p:text-secondary-fixed-dim max-w-4xl mx-auto"
+          className="mt-12 text-secondary-fixed-dim text-sm prose prose-invert prose-sm prose-p:text-secondary-fixed-dim max-w-4xl mx-auto text-center"
           dangerouslySetInnerHTML={{ __html: content.pricingSeoText }}
         />
       )}
@@ -78,9 +78,10 @@ const Pricing = () => {
       <div className="mt-12 text-center">
         <Link 
           href="/pricing"
-          className="inline-flex items-center justify-center px-8 py-4 bg-primary-fixed text-on-primary-fixed font-label-lg rounded-full hover:bg-primary-fixed-dim transition-colors shadow-lg shadow-primary-fixed/20 hover:shadow-primary-fixed/40 hover:-translate-y-1 active:translate-y-0"
+          className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary-fixed text-on-primary-fixed font-bold text-lg rounded-full hover:bg-primary-fixed-dim transition-all hover:shadow-[0_0_20px_rgba(213,240,0,0.3)] hover:-translate-y-1"
         >
           Дивитись повний прайс-лист
+          <ArrowRight size={20} />
         </Link>
       </div>
     </section>
