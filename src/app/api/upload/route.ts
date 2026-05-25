@@ -22,12 +22,12 @@ export async function POST(req: Request) {
       await mkdir(uploadsDir, { recursive: true });
     }
 
-    if (file.type.startsWith('video/')) {
+      if (file.type.startsWith('video/')) {
       const ext = file.name.split('.').pop() || 'mp4';
       const filename = crypto.randomBytes(16).toString('hex') + '.' + ext;
       const filepath = path.join(uploadsDir, filename);
       await writeFile(filepath, buffer);
-      return NextResponse.json({ url: `/uploads/${filename}`, type: 'VIDEO' });
+      return NextResponse.json({ url: `/api/media/${filename}`, type: 'VIDEO' });
     } else {
       const filename = crypto.randomBytes(16).toString('hex') + '.webp';
       const filepath = path.join(uploadsDir, filename);
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         .webp({ quality: 80 })
         .toFile(filepath);
 
-      return NextResponse.json({ url: `/uploads/${filename}`, type: 'IMAGE' });
+      return NextResponse.json({ url: `/api/media/${filename}`, type: 'IMAGE' });
     }
   } catch (error) {
     console.error('Error uploading file:', error);
