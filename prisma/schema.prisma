@@ -16,8 +16,69 @@ model User {
   email     String   @unique
   phone     String?
   password  String
-  role      String   @default("CLIENT")
+  role      String    @default("CLIENT")
+  createdAt DateTime  @default(now())
+  projects  Project[]
+  messages  Message[]
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  status      String   @default("ACTIVE") // ACTIVE, COMPLETED, PAUSED
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  messages    Message[]
+  quotes      Quote[]
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  senderId  String   
+  sender    User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  isAdmin   Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model Quote {
+  id          String       @id @default(cuid())
+  title       String
+  projectId   String
+  project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  status      String       @default("DRAFT") // DRAFT, SENT, APPROVED, REJECTED
+  totalAmount Float        @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  groups      QuoteGroup[]
+}
+
+model QuoteGroup {
+  id      String      @id @default(cuid())
+  title   String
+  quoteId String
+  quote   Quote       @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  items   QuoteItem[]
+  order   Int         @default(0)
+}
+
+model QuoteItem {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  quantity    Float      @default(1)
+  unit        String     @default("шт")
+  price       Float
+  total       Float
+  photoUrl    String?
+  groupId     String
+  group       QuoteGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  order       Int        @default(0)
 }
 
 model BlogPost {
