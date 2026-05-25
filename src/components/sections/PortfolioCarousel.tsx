@@ -45,7 +45,7 @@ const PortfolioCarousel = () => {
         </Link>
       </div>
 
-      <div className="relative w-full flex overflow-hidden">
+      <div className="relative w-full max-w-container-max mx-auto px-4 md:px-margin-desktop flex overflow-hidden">
         <motion.div
           className="flex gap-6 px-3"
           animate={{ x: ["0%", "-33.333333%"] }}
