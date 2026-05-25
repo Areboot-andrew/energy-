@@ -33,9 +33,10 @@ const Header = () => {
         <div className="hidden md:flex items-center gap-8">
           {[
             { label: "Послуги", href: "/services" },
-            { label: "Ціни", href: "/#pricing" },
-            { label: "Про нас", href: "/#about" },
-            { label: "Стандарти якості", href: "/standards" },
+            { label: "Ціни", href: "/pricing" },
+            { label: "Про нас", href: "/about" },
+            { label: "Портфоліо", href: "/portfolio" },
+            { label: "Блог", href: "/blog" },
             { label: "Контакти", href: "/#contacts" },
           ].map((item) => {
             const isActive = pathname === item.href;
@@ -103,9 +104,10 @@ const Header = () => {
         <div className="md:hidden absolute top-full left-0 w-full bg-background border-b border-outline-variant/30 flex flex-col items-center py-6 gap-6 shadow-2xl animate-in slide-in-from-top-2">
           {[
             { label: "Послуги", href: "/services" },
-            { label: "Ціни", href: "/#pricing" },
-            { label: "Про нас", href: "/#about" },
-            { label: "Стандарти якості", href: "/standards" },
+            { label: "Ціни", href: "/pricing" },
+            { label: "Про нас", href: "/about" },
+            { label: "Портфоліо", href: "/portfolio" },
+            { label: "Блог", href: "/blog" },
             { label: "Контакти", href: "/#contacts" },
           ].map((item) => {
             const isActive = pathname === item.href;
