@@ -29,7 +29,6 @@ const Contacts = ({ initialPrice }: ContactsProps) => {
   const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2572.9348982352875!2d24.015291476884632!3d49.8436660309066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473add775bb05d8f%3A0xbcc0e2b467cb561!2z0LLRg9C70LjRhtGPINCG0LLQsNC90LAg0J7Qs9GW0ZTQvdC60LAsIDE1LCDQm9GM0LLRltCyLCDQm9GM0LLRltCy0YHRjNC60LAg0L7QsdC70LDRgdGC0YwsIDc5MDAw!5e0!3m2!1suk!2sua!4v1714571987515!5m2!1suk!2sua";
 
   return (
-    <>
       <section className="py-24 px-margin-desktop bg-surface-dim" id="contacts">
         <div className="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           
@@ -115,13 +114,6 @@ const Contacts = ({ initialPrice }: ContactsProps) => {
           </div>
         </div>
       </section>
-
-      <ContactModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        initialPrice={initialPrice}
-      />
-    </>
   );
 };
 
