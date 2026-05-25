@@ -90,7 +90,7 @@ export default async function ServicePage({ params }: Props) {
         <div className="lg:col-span-8 space-y-12 md:space-y-16">
           {/* Content Section */}
           {service.content && (
-            <section className="prose prose-invert prose-lg max-w-none prose-headings:font-headline-lg prose-p:text-on-surface-variant prose-a:text-primary-fixed">
+            <section className="prose prose-invert prose-lg max-w-none prose-headings:font-headline-lg prose-p:text-on-surface-variant prose-a:text-primary-fixed break-words whitespace-pre-wrap overflow-hidden w-full">
               <div dangerouslySetInnerHTML={{ __html: service.content }} />
             </section>
           )}

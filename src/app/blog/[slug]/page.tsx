@@ -81,9 +81,9 @@ export default async function BlogPostPage({ params }: Props) {
         </aside>
 
         {/* Content */}
-        <div className="lg:col-span-11 prose prose-invert prose-lg max-w-none prose-headings:text-white prose-a:text-primary-fixed">
+        <div className="lg:col-span-11 prose prose-invert prose-lg max-w-none prose-headings:text-white prose-a:text-primary-fixed overflow-hidden">
           <div 
-            className="text-secondary-fixed-dim leading-relaxed font-body-md text-xl"
+            className="text-secondary-fixed-dim leading-relaxed font-body-md text-xl break-words whitespace-pre-wrap overflow-hidden w-full"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
           
