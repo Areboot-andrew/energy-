@@ -85,9 +85,16 @@ export default function PricingPage() {
         
         <header className="mb-16">
           <h1 className="font-headline-xl mb-6">{content?.pricingSeoTitle || "Повний прайс-лист на електромонтажні роботи"}</h1>
-          <p className="font-body-lg text-secondary-fixed-dim max-w-3xl">
-            {content?.pricingSeoText || "Ми пропонуємо прозорі ціни без прихованих платежів. Усі роботи виконуються професійним інструментом з дотриманням будівельних норм (ДБН, ПУЕ). Ми надаємо офіційну гарантію на всі виконані роботи та матеріали. Точна вартість розраховується після огляду об'єкта."}
-          </p>
+          {content?.pricingSeoText ? (
+            <div 
+              className="font-body-lg text-secondary-fixed-dim max-w-3xl prose prose-invert prose-p:text-secondary-fixed-dim break-words whitespace-pre-wrap"
+              dangerouslySetInnerHTML={{ __html: content.pricingSeoText }}
+            />
+          ) : (
+            <p className="font-body-lg text-secondary-fixed-dim max-w-3xl break-words whitespace-pre-wrap">
+              Ми пропонуємо прозорі ціни без прихованих платежів. Усі роботи виконуються професійним інструментом з дотриманням будівельних норм (ДБН, ПУЕ). Ми надаємо офіційну гарантію на всі виконані роботи та матеріали. Точна вартість розраховується після огляду об'єкта.
+            </p>
+          )}
         </header>
 
         {loading ? (
