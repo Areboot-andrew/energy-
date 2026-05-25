@@ -75,16 +75,16 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-grow overflow-y-auto bg-surface-dim relative">
+      <main className="flex-grow overflow-y-auto bg-surface-dim relative overflow-x-hidden break-words">
         {/* Top Header Decor */}
         <div className="h-32 w-full bg-gradient-to-b from-surface-container to-transparent opacity-50 absolute top-0 left-0 pointer-events-none"></div>
         
-        <div className="p-10 md:p-16 relative z-10">
+        <div className="p-4 md:p-10 lg:p-16 relative z-10 w-full overflow-hidden">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="max-w-6xl mx-auto"
+            className="max-w-6xl mx-auto w-full"
           >
             {children}
           </motion.div>

@@ -45,6 +45,10 @@ export default function RichEditor({ value, onChange, placeholder }: RichEditorP
           font-size: 1rem;
           background-color: transparent;
         }
+        .rich-editor-container .ql-editor {
+          word-break: break-word;
+          overflow-wrap: break-word;
+        }
         .rich-editor-container .ql-stroke { stroke: #e0e0e0; }
         .rich-editor-container .ql-fill { fill: #e0e0e0; }
         .rich-editor-container .ql-picker { color: #e0e0e0; }
