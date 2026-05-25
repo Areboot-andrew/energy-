@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { X, Paperclip, CheckCircle2 } from "lucide-react";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -13,10 +13,13 @@ const ContactModal = ({ isOpen, onClose, initialPrice }: ContactModalProps) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    serviceType: "Повний електромонтаж",
+    serviceType: "Монтаж електромережі під ключ",
     comment: "",
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [file, setFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "rate_limit">("idle");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -30,22 +33,52 @@ const ContactModal = ({ isOpen, onClose, initialPrice }: ContactModalProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
+    
     try {
+      let attachedFile = null;
+      
+      if (file) {
+        if (file.size > 10 * 1024 * 1024) {
+           alert("Файл занадто великий (максимум 10 МБ)");
+           setStatus("idle");
+           return;
+        }
+        setUploading(true);
+        const formDataUpload = new FormData();
+        formDataUpload.append("file", file);
+        
+        const uploadRes = await fetch("/api/upload", {
+          method: "POST",
+          body: formDataUpload,
+        });
+        
+        if (uploadRes.ok) {
+           const uploadData = await uploadRes.json();
+           attachedFile = uploadData.url;
+        }
+        setUploading(false);
+      }
+
       const res = await fetch("/api/requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
           totalPrice: initialPrice,
+          attachedFile
         }),
       });
+      
       if (res.ok) {
         setStatus("success");
-        setFormData({ name: "", phone: "", serviceType: "Повний електромонтаж", comment: "" });
+        setFormData({ name: "", phone: "", serviceType: "Монтаж електромережі під ключ", comment: "" });
+        setFile(null);
         setTimeout(() => {
           setStatus("idle");
           onClose();
         }, 5000);
+      } else if (res.status === 429) {
+        setStatus("rate_limit");
       } else {
         setStatus("error");
       }
@@ -132,12 +165,62 @@ const ContactModal = ({ isOpen, onClose, initialPrice }: ContactModalProps) => {
                     onChange={(e) => setFormData(prev => ({ ...prev, serviceType: e.target.value }))}
                     className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed focus:ring-1 focus:ring-primary-fixed outline-none transition-all appearance-none"
                   >
-                    <option>Повний електромонтаж</option>
-                    <option>Сонячні станції</option>
+                    <option>Монтаж електромережі під ключ</option>
+                    <option>Електрика для квартири (новобудова/вторинне)</option>
+                    <option>Електрика для приватного будинку</option>
+                    <option>Збірка та монтаж електрощитка</option>
+                    <option>Встановлення сонячної станції (СЕС)</option>
+                    <option>Монтаж гібридного інвертора / АКБ</option>
                     <option>Розумний дім</option>
                     <option>Встановлення EV зарядки</option>
+                    <option>Інше</option>
                   </select>
                   <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-secondary-fixed-dim">expand_more</span>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <label className="font-label-sm text-secondary-fixed-dim">Прикріпити проєкт / креслення (опціонально)</label>
+                <div 
+                  className={`w-full border-2 border-dashed rounded-lg p-4 transition-all flex flex-col items-center justify-center cursor-pointer ${file ? 'border-primary-fixed bg-primary-fixed/5' : 'border-outline-variant/30 hover:border-primary-fixed/50'}`}
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <input 
+                    type="file" 
+                    className="hidden" 
+                    ref={fileInputRef}
+                    accept=".pdf,.doc,.docx,.zip,.jpg,.jpeg,.png"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        if (e.target.files[0].size > 10 * 1024 * 1024) {
+                          alert("Файл занадто великий (макс 10 МБ)");
+                          return;
+                        }
+                        setFile(e.target.files[0]);
+                      }
+                    }}
+                  />
+                  {file ? (
+                    <div className="flex items-center gap-2 text-white">
+                      <CheckCircle2 className="text-primary-fixed" size={20} />
+                      <span className="truncate max-w-[200px]">{file.name}</span>
+                      <button 
+                        type="button" 
+                        className="text-secondary-fixed-dim hover:text-white ml-2"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setFile(null);
+                        }}
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center gap-2 text-secondary-fixed-dim">
+                      <Paperclip size={24} />
+                      <span className="text-sm text-center">Натисніть щоб вибрати файл<br/>(PDF, DOCX, ZIP, JPG до 10 МБ)</span>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="space-y-2">
@@ -153,13 +236,19 @@ const ContactModal = ({ isOpen, onClose, initialPrice }: ContactModalProps) => {
               <button 
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full bg-primary-fixed text-on-primary-fixed py-4 rounded-lg font-bold hover:shadow-[0_0_15px_rgba(213,240,0,0.3)] transition-all"
+                className="w-full bg-primary-fixed text-on-primary-fixed py-4 rounded-lg font-bold hover:shadow-[0_0_15px_rgba(213,240,0,0.3)] transition-all flex justify-center items-center gap-2"
               >
-                {status === "loading" ? "Відправка..." : "Відправити заявку"}
+                {status === "loading" && <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />}
+                {status === "loading" ? (uploading ? "Завантаження файлу..." : "Відправка...") : "Відправити заявку"}
               </button>
               {status === "error" && (
                 <p className="text-error text-center font-bold text-sm">
                   Помилка при відправці. Спробуйте ще раз.
+                </p>
+              )}
+              {status === "rate_limit" && (
+                <p className="text-error text-center font-bold text-sm">
+                  Ви надсилаєте заявки занадто часто. Зачекайте 5 хвилин.
                 </p>
               )}
             </form>

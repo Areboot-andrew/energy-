@@ -68,14 +68,15 @@ model PriceItem {
 }
 
 model ClientRequest {
-  id          String   @id @default(cuid())
-  name        String
-  phone       String
-  serviceType String
-  comment     String?
-  totalPrice  Float?
-  status      String   @default("NEW")
-  createdAt   DateTime @default(now())
+  id           String   @id @default(cuid())
+  name         String
+  phone        String
+  serviceType  String
+  comment      String?
+  totalPrice   Float?
+  attachedFile String?
+  status       String   @default("NEW")
+  createdAt    DateTime @default(now())
 }
 
 model ServicePage {

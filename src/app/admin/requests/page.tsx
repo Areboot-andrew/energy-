@@ -2,7 +2,7 @@
 
 import AdminLayout from "@/components/layout/AdminLayout";
 import { useState, useEffect } from "react";
-import { Trash2, Phone, Mail, MessageSquare, Clock, Calculator } from "lucide-react";
+import { Trash2, Phone, Mail, MessageSquare, Clock, Calculator, Paperclip } from "lucide-react";
 
 interface ClientRequest {
   id: string;
@@ -11,6 +11,7 @@ interface ClientRequest {
   serviceType: string;
   comment: string;
   totalPrice?: number;
+  attachedFile?: string;
   status: string;
   createdAt: string;
 }
@@ -103,6 +104,20 @@ const RequestsPage = () => {
                     <div className="bg-background/50 p-4 rounded-lg border border-outline-variant/10 flex gap-3">
                       <MessageSquare size={18} className="text-primary-fixed shrink-0" />
                       <p className="text-secondary-fixed-dim text-sm italic">"{request.comment}"</p>
+                    </div>
+                  )}
+
+                  {request.attachedFile && (
+                    <div className="flex">
+                      <a 
+                        href={request.attachedFile} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 bg-primary-fixed/10 text-primary-fixed border border-primary-fixed/20 px-4 py-3 rounded-lg hover:bg-primary-fixed/20 transition-all font-bold text-sm uppercase tracking-widest"
+                      >
+                        <Paperclip size={18} />
+                        Завантажити прикріплений проєкт/файл
+                      </a>
                     </div>
                   )}
                 </div>
