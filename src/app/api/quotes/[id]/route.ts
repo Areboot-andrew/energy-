@@ -95,7 +95,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { title, totalAmount, groups } = await request.json();
+    const { title, totalAmount, groups, editDetails } = await request.json();
 
     // Since Prisma nested updates can be complex (deleting old items and creating new ones),
     // we'll do a simple approach: Delete all existing groups and re-create them.
@@ -163,7 +163,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       data: {
         quoteId: params.id,
         action: "EDITED",
-        details: "Кошторис було відредаговано (змінені роботи або ціни)",
+        details: editDetails || "Кошторис було відредаговано",
         userId: session.user.id
       }
     });

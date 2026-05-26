@@ -10,6 +10,7 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [groups, setGroups] = useState<any[]>([]);
+  const [originalGroups, setOriginalGroups] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [memoryItems, setMemoryItems] = useState<any[]>([]);
@@ -25,6 +26,7 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
       .then(data => {
         setTitle(data.title);
         setGroups(data.groups);
+        setOriginalGroups(JSON.parse(JSON.stringify(data.groups)));
         setLoading(false);
       });
   }, [params.quoteId]);
@@ -179,17 +181,55 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
   const handleSave = async () => {
     setSaving(true);
     
-    // Create new revision and archive old one, or just update?
-    // Since we didn't make Quote editable directly in API, we can just POST a new quote and ARCHIVE the old one,
-    // OR we create a PUT route. 
-    // To save time, we can create a PUT /api/quotes/[id] endpoint.
+    let changes: string[] = [];
+    
+    groups.forEach(newGroup => {
+      const oldGroup = originalGroups.find(g => g.id === newGroup.id);
+      if (!oldGroup) {
+        changes.push(`Додано розділ "${newGroup.title}"`);
+      } else {
+        const newItems = newGroup.items;
+        const oldItems = oldGroup.items;
+        
+        if (newItems.length > oldItems.length) {
+          changes.push(`Додано нові послуги в "${newGroup.title}"`);
+        } else if (newItems.length < oldItems.length) {
+          changes.push(`Видалено послуги з "${newGroup.title}"`);
+        } else {
+          let priceChanged = false;
+          let qtyChanged = false;
+          let serviceChanged = false;
+          newItems.forEach((nItem: any) => {
+            const oItem = oldItems.find((i: any) => i.id === nItem.id);
+            if (oItem) {
+              if (Number(nItem.price) !== Number(oItem.price)) priceChanged = true;
+              if (Number(nItem.quantity) !== Number(oItem.quantity)) qtyChanged = true;
+              if (nItem.name !== oItem.name) serviceChanged = true;
+            }
+          });
+          if (priceChanged) changes.push(`Змінено ціни в "${newGroup.title}"`);
+          if (qtyChanged) changes.push(`Змінено кількість в "${newGroup.title}"`);
+          if (serviceChanged) changes.push(`Змінено послуги в "${newGroup.title}"`);
+        }
+      }
+    });
+    
+    originalGroups.forEach(oldGroup => {
+      if (!groups.find(g => g.id === oldGroup.id)) {
+        changes.push(`Видалено розділ "${oldGroup.title}"`);
+      }
+    });
+
+    const editDetails = changes.length > 0 ? changes.join(', ') : 'Незначні правки (опис або фото)';
+
     const res = await fetch(`/api/quotes/${params.quoteId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         title,
         totalAmount: grandTotal,
-        groups
+        groups,
+        editDetails
       })
     });
     
