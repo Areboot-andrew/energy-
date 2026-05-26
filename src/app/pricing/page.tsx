@@ -39,7 +39,7 @@ export default function PricingPage() {
   const [content, setContent] = useState<PageContent | null>(null);
 
   useEffect(() => {
-    fetch("/api/prices")
+    fetch("/api/prices?publicOnly=true")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {

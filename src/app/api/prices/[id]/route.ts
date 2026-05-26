@@ -8,16 +8,22 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { name, unit, price, category } = body;
+    const { name, unit, price, category, isPublic } = body;
     
+    const dataToUpdate: any = { 
+      name, 
+      unit, 
+      price: typeof price === 'string' ? parseFloat(price) : price, 
+      category 
+    };
+
+    if (isPublic !== undefined) {
+      dataToUpdate.isPublic = isPublic;
+    }
+
     const updatedPrice = await prisma.priceItem.update({
       where: { id },
-      data: { 
-        name, 
-        unit, 
-        price: typeof price === 'string' ? parseFloat(price) : price, 
-        category 
-      },
+      data: dataToUpdate,
     });
     
     return NextResponse.json(updatedPrice);

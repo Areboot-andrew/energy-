@@ -9,12 +9,13 @@ interface PriceItem {
   name: string;
   unit: string;
   price: number;
+  isPublic?: boolean;
 }
 
 const SettingsPage = () => {
   const [basePrice, setBasePrice] = useState(7500);
   const [prices, setPrices] = useState<PriceItem[]>([]);
-  const [newPrice, setNewPrice] = useState({ name: "", unit: "", price: "" });
+  const [newPrice, setNewPrice] = useState({ name: "", unit: "", price: "", isPublic: true });
   const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -54,14 +55,14 @@ const SettingsPage = () => {
       } else {
         setPrices([...prices, item]);
       }
-      setNewPrice({ name: "", unit: "", price: "" });
+      setNewPrice({ name: "", unit: "", price: "", isPublic: true });
       setEditingId(null);
     }
   };
 
   const handleEdit = (item: PriceItem) => {
     setEditingId(item.id);
-    setNewPrice({ name: item.name, unit: item.unit, price: item.price.toString() });
+    setNewPrice({ name: item.name, unit: item.unit, price: item.price.toString(), isPublic: item.isPublic ?? true });
   };
 
   const handleDelete = async (id: string) => {
@@ -141,7 +142,18 @@ const SettingsPage = () => {
                 className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-2 text-white text-sm focus:border-primary-fixed outline-none"
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-end pb-1">
+              <label className="flex items-center gap-2 text-white text-sm bg-surface-container-highest px-3 py-2 rounded-lg cursor-pointer h-[42px] border border-outline-variant/30 hover:border-primary-fixed/50 transition-colors">
+                <input
+                  type="checkbox"
+                  checked={newPrice.isPublic}
+                  onChange={(e) => setNewPrice({ ...newPrice, isPublic: e.target.checked })}
+                  className="accent-primary-fixed w-4 h-4"
+                />
+                Публічно
+              </label>
+            </div>
+            <div className="flex gap-2 col-span-1 md:col-span-4 mt-2">
               <button
                 type="submit"
                 className="flex-grow bg-primary-fixed text-black p-2 rounded-lg font-bold flex items-center justify-center gap-2 hover:shadow-[0_0_10px_rgba(213,240,0,0.2)] transition-all h-[42px]"
@@ -152,7 +164,7 @@ const SettingsPage = () => {
               {editingId && (
                 <button
                   type="button"
-                  onClick={() => { setEditingId(null); setNewPrice({ name: "", unit: "", price: "" }); }}
+                  onClick={() => { setEditingId(null); setNewPrice({ name: "", unit: "", price: "", isPublic: true }); }}
                   className="bg-surface-container-highest text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
                 >
                   <Trash2 size={18} />
@@ -167,6 +179,7 @@ const SettingsPage = () => {
                 <tr className="border-b border-outline-variant/20">
                   <th className="py-4 text-xs font-bold text-secondary-fixed-dim uppercase">Послуга</th>
                   <th className="py-4 text-xs font-bold text-secondary-fixed-dim uppercase">Одиниця</th>
+                  <th className="py-4 text-xs font-bold text-secondary-fixed-dim uppercase text-center">Публічно</th>
                   <th className="py-4 text-xs font-bold text-secondary-fixed-dim uppercase text-right">Ціна (₴)</th>
                   <th className="py-4 text-xs font-bold text-secondary-fixed-dim uppercase text-right">Дії</th>
                 </tr>
@@ -176,6 +189,11 @@ const SettingsPage = () => {
                   <tr key={item.id} className="hover:bg-white/5 transition-colors">
                     <td className="py-4 text-white font-medium">{item.name}</td>
                     <td className="py-4 text-secondary-fixed-dim">{item.unit}</td>
+                    <td className="py-4 text-center">
+                      <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${item.isPublic !== false ? 'bg-primary-fixed/20 text-primary-fixed' : 'bg-surface-container-highest text-secondary-fixed-dim'}`}>
+                        {item.isPublic !== false ? 'Так' : 'Ні'}
+                      </span>
+                    </td>
                     <td className="py-4 text-right font-bold text-white">{item.price.toLocaleString()}</td>
                     <td className="py-4 text-right space-x-2">
                       <button 

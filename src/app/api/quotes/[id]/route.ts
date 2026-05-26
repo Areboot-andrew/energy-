@@ -144,7 +144,8 @@ export async function PUT(request: Request, { params }: { params: { id: string }
                 name: i.name,
                 unit: i.unit || "шт",
                 price: parseFloat(i.price) || 0,
-                category: g.title
+                category: g.title,
+                isPublic: false
               }
             });
           } else {

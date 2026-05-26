@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const prices = await prisma.priceItem.findMany();
+    const { searchParams } = new URL(request.url);
+    const publicOnly = searchParams.get('publicOnly') === 'true';
+
+    const where = publicOnly ? { isPublic: true } : {};
+    
+    const prices = await prisma.priceItem.findMany({ where });
     return NextResponse.json(prices);
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

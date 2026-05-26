@@ -136,6 +136,7 @@ model PriceItem {
   unit      String
   price     Float
   category  String?
+  isPublic  Boolean  @default(true)
   updatedAt DateTime @updatedAt
 }
 
