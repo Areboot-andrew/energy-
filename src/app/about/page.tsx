@@ -33,6 +33,11 @@ export default async function AboutPage() {
     steps = JSON.parse(content?.aboutStepsBlock || "[]");
   } catch(e) {}
 
+  let stats: { number: string, label: string }[] = [];
+  try {
+    stats = JSON.parse(content?.aboutStatsBlock || "[{\"number\":\"10+\",\"label\":\"РОКІВ ДОСВІДУ\"},{\"number\":\"250+\",\"label\":\"УСПІШНИХ ПРОЄКТІВ\"},{\"number\":\"5\",\"label\":\"РОКІВ ГАРАНТІЇ\"}]");
+  } catch(e) {}
+
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -60,7 +65,7 @@ export default async function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
             <h1 className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-white">
-              {content?.companyName ? content.companyName.split(' ')[0] : 'VOLT'} <span className="text-primary-fixed">{content?.companyName ? content.companyName.split(' ').slice(1).join(' ') : 'PREMIUM'}</span>
+              {content?.aboutHeroTitle1 || "VOLT"} <span className="text-primary-fixed">{content?.aboutHeroTitle2 || "PREMIUM"}</span>
             </h1>
             <h2 className="text-2xl md:text-3xl text-secondary-fixed-dim font-bold">
               {content?.aboutPageSubtitle || "Ми створюємо нервову систему вашого будинку."}
@@ -81,23 +86,17 @@ export default async function AboutPage() {
               </div>
             )}
             <div className="flex flex-wrap gap-4 pt-4">
-              <div className="bg-surface-container border border-outline-variant/30 px-6 py-4 rounded-xl">
-                <div className="text-3xl font-bold text-primary-fixed mb-1">10+</div>
-                <div className="text-sm text-secondary-fixed-dim font-label-md uppercase tracking-wider">Років досвіду</div>
-              </div>
-              <div className="bg-surface-container border border-outline-variant/30 px-6 py-4 rounded-xl">
-                <div className="text-3xl font-bold text-primary-fixed mb-1">250+</div>
-                <div className="text-sm text-secondary-fixed-dim font-label-md uppercase tracking-wider">Успішних проєктів</div>
-              </div>
-              <div className="bg-surface-container border border-outline-variant/30 px-6 py-4 rounded-xl">
-                <div className="text-3xl font-bold text-primary-fixed mb-1">5</div>
-                <div className="text-sm text-secondary-fixed-dim font-label-md uppercase tracking-wider">Років гарантії</div>
-              </div>
+              {stats.map((s, i) => (
+                <div key={i} className="bg-surface-container border border-outline-variant/30 px-6 py-4 rounded-xl">
+                  <div className="text-3xl font-bold text-primary-fixed mb-1">{s.number}</div>
+                  <div className="text-sm text-secondary-fixed-dim font-label-md uppercase tracking-wider">{s.label}</div>
+                </div>
+              ))}
             </div>
           </div>
           <div className="relative rounded-2xl overflow-hidden aspect-[4/3] lg:aspect-square">
             <img 
-              src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+              src={content?.aboutPageCoverImage || "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"} 
               alt={`Команда ${content?.companyName || 'VOLT PREMIUM'}`} 
               className="w-full h-full object-cover"
             />
@@ -110,9 +109,9 @@ export default async function AboutPage() {
         <section className="py-24 bg-surface-dim border-y border-outline-variant/10">
           <div className="px-margin-desktop max-w-container-max mx-auto">
             <div className="text-center mb-16">
-              <h2 className="font-headline-xl mb-4 text-white">Наші цінності</h2>
+              <h2 className="font-headline-xl mb-4 text-white">{content?.aboutValuesTitle || "Наші цінності"}</h2>
               <p className="text-secondary-fixed-dim text-lg max-w-2xl mx-auto">
-                Ми не йдемо на компроміси, коли справа стосується якості та безпеки.
+                {content?.aboutValuesSubtitle || "Ми не йдемо на компроміси, коли справа стосується якості та безпеки."}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -134,7 +133,7 @@ export default async function AboutPage() {
       {/* How we work steps */}
       {steps.length > 0 && (
         <section className="py-24 px-margin-desktop max-w-container-max mx-auto">
-          <h2 className="font-headline-xl text-center mb-16 text-white">Етапи співпраці</h2>
+          <h2 className="font-headline-xl text-center mb-16 text-white">{content?.aboutStepsTitle || "Етапи співпраці"}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
             <div className="hidden lg:block absolute top-1/2 left-0 w-full h-px bg-outline-variant/20 -translate-y-1/2 -z-10"></div>
             {steps.map((step, idx) => (

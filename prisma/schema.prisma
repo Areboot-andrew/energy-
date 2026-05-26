@@ -255,6 +255,13 @@ model PageContent {
   aboutSeoDescription String?
   aboutPageSubtitle String?
   aboutPageText     String?
+  aboutHeroTitle1   String  @default("VOLT")
+  aboutHeroTitle2   String  @default("PREMIUM")
+  aboutPageCoverImage String?
+  aboutStatsBlock   String  @default("[{\"number\":\"10+\",\"label\":\"РОКІВ ДОСВІДУ\"},{\"number\":\"250+\",\"label\":\"УСПІШНИХ ПРОЄКТІВ\"},{\"number\":\"5\",\"label\":\"РОКІВ ГАРАНТІЇ\"}]")
+  aboutValuesTitle  String  @default("Наші цінності")
+  aboutValuesSubtitle String @default("Ми не йдемо на компроміси, коли справа стосується якості та безпеки.")
+  aboutStepsTitle   String  @default("Етапи співпраці")
   aboutValuesBlock  String  @default("[{\"icon\":\"Award\",\"title\":\"Хірургічна точність\",\"description\":\"Ми приділяємо увагу кожному міліметру кабельної траси. Наші щити — це витвір інженерного мистецтва.\"},{\"icon\":\"Shield\",\"title\":\"Безкомпромісна безпека\",\"description\":\"Використовуємо лише негорючий кабель та сертифіковану автоматику від світових лідерів.\"},{\"icon\":\"Target\",\"title\":\"Фіксований кошторис\",\"description\":\"Після підписання договору ціна залишається незмінною.\"},{\"icon\":\"Zap\",\"title\":\"Інноваційність\",\"description\":\"Ми слідкуємо за трендами: системи Розумного дому, бездротове керування.\"}]")
   aboutStepsBlock   String  @default("[{\"title\":\"Консультація та аудит\",\"desc\":\"Детально вивчаємо об'єкт та обговорюємо ваші побажання.\"},{\"title\":\"Проєктування\",\"desc\":\"Створюємо детальний проєкт з точним прорахунком матеріалів.\"},{\"title\":\"Монтаж та збірка\",\"desc\":\"Виконуємо роботи на об'єкті з використанням професійного інструменту.\"},{\"title\":\"Тестування та здача\",\"desc\":\"Перевіряємо всі системи та здаємо об'єкт із гарантією.\"}]")
 }
