@@ -115,7 +115,7 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
               {
                 columns: [
                   { text: group.title, style: 'groupTitle' },
-                  { text: `${groupTotal.toLocaleString()} ₴`, style: 'groupTotal', alignment: 'right' }
+                  { text: `${groupTotal.toLocaleString()} грн`, style: 'groupTotal', alignment: 'right' }
                 ],
                 margin: [0, 15, 0, 5]
               },
@@ -130,8 +130,8 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
                       { text: 'Найменування', style: 'tableHeader' },
                       { text: 'Фото', style: 'tableHeader', alignment: 'center' },
                       { text: 'Кіл-ть', style: 'tableHeader', alignment: 'center' },
-                      { text: 'Ціна (₴)', style: 'tableHeader', alignment: 'right' },
-                      { text: 'Сума (₴)', style: 'tableHeader', alignment: 'right' }
+                      { text: 'Ціна (грн)', style: 'tableHeader', alignment: 'right' },
+                      { text: 'Сума (грн)', style: 'tableHeader', alignment: 'right' }
                     ],
                     // Table Body
                     ...group.items.map((item: any, idx: number) => [
@@ -189,7 +189,7 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
               {
                 stack: [
                   { text: 'ЗАГАЛЬНА ВАРТІСТЬ:', style: 'grandTotalLabel', margin: [0, 0, 0, 5] },
-                  { text: `${quote.totalAmount.toLocaleString()} ₴`, style: 'grandTotalValue' }
+                  { text: `${quote.totalAmount.toLocaleString()} грн`, style: 'grandTotalValue' }
                 ],
                 alignment: 'right',
                 margin: [0, 30, 0, 0]
@@ -317,7 +317,7 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
               <div key={group.id} className="mb-8">
                 <div className="bg-gray-100 p-3 flex justify-between items-center font-bold text-lg border-l-4 border-black">
                   <span>{group.title}</span>
-                  <span>{groupTotal.toLocaleString()} ₴</span>
+                  <span>{groupTotal.toLocaleString()} грн</span>
                 </div>
                 <table className="w-full mt-4 text-sm text-left border-collapse border border-gray-300">
                   <thead>
@@ -325,8 +325,8 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
                       <th className="py-3 px-3 w-[5%] border border-gray-300">№</th>
                       <th className="py-3 px-3 w-[40%] border border-gray-300">Найменування</th>
                       <th className="py-3 px-3 w-[15%] border border-gray-300 bg-gray-100/50">Кіл-ть</th>
-                      <th className="py-3 px-3 w-[20%] text-right border border-gray-300 bg-gray-100/50">Ціна (₴)</th>
-                      <th className="py-3 px-3 w-[20%] text-right border border-gray-300 bg-blue-50/50">Сума (₴)</th>
+                      <th className="py-3 px-3 w-[20%] text-right border border-gray-300 bg-gray-100/50">Ціна (грн)</th>
+                      <th className="py-3 px-3 w-[20%] text-right border border-gray-300 bg-blue-50/50">Сума (грн)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-300">
@@ -371,7 +371,7 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
           
           <div className="text-right bg-blue-50 p-6 border-2 border-blue-200 rounded-xl">
             <p className="text-blue-600 font-black uppercase tracking-widest text-sm mb-1">ЗАГАЛЬНА ВАРТІСТЬ:</p>
-            <p className="text-5xl font-black text-blue-900">{quote.totalAmount.toLocaleString()} <span className="text-2xl">₴</span></p>
+            <p className="text-5xl font-black text-blue-900">{quote.totalAmount.toLocaleString()} <span className="text-2xl">грн</span></p>
           </div>
         </div>
 

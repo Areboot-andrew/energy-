@@ -287,7 +287,7 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                       placeholder="Назва групи (напр. Матеріали)"
                     />
                     <div className="flex items-center gap-6">
-                      <span className="font-bold text-white">{groupTotal.toLocaleString()} ₴</span>
+                      <span className="font-bold text-white">{groupTotal.toLocaleString()} грн</span>
                       <button onClick={() => removeGroup(group.id)} className="text-secondary-fixed-dim hover:text-error transition-colors">
                         <Trash2 size={20} />
                       </button>
@@ -301,8 +301,8 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                           <th className="py-3 px-2 w-[35%]">Найменування</th>
                           <th className="py-3 px-2 w-[10%]">Фото</th>
                           <th className="py-3 px-2 w-[15%]">Кіл-ть / Од.</th>
-                          <th className="py-3 px-2 w-[15%]">Ціна (₴)</th>
-                          <th className="py-3 px-2 w-[15%]">Сума (₴)</th>
+                          <th className="py-3 px-2 w-[15%]">Ціна (грн)</th>
+                          <th className="py-3 px-2 w-[15%]">Сума (грн)</th>
                           <th className="py-3 px-2 w-[10%] text-center">Дія</th>
                         </tr>
                       </thead>
@@ -339,7 +339,7 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                                           }}
                                         >
                                           <span className="font-bold">{m.name}</span>
-                                          <span className="text-xs opacity-70 bg-black/20 px-2 py-1 rounded">{m.price} ₴ / {m.unit}</span>
+                                          <span className="text-xs opacity-70 bg-black/20 px-2 py-1 rounded">{m.price} грн / {m.unit}</span>
                                         </div>
                                     ))}
                                   </div>
@@ -440,7 +440,7 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                             </td>
                             <td className="py-3 px-2">
                               <div className="font-bold text-white p-2">
-                                {item.total.toLocaleString()} ₴
+                                {item.total.toLocaleString()} грн
                               </div>
                             </td>
                             <td className="py-3 px-2 text-center">
@@ -485,7 +485,7 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
           </div>
           <div>
             <p className="text-secondary-fixed-dim text-xs font-bold uppercase tracking-widest">Загальна сума кошторису</p>
-            <p className="text-2xl font-bold text-white">{grandTotal.toLocaleString()} ₴</p>
+            <p className="text-2xl font-bold text-white">{grandTotal.toLocaleString()} грн</p>
           </div>
         </div>
         

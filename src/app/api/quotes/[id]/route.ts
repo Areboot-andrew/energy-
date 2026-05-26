@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import fs from "fs";
+import path from "path";
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
@@ -180,6 +182,34 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     const session = await getServerSession(authOptions);
     if (session?.user?.role !== "ADMIN") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const quoteToDelete = await prisma.quote.findUnique({
+      where: { id: params.id },
+      include: {
+        groups: {
+          include: { items: true }
+        }
+      }
+    });
+
+    if (quoteToDelete) {
+      const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+      for (const group of quoteToDelete.groups) {
+        for (const item of group.items) {
+          if (item.photoUrl && item.photoUrl.startsWith('/api/media/')) {
+            const filename = item.photoUrl.replace('/api/media/', '');
+            const filepath = path.join(uploadsDir, filename);
+            if (fs.existsSync(filepath)) {
+              try {
+                fs.unlinkSync(filepath);
+              } catch (err) {
+                console.error("Failed to delete photo:", filepath, err);
+              }
+            }
+          }
+        }
+      }
     }
 
     await prisma.quote.delete({

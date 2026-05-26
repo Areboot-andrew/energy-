@@ -305,7 +305,7 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                       onChange={e => updateGroupTitle(group.id, e.target.value)}
                     />
                     <div className="flex items-center gap-6">
-                      <span className="font-bold text-white">{groupTotal.toLocaleString()} ₴</span>
+                      <span className="font-bold text-white">{groupTotal.toLocaleString()} грн</span>
                       <button onClick={() => removeGroup(group.id)} className="text-secondary-fixed-dim hover:text-error transition-colors">
                         <Trash2 size={20} />
                       </button>
@@ -319,8 +319,8 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                           <th className="py-3 px-2 w-[35%]">Найменування</th>
                           <th className="py-3 px-2 w-[10%]">Фото</th>
                           <th className="py-3 px-2 w-[15%]">Кіл-ть / Од.</th>
-                          <th className="py-3 px-2 w-[15%]">Ціна (₴)</th>
-                          <th className="py-3 px-2 w-[15%]">Сума (₴)</th>
+                          <th className="py-3 px-2 w-[15%]">Ціна (грн)</th>
+                          <th className="py-3 px-2 w-[15%]">Сума (грн)</th>
                           <th className="py-3 px-2 w-[10%] text-center">Дія</th>
                         </tr>
                       </thead>
@@ -357,7 +357,7 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                                           }}
                                         >
                                           <span className="font-bold">{m.name}</span>
-                                          <span className="text-xs opacity-70 bg-black/20 px-2 py-1 rounded">{m.price} ₴ / {m.unit}</span>
+                                          <span className="text-xs opacity-70 bg-black/20 px-2 py-1 rounded">{m.price} грн / {m.unit}</span>
                                         </div>
                                     ))}
                                   </div>
@@ -453,7 +453,7 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                               />
                             </td>
                             <td className="py-3 px-2">
-                              <div className="font-bold text-white p-2">{item.total.toLocaleString()} ₴</div>
+                              <div className="font-bold text-white p-2">{item.total.toLocaleString()} грн</div>
                             </td>
                             <td className="py-3 px-2 text-center">
                               <button onClick={() => removeItem(group.id, item.id)} className="p-2 text-secondary-fixed-dim hover:text-error transition-colors">
@@ -488,8 +488,8 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
 
       <div className="fixed bottom-0 left-0 md:left-72 right-0 bg-surface-container border-t border-outline-variant/30 p-4 shadow-2xl z-40 flex justify-between items-center">
         <div>
-          <p className="text-secondary-fixed-dim text-xs font-bold uppercase tracking-widest">Загальна сума</p>
-          <p className="text-2xl font-bold text-white">{grandTotal.toLocaleString()} ₴</p>
+          <p className="text-secondary-fixed-dim text-xs font-bold uppercase tracking-widest">Загальна сума кошторису</p>
+          <p className="text-2xl font-bold text-white">{grandTotal.toLocaleString()} грн</p>
         </div>
         <button 
           onClick={handleSave}
