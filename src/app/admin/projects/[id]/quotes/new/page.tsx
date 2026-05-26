@@ -368,7 +368,7 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                                   min="0"
                                   step="0.01"
                                   className="w-16 bg-background border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm"
-                                  value={item.quantity}
+                                  value={item.quantity === 0 ? '' : item.quantity}
                                   onChange={e => updateItem(group.id, item.id, 'quantity', e.target.value)}
                                   onBlur={() => handleItemBlur(item)}
                                 />
@@ -392,7 +392,7 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                                 min="0"
                                 step="0.01"
                                 className="w-full bg-background border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm"
-                                value={item.price}
+                                value={item.price === 0 ? '' : item.price}
                                 onChange={e => updateItem(group.id, item.id, 'price', e.target.value)}
                                 onBlur={() => handleItemBlur(item)}
                               />
