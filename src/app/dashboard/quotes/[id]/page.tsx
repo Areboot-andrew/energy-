@@ -39,9 +39,9 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
       };
 
       await html2pdf().set(opt).from(element).save();
-    } catch (error) {
+    } catch (error: any) {
       console.error("PDF generation error:", error);
-      alert("Виникла помилка при генерації PDF. Можливо, деякі зображення не вдалося завантажити.");
+      alert("Деталі помилки генерації PDF: " + (error?.message || error?.toString() || JSON.stringify(error)));
     } finally {
       setGeneratingPDF(false);
       // Remove any leftover html2canvas iframes that block interactions
