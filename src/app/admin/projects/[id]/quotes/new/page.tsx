@@ -120,21 +120,56 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
       return;
     }
     
-    // Create temp URL for instant UI feedback (optional, we'll wait for server)
-    const formData = new FormData();
-    formData.append("file", file);
+    // Compress image
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    img.src = objectUrl;
     
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData
-    });
-    
-    if (res.ok) {
-      const data = await res.json();
-      updateItem(groupId, itemId, 'photoUrl', data.url);
-    } else {
-      alert("Помилка завантаження фото");
-    }
+    img.onload = async () => {
+      URL.revokeObjectURL(objectUrl);
+      const canvas = document.createElement("canvas");
+      const MAX_WIDTH = 256;
+      const MAX_HEIGHT = 256;
+      let width = img.width;
+      let height = img.height;
+
+      if (width > height) {
+        if (width > MAX_WIDTH) {
+          height *= MAX_WIDTH / width;
+          width = MAX_WIDTH;
+        }
+      } else {
+        if (height > MAX_HEIGHT) {
+          width *= MAX_HEIGHT / height;
+          height = MAX_HEIGHT;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx?.drawImage(img, 0, 0, width, height);
+      
+      canvas.toBlob(async (blob) => {
+        if (!blob) return;
+        const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", { type: "image/jpeg" });
+        
+        const formData = new FormData();
+        formData.append("file", compressedFile);
+        
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: formData
+        });
+        
+        if (res.ok) {
+          const data = await res.json();
+          updateItem(groupId, itemId, 'photoUrl', data.url);
+        } else {
+          alert("Помилка завантаження фото");
+        }
+      }, "image/jpeg", 0.7);
+    };
   };
 
   const grandTotal = groups.reduce((sum, group) => {

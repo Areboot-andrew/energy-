@@ -88,6 +88,64 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
     setGroups(prev => prev.map(g => g.id === groupId ? { ...g, title } : g));
   };
 
+  const handlePhotoUpload = async (file: File, groupId: string, itemId: string) => {
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Файл занадто великий (макс 5 МБ)");
+      return;
+    }
+    
+    // Compress image
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    img.src = objectUrl;
+    
+    img.onload = async () => {
+      URL.revokeObjectURL(objectUrl);
+      const canvas = document.createElement("canvas");
+      const MAX_WIDTH = 256;
+      const MAX_HEIGHT = 256;
+      let width = img.width;
+      let height = img.height;
+
+      if (width > height) {
+        if (width > MAX_WIDTH) {
+          height *= MAX_WIDTH / width;
+          width = MAX_WIDTH;
+        }
+      } else {
+        if (height > MAX_HEIGHT) {
+          width *= MAX_HEIGHT / height;
+          height = MAX_HEIGHT;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx?.drawImage(img, 0, 0, width, height);
+      
+      canvas.toBlob(async (blob) => {
+        if (!blob) return;
+        const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", { type: "image/jpeg" });
+        
+        const formData = new FormData();
+        formData.append("file", compressedFile);
+        
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: formData
+        });
+        
+        if (res.ok) {
+          const data = await res.json();
+          updateItem(groupId, itemId, 'photoUrl', data.url);
+        } else {
+          alert("Помилка завантаження фото");
+        }
+      }, "image/jpeg", 0.7);
+    };
+  };
+
   const grandTotal = groups.reduce((sum, group) => {
     return sum + group.items.reduce((gSum: number, item: any) => gSum + item.total, 0);
   }, 0);
@@ -164,7 +222,8 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                     <table className="w-full text-left border-collapse min-w-[800px]">
                       <thead>
                         <tr className="border-b border-outline-variant/20 text-secondary-fixed-dim text-xs uppercase tracking-widest">
-                          <th className="py-3 px-2 w-[40%]">Найменування</th>
+                          <th className="py-3 px-2 w-[35%]">Найменування</th>
+                          <th className="py-3 px-2 w-[10%]">Фото</th>
                           <th className="py-3 px-2 w-[15%]">Кіл-ть / Од.</th>
                           <th className="py-3 px-2 w-[15%]">Ціна (₴)</th>
                           <th className="py-3 px-2 w-[15%]">Сума (₴)</th>
@@ -180,7 +239,38 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                                 className="w-full bg-transparent border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm mb-1"
                                 value={item.name}
                                 onChange={e => updateItem(group.id, item.id, 'name', e.target.value)}
+                                placeholder="Назва товару чи роботи"
                               />
+                              <input 
+                                className="w-full bg-transparent border border-outline-variant/10 rounded p-1.5 text-secondary-fixed-dim focus:text-white focus:border-primary-fixed outline-none text-xs italic"
+                                value={item.description || ''}
+                                onChange={e => updateItem(group.id, item.id, 'description', e.target.value)}
+                                placeholder="Опис / Артикул (необов'язково)"
+                              />
+                            </td>
+                            <td className="py-3 px-2">
+                              <label className="cursor-pointer flex items-center justify-center w-12 h-12 bg-background border border-dashed border-outline-variant/30 rounded hover:border-primary-fixed transition-colors overflow-hidden relative group/upload">
+                                <input 
+                                  type="file" 
+                                  className="hidden" 
+                                  accept="image/*"
+                                  onChange={(e) => {
+                                    if(e.target.files?.[0]) {
+                                      handlePhotoUpload(e.target.files[0], group.id, item.id);
+                                    }
+                                  }}
+                                />
+                                {item.photoUrl ? (
+                                  <>
+                                    <img src={item.photoUrl} alt="item" className="w-full h-full object-cover" />
+                                    <div className="absolute inset-0 bg-black/50 hidden group-hover/upload:flex items-center justify-center">
+                                      <UploadCloud size={16} className="text-white" />
+                                    </div>
+                                  </>
+                                ) : (
+                                  <ImageIcon size={16} className="text-secondary-fixed-dim" />
+                                )}
+                              </label>
                             </td>
                             <td className="py-3 px-2">
                               <div className="flex gap-2">
