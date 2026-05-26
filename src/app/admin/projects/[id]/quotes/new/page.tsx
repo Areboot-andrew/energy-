@@ -83,6 +83,31 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
     }));
   };
 
+  const handleItemBlur = (item: any) => {
+    if (!item.name || item.name.trim() === '') return;
+    
+    setMemoryItems(prev => {
+      const existsIndex = prev.findIndex(m => m.name.toLowerCase() === item.name.trim().toLowerCase());
+      if (existsIndex >= 0) {
+        // Only update if price/unit actually changed
+        if (prev[existsIndex].price !== Number(item.price) || prev[existsIndex].unit !== item.unit) {
+          const newMem = [...prev];
+          newMem[existsIndex] = { ...newMem[existsIndex], price: Number(item.price), unit: item.unit };
+          return newMem;
+        }
+        return prev;
+      }
+      
+      // Instantly add to memory so it's available for the very next row!
+      return [...prev, {
+        id: `temp-${Date.now()}`,
+        name: item.name.trim(),
+        price: Number(item.price),
+        unit: item.unit
+      }];
+    });
+  };
+
   const addItem = (groupId: string) => {
     setGroups(prev => prev.map(group => {
       if (group.id !== groupId) return group;
@@ -267,7 +292,10 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                                   value={item.name}
                                   onChange={e => updateItem(group.id, item.id, 'name', e.target.value)}
                                   onFocus={() => setActiveDropdownId(item.id)}
-                                  onBlur={() => setTimeout(() => { if (activeDropdownId === item.id) setActiveDropdownId(null) }, 200)}
+                                  onBlur={() => {
+                                    handleItemBlur(item);
+                                    setTimeout(() => { if (activeDropdownId === item.id) setActiveDropdownId(null) }, 200);
+                                  }}
                                   placeholder="Назва послуги чи матеріалу..."
                                 />
                                 {activeDropdownId === item.id && memoryItems.filter(m => m.name.toLowerCase().includes(item.name.toLowerCase())).length > 0 && (
@@ -332,11 +360,13 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                                   className="w-16 bg-background border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm"
                                   value={item.quantity}
                                   onChange={e => updateItem(group.id, item.id, 'quantity', e.target.value)}
+                                  onBlur={() => handleItemBlur(item)}
                                 />
                                 <select 
                                   className="w-16 bg-background border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm text-center appearance-none"
                                   value={item.unit}
                                   onChange={e => updateItem(group.id, item.id, 'unit', e.target.value)}
+                                  onBlur={() => handleItemBlur(item)}
                                 >
                                   <option value="шт">шт</option>
                                   <option value="м">м</option>
@@ -354,6 +384,7 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                                 className="w-full bg-background border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm"
                                 value={item.price}
                                 onChange={e => updateItem(group.id, item.id, 'price', e.target.value)}
+                                onBlur={() => handleItemBlur(item)}
                               />
                             </td>
                             <td className="py-3 px-2">
