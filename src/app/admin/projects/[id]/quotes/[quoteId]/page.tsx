@@ -21,11 +21,17 @@ export default function AdminQuoteDetailsPage({ params }: { params: { id: string
   const handleDownloadPDF = async () => {
     try {
       // Dynamically import pdfmake to avoid SSR issues
-      const pdfMakeModule = await import("pdfmake/build/pdfmake");
-      const pdfFonts = await import("pdfmake/build/vfs_fonts");
+      const pdfMakeModule: any = await import("pdfmake/build/pdfmake");
+      const pdfFonts: any = await import("pdfmake/build/vfs_fonts");
       const pdfMake = pdfMakeModule.default || pdfMakeModule;
-      // Handle different module resolutions
-      const vfs = pdfFonts.pdfMake ? pdfFonts.pdfMake.vfs : (pdfFonts.default ? pdfFonts.default.pdfMake.vfs : pdfFonts);
+      
+      let vfs = null;
+      if (pdfFonts && pdfFonts.pdfMake && pdfFonts.pdfMake.vfs) vfs = pdfFonts.pdfMake.vfs;
+      else if (pdfFonts && pdfFonts.default && pdfFonts.default.pdfMake && pdfFonts.default.pdfMake.vfs) vfs = pdfFonts.default.pdfMake.vfs;
+      else if (pdfFonts && pdfFonts.vfs) vfs = pdfFonts.vfs;
+      else if (typeof window !== 'undefined' && (window as any).pdfMake && (window as any).pdfMake.vfs) vfs = (window as any).pdfMake.vfs;
+      else if (pdfFonts) vfs = pdfFonts; // fallback if it exports the vfs directly
+      
       pdfMake.vfs = vfs;
 
       const docDefinition: any = {
