@@ -188,7 +188,14 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
           <ArrowLeft size={16} /> Скасувати
         </Link>
         
-        <h1 className="text-3xl font-bold text-white mb-8">Редагування Кошторису</h1>
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-2">Редагування Кошторису</h1>
+          <p className="text-secondary-fixed-dim mb-8">
+            <span className="text-primary-fixed font-bold bg-primary-fixed/10 px-2 py-1 rounded">
+              💡 Всі нові послуги та змінені ціни автоматично зберігаються в базу
+            </span>
+          </p>
+        </div>
 
         <div className="bg-surface-container border border-outline-variant/30 rounded-2xl p-6 shadow-2xl">
           <input 
@@ -239,7 +246,7 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                                 className="w-full bg-transparent border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm mb-1"
                                 value={item.name}
                                 onChange={e => updateItem(group.id, item.id, 'name', e.target.value)}
-                                placeholder="Назва товару чи роботи"
+                                placeholder="Назва (почніть вводити для підказки)"
                               />
                               <input 
                                 className="w-full bg-transparent border border-outline-variant/10 rounded p-1.5 text-secondary-fixed-dim focus:text-white focus:border-primary-fixed outline-none text-xs italic"

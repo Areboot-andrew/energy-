@@ -212,7 +212,11 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">Генератор Кошторису</h1>
-            <p className="text-secondary-fixed-dim">Створення детального розрахунку як у Excel.</p>
+            <p className="text-secondary-fixed-dim">Створення детального розрахунку як у Excel. 
+              <span className="text-primary-fixed ml-2 font-bold bg-primary-fixed/10 px-2 py-1 rounded">
+                💡 Всі нові послуги автоматично зберігаються в базу
+              </span>
+            </p>
           </div>
         </div>
 
@@ -266,7 +270,7 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                                 className="w-full bg-transparent border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm mb-1"
                                 value={item.name}
                                 onChange={e => updateItem(group.id, item.id, 'name', e.target.value)}
-                                placeholder="Назва товару чи роботи"
+                                placeholder="Назва (почніть вводити для підказки)"
                               />
                               <input 
                                 className="w-full bg-transparent border border-outline-variant/10 rounded p-1.5 text-secondary-fixed-dim focus:text-white focus:border-primary-fixed outline-none text-xs italic"

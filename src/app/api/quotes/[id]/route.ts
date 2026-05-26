@@ -129,6 +129,35 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       }
     });
 
+    // Save items to PriceItem memory for autocomplete
+    for (const g of groups) {
+      for (const i of g.items) {
+        if (i.name && i.name.trim() !== "") {
+          const existing = await prisma.priceItem.findFirst({
+            where: { name: i.name }
+          });
+          if (!existing) {
+            await prisma.priceItem.create({
+              data: {
+                name: i.name,
+                unit: i.unit || "шт",
+                price: parseFloat(i.price) || 0,
+                category: g.title
+              }
+            });
+          } else {
+            // Update price if it changed
+            if (existing.price !== parseFloat(i.price)) {
+              await prisma.priceItem.update({
+                where: { id: existing.id },
+                data: { price: parseFloat(i.price) || 0, unit: i.unit || "шт" }
+              });
+            }
+          }
+        }
+      }
+    }
+
     // Record history
     await prisma.quoteHistory.create({
       data: {
