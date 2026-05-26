@@ -5,10 +5,26 @@ import { Play } from "lucide-react";
 
 const prisma = new PrismaClient();
 
-export const metadata: Metadata = {
-  title: "Портфоліо робіт | Volt Premium",
-  description: "Галерея виконаних проєктів з електромонтажу, розумного дому та сонячних станцій.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await prisma.pageContent.findUnique({
+    where: { id: "singleton" },
+  });
+
+  const title = content?.portfolioSeoTitle || "Портфоліо робіт | Volt Premium";
+  const description = content?.portfolioSeoText 
+    ? content.portfolioSeoText.replace(/<[^>]+>/g, ' ').substring(0, 160).trim() + "..."
+    : "Галерея виконаних проєктів з електромонтажу, розумного дому та сонячних станцій. Перегляньте наші найкращі роботи.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+    },
+  };
+}
 
 export default async function PortfolioPage() {
   const items = await prisma.portfolioProject.findMany({

@@ -15,9 +15,28 @@ export async function generateMetadata(): Promise<Metadata> {
       where: { id: "singleton" },
     });
 
+    const title = content?.metaTitle || "VOLT PREMIUM | Професійні електромонтажні рішення";
+    const description = content?.metaDescription || "Професійні інженерні рішення для преміальної нерухомості та комерційних об'єктів. Від щитка до повного 'Розумного дому'.";
+    
     return {
-      title: content?.metaTitle || "VOLT PREMIUM | Професійні електромонтажні рішення",
-      description: content?.metaDescription || "Професійні інженерні рішення для преміальної нерухомості та комерційних об'єктів. Від щитка до повного 'Розумного дому'.",
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        url: 'https://voltpremium.ua',
+        siteName: content?.companyName || 'VOLT PREMIUM',
+        images: [
+          {
+            url: content?.logoImageUrl || 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            width: 1200,
+            height: 630,
+            alt: content?.companyName || 'VOLT PREMIUM',
+          },
+        ],
+        locale: 'uk_UA',
+        type: 'website',
+      },
     };
   } catch (error) {
     return {
