@@ -31,9 +31,10 @@ const Services = () => {
   };
 
   const getGridClasses = (index: number) => {
-    if (index === 0) return "sm:col-span-2 lg:col-span-2 lg:row-span-1";
-    if (index === 1) return "sm:col-span-1 lg:col-span-1 lg:row-span-2";
-    if (index === 4) return "sm:col-span-2 lg:col-span-3 lg:row-span-1"; 
+    const patternIndex = index % 5;
+    if (patternIndex === 0) return "sm:col-span-2 lg:col-span-2 lg:row-span-1";
+    if (patternIndex === 1) return "sm:col-span-1 lg:col-span-1 lg:row-span-2";
+    if (patternIndex === 4) return "sm:col-span-2 lg:col-span-3 lg:row-span-1"; 
     return "sm:col-span-1 lg:col-span-1 lg:row-span-1";
   };
 
@@ -53,7 +54,7 @@ const Services = () => {
         <div className="h-px bg-outline-variant/30 flex-grow mx-8 mb-4 hidden md:block"></div>
       </motion.div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-4 md:gap-6 h-auto lg:min-h-[800px]">
-        {servicesList.length > 0 ? servicesList.filter((s: any) => s.isFeatured).slice(0, 5).map((service, idx) => (
+        {servicesList.length > 0 ? servicesList.filter((s: any) => s.isFeatured).map((service, idx) => (
           <motion.div 
             key={service.id}
             initial={{ opacity: 0, y: 40 }}
@@ -73,7 +74,7 @@ const Services = () => {
               </div>
               {service.image && (
                 <img 
-                  className={`absolute right-0 bottom-0 ${idx === 1 ? 'w-full h-1/2' : 'w-1/2 h-full'} object-cover opacity-20 grayscale group-hover:scale-105 transition-transform`} 
+                  className={`absolute right-0 bottom-0 ${idx % 5 === 1 ? 'w-full h-1/2' : 'w-1/2 h-full'} object-cover opacity-20 grayscale group-hover:scale-105 transition-transform`} 
                   src={service.image} 
                   alt={service.title}
                 />
