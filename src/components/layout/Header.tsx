@@ -78,11 +78,13 @@ const Header = () => {
           </div>
           {session ? (
             <Link
-              href="/admin"
-              className="hidden md:flex items-center gap-2 text-secondary-fixed-dim hover:text-primary-fixed transition-colors duration-300 font-label-md text-label-md"
+              href={session.user?.role === "ADMIN" ? "/admin" : "/dashboard"}
+              className="hidden md:flex items-center gap-2 text-secondary-fixed-dim hover:text-primary-fixed transition-colors duration-300 font-label-md text-label-md bg-surface-container-high px-4 py-2 rounded-full border border-outline-variant/30"
             >
-              <span className="material-symbols-outlined text-lg">admin_panel_settings</span>
-              <span>{session.user?.name || "Адмін"}</span>
+              <span className="material-symbols-outlined text-lg">
+                {session.user?.role === "ADMIN" ? "admin_panel_settings" : "account_circle"}
+              </span>
+              <span>{session.user?.name || "Кабінет"}</span>
             </Link>
           ) : (
             <div className="hidden md:flex items-center gap-3">
@@ -152,12 +154,14 @@ const Header = () => {
             </a>
             {session ? (
               <Link
-                href="/admin"
+                href={session.user?.role === "ADMIN" ? "/admin" : "/dashboard"}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-primary-fixed font-bold text-lg mt-4 flex items-center gap-2"
+                className="text-primary-fixed font-bold text-lg mt-4 flex items-center gap-2 bg-primary-fixed/10 px-6 py-3 rounded-full border border-primary-fixed/30"
               >
-                <span className="material-symbols-outlined text-xl">admin_panel_settings</span>
-                Адмін Панель
+                <span className="material-symbols-outlined text-xl">
+                  {session.user?.role === "ADMIN" ? "admin_panel_settings" : "account_circle"}
+                </span>
+                {session.user?.role === "ADMIN" ? "Адмін Панель" : "Особистий Кабінет"}
               </Link>
             ) : (
               <Link

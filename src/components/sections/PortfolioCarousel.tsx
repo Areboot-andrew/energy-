@@ -35,7 +35,13 @@ const PortfolioCarousel = () => {
 
   return (
     <section className="py-16 md:py-24 overflow-hidden" id="portfolio">
-      <div className="max-w-container-max mx-auto px-4 md:px-margin-desktop mb-8 md:mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+        className="max-w-container-max mx-auto px-4 md:px-margin-desktop mb-8 md:mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4"
+      >
         <div>
           <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-2 md:mb-4 block">Галерея</span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">{content.portfolioTitle}</h2>
@@ -43,7 +49,7 @@ const PortfolioCarousel = () => {
         <Link href="/portfolio" className="text-primary-fixed font-bold hover:underline mb-2 flex items-center gap-2">
           Всі проєкти <span>→</span>
         </Link>
-      </div>
+      </motion.div>
 
       <div className="relative w-full max-w-container-max mx-auto px-4 md:px-margin-desktop flex overflow-hidden">
         <motion.div
