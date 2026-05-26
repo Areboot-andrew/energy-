@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 
 const About = () => {
   const [content, setContent] = useState({
@@ -55,8 +56,8 @@ const About = () => {
                 transition={{ delay: i * 0.1 }}
                 className="flex items-center gap-4"
               >
-                <div className="w-10 h-10 rounded-full bg-primary-fixed/10 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-primary-fixed text-xl">{item.icon}</span>
+                <div className="w-10 h-10 rounded-full bg-primary-fixed/10 flex items-center justify-center text-primary-fixed">
+                  {(() => { const IconComp = (LucideIcons as any)[item.icon] || LucideIcons.CheckCircle2; return <IconComp size={20} />; })()}
                 </div>
                 <span className="text-white font-body-md">{item.text}</span>
               </motion.li>

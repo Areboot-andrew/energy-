@@ -212,7 +212,7 @@ model PageContent {
   aboutText         String  @default("Ми не просто прокладаємо дроти. Ми створюємо нервову систему вашого будинку.")
   aboutBadgeNumber  String  @default("10+")
   aboutBadgeText    String  @default("Років досвіду")
-  aboutBullets      String  @default("[{\"icon\":\"verified\",\"text\":\"Сертифіковані інженери Schneider & ABB\"},{\"icon\":\"security\",\"text\":\"Гарантія на роботи 5 років\"},{\"icon\":\"architecture\",\"text\":\"Власна база дизайн-проєктів\"}]")
+  aboutBullets      String  @default("[{\"icon\":\"BadgeCheck\",\"text\":\"Сертифіковані інженери Schneider & ABB\"},{\"icon\":\"ShieldCheck\",\"text\":\"Гарантія на роботи 5 років\"},{\"icon\":\"PenTool\",\"text\":\"Власна база дизайн-проєктів\"}]")
   aboutImage        String?
   servicesTitle     String  @default("Комплексні рішення для будь-якої складності")
   servicesSub       String  @default("Що ми робимо")

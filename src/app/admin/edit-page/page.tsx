@@ -5,6 +5,7 @@ import ImageUploader from "@/components/admin/ImageUploader";
 import RichEditor from "@/components/admin/RichEditor";
 import { useState, useEffect } from "react";
 import { Save, Loader2, Globe, Instagram, Linkedin, Facebook, Phone, Mail } from "lucide-react";
+import IconPicker from "@/components/admin/IconPicker";
 
 const PageEditor = () => {
   const [content, setContent] = useState({
@@ -189,7 +190,12 @@ const PageEditor = () => {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Список переваг (Буліти)</label>
                 {bullets.map((b, i) => (
                   <div key={i} className="flex gap-2">
-                    <input type="text" placeholder="Іконка (SVG або Material name)" value={b.icon} onChange={(e) => { const nb = [...bullets]; nb[i].icon = e.target.value; setBullets(nb); }} className="w-1/3 bg-background border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none" />
+                    <div className="w-1/3">
+                      <IconPicker 
+                        value={b.icon} 
+                        onChange={(val) => { const nb = [...bullets]; nb[i].icon = val; setBullets(nb); }} 
+                      />
+                    </div>
                     <input type="text" placeholder="Текст переваги" value={b.text} onChange={(e) => { const nb = [...bullets]; nb[i].text = e.target.value; setBullets(nb); }} className="flex-grow bg-background border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none" />
                     <button type="button" onClick={() => setBullets(bullets.filter((_, idx) => idx !== i))} className="px-3 bg-error/20 text-error rounded-lg">X</button>
                   </div>

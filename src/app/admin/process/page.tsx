@@ -3,6 +3,8 @@
 import AdminLayout from "@/components/layout/AdminLayout";
 import { useState, useEffect } from "react";
 import { Plus, Trash2, Edit2, Save, X } from "lucide-react";
+import * as LucideIcons from "lucide-react";
+import IconPicker from "@/components/admin/IconPicker";
 
 interface WorkStep {
   id: string;
@@ -99,15 +101,13 @@ const ProcessAdmin = () => {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Іконка (Material Symbols)</label>
-            <input
-              type="text"
-              required
-              value={newItem.icon}
-              onChange={(e) => setNewItem({ ...newItem, icon: e.target.value })}
-              className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-2 text-white"
-              placeholder="напр., bolt, engineering"
-            />
+            <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Іконка (Lucide)</label>
+            <div className="w-full">
+              <IconPicker
+                value={newItem.icon}
+                onChange={(val) => setNewItem({ ...newItem, icon: val })}
+              />
+            </div>
           </div>
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Порядок (Сортування)</label>
@@ -141,12 +141,12 @@ const ProcessAdmin = () => {
                     onChange={(e) => setEditItem({ ...editItem!, description: e.target.value })}
                     className="md:col-span-2 bg-background border border-outline-variant/30 rounded-lg px-4 py-2 text-white"
                   />
-                  <input
-                    type="text"
-                    value={editItem?.icon}
-                    onChange={(e) => setEditItem({ ...editItem!, icon: e.target.value })}
-                    className="bg-background border border-outline-variant/30 rounded-lg px-4 py-2 text-white"
-                  />
+                  <div className="bg-background border border-outline-variant/30 rounded-lg w-full">
+                    <IconPicker
+                      value={editItem?.icon || ""}
+                      onChange={(val) => setEditItem({ ...editItem!, icon: val })}
+                    />
+                  </div>
                   <input
                     type="number"
                     value={editItem?.order}
@@ -157,7 +157,9 @@ const ProcessAdmin = () => {
               ) : (
                 <div className="flex-1">
                   <div className="flex items-center gap-4 mb-2">
-                    <span className="material-symbols-outlined text-primary-fixed text-2xl">{item.icon}</span>
+                    <div className="w-8 h-8 flex items-center justify-center text-primary-fixed">
+                      {(() => { const IconComp = (LucideIcons as any)[item.icon] || LucideIcons.CheckCircle2; return <IconComp size={24} />; })()}
+                    </div>
                     <h3 className="text-xl font-bold text-white">{item.title}</h3>
                     <span className="bg-surface-container-highest px-2 py-1 rounded text-xs text-secondary-fixed-dim">Order: {item.order}</span>
                   </div>

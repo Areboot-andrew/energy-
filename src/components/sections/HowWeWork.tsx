@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import * as LucideIcons from "lucide-react";
 
 interface WorkStep {
   id: string;
@@ -46,7 +47,9 @@ export default function HowWeWork() {
               {step.icon.startsWith('<svg') ? (
                 <div dangerouslySetInnerHTML={{ __html: step.icon }} className="w-10 h-10 text-primary-fixed" />
               ) : (
-                <span className="material-symbols-outlined text-4xl text-primary-fixed">{step.icon || 'check_circle'}</span>
+                <div className="text-primary-fixed flex items-center justify-center">
+                  {(() => { const IconComp = (LucideIcons as any)[step.icon] || LucideIcons.CheckCircle2; return <IconComp size={40} />; })()}
+                </div>
               )}
               <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed font-bold flex items-center justify-center text-sm border-4 border-background">
                 {step.order || index + 1}
