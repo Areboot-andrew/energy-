@@ -9,7 +9,6 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
   const [quote, setQuote] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
-  const [updating, setUpdating] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
