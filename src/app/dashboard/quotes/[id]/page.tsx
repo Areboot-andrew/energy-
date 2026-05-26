@@ -23,14 +23,24 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
 
   const getBase64ImageFromUrl = async (imageUrl: string) => {
     try {
-      // Ensure absolute URL if it's relative
       const url = imageUrl.startsWith('/') ? window.location.origin + imageUrl : imageUrl;
-      const res = await fetch(url);
-      const blob = await res.blob();
       return new Promise<string>((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result as string);
-        reader.readAsDataURL(blob);
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) return resolve(null as any);
+          ctx.drawImage(img, 0, 0);
+          resolve(canvas.toDataURL("image/jpeg", 0.8)); // Force JPEG for pdfmake compatibility
+        };
+        img.onerror = () => {
+          console.error("Failed to load image");
+          resolve(null as any);
+        };
+        img.src = url;
       });
     } catch (e) {
       console.error("Failed to load image for PDF:", e);
@@ -157,14 +167,34 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
             ];
           }),
           
-          // Grand Total
+          // Grand Total and Signatures
           {
-            text: [
-              { text: 'ЗАГАЛЬНА ВАРТІСТЬ: ', style: 'grandTotalLabel' },
-              { text: `${quote.totalAmount.toLocaleString()} ₴`, style: 'grandTotalValue' }
-            ],
-            alignment: 'right',
-            margin: [0, 30, 0, 0]
+            columns: [
+              {
+                stack: [
+                  { text: 'Підписи сторін:', style: 'signaturesHeader', margin: [0, 0, 0, 20] },
+                  { text: '________________________', margin: [0, 0, 0, 5] },
+                  { text: 'Виконавець (VOLT PREMIUM)', style: 'signatureLabel' }
+                ],
+                margin: [0, 30, 0, 0]
+              },
+              {
+                stack: [
+                  { text: '________________________', margin: [0, 34, 0, 5] },
+                  { text: `Замовник (${quote.project.user.name})`, style: 'signatureLabel' }
+                ],
+                margin: [0, 30, 0, 0],
+                alignment: 'center'
+              },
+              {
+                stack: [
+                  { text: 'ЗАГАЛЬНА ВАРТІСТЬ:', style: 'grandTotalLabel', margin: [0, 0, 0, 5] },
+                  { text: `${quote.totalAmount.toLocaleString()} ₴`, style: 'grandTotalValue' }
+                ],
+                alignment: 'right',
+                margin: [0, 30, 0, 0]
+              }
+            ]
           }
         ],
         styles: {
@@ -178,7 +208,9 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
           groupTotal: { fontSize: 14, bold: true, color: '#111827' },
           tableHeader: { bold: true, fontSize: 11, color: '#374151', margin: [0, 5, 0, 5] },
           grandTotalLabel: { fontSize: 14, bold: true, color: '#374151' },
-          grandTotalValue: { fontSize: 24, bold: true, color: '#1d4ed8' }
+          grandTotalValue: { fontSize: 24, bold: true, color: '#1d4ed8' },
+          signaturesHeader: { fontSize: 12, bold: true, color: '#6B7280', uppercase: true },
+          signatureLabel: { fontSize: 10, color: '#6B7280' }
         },
         defaultStyle: {
           fontSize: 10,
