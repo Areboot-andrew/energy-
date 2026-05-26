@@ -9,6 +9,7 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
   const [quote, setQuote] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const [generatingPDF, setGeneratingPDF] = useState(false);
   const pdfRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -22,18 +23,31 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
   }, [params.id]);
 
   const handleDownloadPDF = async () => {
-    const html2pdf = (await import('html2pdf.js')).default;
-    const element = pdfRef.current;
+    if (generatingPDF) return;
+    setGeneratingPDF(true);
     
-    const opt = {
-      margin:       10,
-      filename:     `Кошторис_${quote.title.replace(/\s+/g, '_')}.pdf`,
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
-      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+    try {
+      const html2pdf = (await import('html2pdf.js')).default;
+      const element = pdfRef.current;
+      
+      const opt = {
+        margin:       10,
+        filename:     `Кошторис_${quote.title.replace(/\s+/g, '_')}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, allowTaint: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
 
-    html2pdf().set(opt).from(element).save();
+      await html2pdf().set(opt).from(element).save();
+    } catch (error) {
+      console.error("PDF generation error:", error);
+      alert("Виникла помилка при генерації PDF. Можливо, деякі зображення не вдалося завантажити.");
+    } finally {
+      setGeneratingPDF(false);
+      // Remove any leftover html2canvas iframes that block interactions
+      const iframes = document.querySelectorAll('iframe.html2canvas-container');
+      iframes.forEach(iframe => iframe.remove());
+    }
   };
 
   const handleStatusChange = async (status: string, details: string) => {
@@ -86,9 +100,10 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
           )}
           <button 
             onClick={handleDownloadPDF}
-            className="bg-primary-fixed text-on-primary-fixed px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_20px_rgba(213,240,0,0.3)] transition-all flex items-center gap-2"
+            disabled={generatingPDF}
+            className={`${generatingPDF ? 'bg-gray-500 cursor-not-allowed' : 'bg-primary-fixed hover:shadow-[0_0_20px_rgba(213,240,0,0.3)]'} text-on-primary-fixed px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm transition-all flex items-center gap-2`}
           >
-            <Download size={18} /> Завантажити PDF
+            <Download size={18} /> {generatingPDF ? "Генерація..." : "Завантажити PDF"}
           </button>
         </div>
       </div>

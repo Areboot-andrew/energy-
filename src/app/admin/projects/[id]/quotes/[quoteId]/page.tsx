@@ -8,6 +8,7 @@ import AdminLayout from "@/components/layout/AdminLayout";
 export default function AdminQuoteDetailsPage({ params }: { params: { id: string, quoteId: string } }) {
   const [quote, setQuote] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [generatingPDF, setGeneratingPDF] = useState(false);
   const pdfRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -20,18 +21,31 @@ export default function AdminQuoteDetailsPage({ params }: { params: { id: string
   }, [params.quoteId]);
 
   const handleDownloadPDF = async () => {
-    const html2pdf = (await import('html2pdf.js')).default;
-    const element = pdfRef.current;
-    
-    const opt = {
-      margin:       10,
-      filename:     `Кошторис_${quote.title.replace(/\s+/g, '_')}.pdf`,
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
-      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+    if (generatingPDF) return;
+    setGeneratingPDF(true);
 
-    html2pdf().set(opt).from(element).save();
+    try {
+      const html2pdf = (await import('html2pdf.js')).default;
+      const element = pdfRef.current;
+      
+      const opt = {
+        margin:       10,
+        filename:     `Кошторис_${quote.title.replace(/\s+/g, '_')}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, allowTaint: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      await html2pdf().set(opt).from(element).save();
+    } catch (error) {
+      console.error("PDF generation error:", error);
+      alert("Виникла помилка при генерації PDF.");
+    } finally {
+      setGeneratingPDF(false);
+      // Remove any leftover html2canvas iframes that block interactions
+      const iframes = document.querySelectorAll('iframe.html2canvas-container');
+      iframes.forEach(iframe => iframe.remove());
+    }
   };
 
   if (loading) return <AdminLayout><div className="text-white p-10">Завантаження кошторису...</div></AdminLayout>;
@@ -59,9 +73,10 @@ export default function AdminQuoteDetailsPage({ params }: { params: { id: string
             </Link>
             <button 
               onClick={handleDownloadPDF}
-              className="bg-primary-fixed text-on-primary-fixed px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_20px_rgba(213,240,0,0.3)] transition-all flex items-center gap-2"
+              disabled={generatingPDF}
+              className={`${generatingPDF ? 'bg-gray-500 cursor-not-allowed' : 'bg-primary-fixed hover:shadow-[0_0_20px_rgba(213,240,0,0.3)]'} text-on-primary-fixed px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm transition-all flex items-center gap-2`}
             >
-              <Download size={18} /> PDF
+              <Download size={18} /> {generatingPDF ? "Генерація..." : "PDF"}
             </button>
           </div>
         </div>
