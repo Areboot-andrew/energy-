@@ -59,13 +59,23 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
     }));
   };
 
-  const handleItemBlur = (item: any) => {
+  const handleItemBlur = async (item: any) => {
     if (!item.name || item.name.trim() === '') return;
     
+    // Save to database instantly
+    try {
+      await fetch('/api/admin/prices', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: item.name.trim(), price: Number(item.price), unit: item.unit })
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
     setMemoryItems(prev => {
       const existsIndex = prev.findIndex(m => m.name.toLowerCase() === item.name.trim().toLowerCase());
       if (existsIndex >= 0) {
-        // Only update if price/unit actually changed
         if (prev[existsIndex].price !== Number(item.price) || prev[existsIndex].unit !== item.unit) {
           const newMem = [...prev];
           newMem[existsIndex] = { ...newMem[existsIndex], price: Number(item.price), unit: item.unit };
@@ -74,7 +84,6 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
         return prev;
       }
       
-      // Instantly add to memory so it's available for the very next row!
       return [...prev, {
         id: `temp-${Date.now()}`,
         name: item.name.trim(),
@@ -324,7 +333,8 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                                         <div 
                                           key={m.id}
                                           className="p-3 hover:bg-primary-fixed hover:text-black cursor-pointer text-sm border-b border-outline-variant/10 text-white flex justify-between items-center transition-colors"
-                                          onClick={() => {
+                                          onMouseDown={(e) => {
+                                            e.preventDefault(); // Prevents blur on the input
                                             updateItem(group.id, item.id, 'name', m.name);
                                             updateItem(group.id, item.id, 'price', m.price);
                                             updateItem(group.id, item.id, 'unit', m.unit);

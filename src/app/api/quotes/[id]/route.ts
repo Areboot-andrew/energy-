@@ -174,3 +174,22 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     return NextResponse.json({ error: "Error updating quote" }, { status: 500 });
   }
 }
+
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (session?.user?.role !== "ADMIN") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    await prisma.quote.delete({
+      where: { id: params.id }
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Quote DELETE error:", error);
+    return NextResponse.json({ error: "Error deleting quote" }, { status: 500 });
+  }
+}
+

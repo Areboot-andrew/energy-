@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { ArrowLeft, Download, FileText, CheckCircle2, Edit } from "lucide-react";
+import { ArrowLeft, Download, FileText, CheckCircle2, Edit, Trash2 } from "lucide-react";
 import Link from "next/link";
 import AdminLayout from "@/components/layout/AdminLayout";
 
+import { useRouter } from "next/navigation";
+
 export default function AdminQuoteDetailsPage({ params }: { params: { id: string, quoteId: string } }) {
+  const router = useRouter();
   const [quote, setQuote] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [generatingPDF, setGeneratingPDF] = useState(false);
@@ -18,6 +21,21 @@ export default function AdminQuoteDetailsPage({ params }: { params: { id: string
         setLoading(false);
       });
   }, [params.quoteId]);
+
+  const handleDelete = async () => {
+    if (!confirm("Ви впевнені, що хочете видалити цей кошторис? Цю дію неможливо скасувати.")) return;
+    
+    try {
+      const res = await fetch(`/api/quotes/${params.quoteId}`, { method: 'DELETE' });
+      if (res.ok) {
+        router.push(`/admin/projects/${params.id}`);
+      } else {
+        alert("Помилка при видаленні кошторису");
+      }
+    } catch (e) {
+      alert("Помилка сервера");
+    }
+  };
 
   const getBase64ImageFromUrl = async (imageUrl: string) => {
     try {
@@ -225,6 +243,13 @@ export default function AdminQuoteDetailsPage({ params }: { params: { id: string
               className={`${generatingPDF ? 'bg-gray-500 cursor-not-allowed' : 'bg-primary-fixed hover:shadow-[0_0_20px_rgba(213,240,0,0.3)]'} text-on-primary-fixed px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm transition-all flex items-center gap-2`}
             >
               <Download size={18} /> {generatingPDF ? "Генерація..." : "PDF"}
+            </button>
+            <button 
+              onClick={handleDelete}
+              className="bg-error/10 text-error hover:bg-error hover:text-white px-4 py-3 rounded-xl transition-all flex items-center justify-center"
+              title="Видалити кошторис"
+            >
+              <Trash2 size={18} />
             </button>
           </div>
         </div>
