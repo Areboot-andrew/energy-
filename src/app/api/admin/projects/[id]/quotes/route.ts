@@ -16,7 +16,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
       data: {
         title,
         projectId: params.id,
-        totalAmount,
+        totalAmount: parseFloat(totalAmount) || 0,
         status: "SENT",
         groups: {
           create: groups.map((g: any, gIndex: number) => ({
@@ -26,10 +26,10 @@ export async function POST(request: Request, { params }: { params: { id: string 
               create: g.items.map((i: any, iIndex: number) => ({
                 name: i.name,
                 description: i.description || null,
-                quantity: i.quantity,
+                quantity: parseFloat(i.quantity) || 0,
                 unit: i.unit,
-                price: i.price,
-                total: i.total,
+                price: parseFloat(i.price) || 0,
+                total: parseFloat(i.total) || 0,
                 photoUrl: i.photoUrl || null,
                 order: iIndex
               }))
@@ -38,6 +38,35 @@ export async function POST(request: Request, { params }: { params: { id: string 
         }
       }
     });
+
+    // Save items to PriceItem memory for autocomplete
+    for (const g of groups) {
+      for (const i of g.items) {
+        if (i.name && i.name.trim() !== "") {
+          const existing = await prisma.priceItem.findFirst({
+            where: { name: i.name }
+          });
+          if (!existing) {
+            await prisma.priceItem.create({
+              data: {
+                name: i.name,
+                unit: i.unit || "шт",
+                price: parseFloat(i.price) || 0,
+                category: g.title
+              }
+            });
+          } else {
+            // Update price if it changed
+            if (existing.price !== parseFloat(i.price)) {
+              await prisma.priceItem.update({
+                where: { id: existing.id },
+                data: { price: parseFloat(i.price) || 0, unit: i.unit || "шт" }
+              });
+            }
+          }
+        }
+      }
+    }
 
     return NextResponse.json(quote);
   } catch (error) {

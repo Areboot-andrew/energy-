@@ -1,7 +1,7 @@
 "use client";
 
 import AdminLayout from "@/components/layout/AdminLayout";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Plus, Trash2, ArrowLeft, Save, Calculator, Image as ImageIcon, UploadCloud } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -23,6 +23,13 @@ interface QuoteGroup {
   items: QuoteItem[];
 }
 
+interface PriceItemMemory {
+  id: string;
+  name: string;
+  unit: string;
+  price: number;
+}
+
 export default function NewQuotePage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [title, setTitle] = useState("Кошторис на електромонтажні роботи");
@@ -36,8 +43,16 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
     }
   ]);
   const [loading, setLoading] = useState(false);
+  const [memoryItems, setMemoryItems] = useState<PriceItemMemory[]>([]);
 
-  // Auto-recalculate
+  // Fetch memory items
+  useEffect(() => {
+    fetch("/api/admin/prices").then(res => res.json()).then(data => {
+      if (Array.isArray(data)) setMemoryItems(data);
+    }).catch(e => console.error("Memory fetch failed"));
+  }, []);
+
+  // Auto-recalculate and autofill
   const updateItem = (groupId: string, itemId: string, field: keyof QuoteItem, value: any) => {
     setGroups(prev => prev.map(group => {
       if (group.id !== groupId) return group;
@@ -46,8 +61,20 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
         items: group.items.map(item => {
           if (item.id !== itemId) return item;
           const updated = { ...item, [field]: value };
+
+          // Autofill if name changes and matches memory
+          if (field === 'name') {
+            const found = memoryItems.find(m => m.name.toLowerCase() === value.toLowerCase());
+            if (found) {
+              updated.price = found.price;
+              updated.unit = found.unit;
+            }
+          }
+
           if (field === 'quantity' || field === 'price') {
             updated.total = Number(updated.quantity) * Number(updated.price);
+          } else {
+            updated.total = Number(updated.quantity) * Number(updated.price); // always recalc total just in case price was auto-filled
           }
           return updated;
         })
@@ -137,6 +164,12 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
   return (
     <AdminLayout>
       <div className="space-y-6 pb-24">
+        <datalist id="price-items-memory">
+          {memoryItems.map(m => (
+            <option key={m.id} value={m.name} />
+          ))}
+        </datalist>
+
         <Link href={`/admin/projects/${params.id}`} className="inline-flex items-center gap-2 text-secondary-fixed-dim hover:text-white transition-colors mb-2 text-sm font-bold uppercase tracking-widest">
           <ArrowLeft size={16} /> Назад до проєкту
         </Link>
@@ -194,6 +227,7 @@ export default function NewQuotePage({ params }: { params: { id: string } }) {
                           <tr key={item.id} className="group/row hover:bg-white/5 transition-colors">
                             <td className="py-3 px-2">
                               <input 
+                                list="price-items-memory"
                                 className="w-full bg-transparent border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm mb-1"
                                 value={item.name}
                                 onChange={e => updateItem(group.id, item.id, 'name', e.target.value)}
