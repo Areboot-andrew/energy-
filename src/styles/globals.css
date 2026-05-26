@@ -193,3 +193,12 @@ html {
 
 .prose .ql-align-center img { margin-left: auto; margin-right: auto; }
 .prose .ql-align-right img { margin-left: auto; margin-right: 0; }
+
+@media print {
+  #history-log {
+    display: none !important;
+  }
+  .print\:hidden {
+    display: none !important;
+  }
+}

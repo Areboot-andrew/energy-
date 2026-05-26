@@ -189,7 +189,11 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
       pdfMake.createPdf(docDefinition).download(`Кошторис_${quote.title.replace(/\s+/g, '_')}.pdf`);
     } catch (error: any) {
       console.error("PDF generation error:", error);
-      alert("Помилка генерації PDF: " + (error?.message || error?.toString()));
+      alert("Не вдалося згенерувати PDF через помилку браузера. Використовуємо системне збереження PDF...");
+      // Fallback to beautiful native print
+      setTimeout(() => {
+        window.print();
+      }, 500);
     } finally {
       setGeneratingPDF(false);
     }
@@ -341,7 +345,7 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
 
         {/* History Log */}
         {quote.history && quote.history.length > 0 && (
-          <div className="mt-16 pt-8 border-t border-gray-300 break-inside-avoid print:hidden">
+          <div id="history-log" className="mt-16 pt-8 border-t border-gray-300 break-inside-avoid print:hidden" style={{ '@media print': { display: 'none !important' } } as any}>
             <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
               <FileText size={18} /> Історія змін кошторису
             </h3>
