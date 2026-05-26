@@ -56,6 +56,17 @@ model Quote {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   groups      QuoteGroup[]
+  history     QuoteHistory[]
+}
+
+model QuoteHistory {
+  id        String   @id @default(cuid())
+  quoteId   String
+  quote     Quote    @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  action    String   // "CREATED", "EDITED", "STATUS_CHANGED"
+  details   String?  // Text description of the change
+  userId    String?  // Who made the change (admin or client)
+  createdAt DateTime @default(now())
 }
 
 model QuoteGroup {
