@@ -84,6 +84,64 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     return NextResponse.json(quote);
   } catch (error) {
     console.error("Quote PATCH error:", error);
+    return NextResponse.json({ error: "Error updating quote status" }, { status: 500 });
+  }
+}
+
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (session?.user?.role !== "ADMIN") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { title, totalAmount, groups } = await request.json();
+
+    // Since Prisma nested updates can be complex (deleting old items and creating new ones),
+    // we'll do a simple approach: Delete all existing groups and re-create them.
+    await prisma.quoteGroup.deleteMany({
+      where: { quoteId: params.id }
+    });
+
+    const quote = await prisma.quote.update({
+      where: { id: params.id },
+      data: {
+        title,
+        totalAmount: parseFloat(totalAmount) || 0,
+        groups: {
+          create: groups.map((g: any, gIndex: number) => ({
+            title: g.title,
+            order: gIndex,
+            items: {
+              create: g.items.map((i: any, iIndex: number) => ({
+                name: i.name,
+                description: i.description || null,
+                quantity: parseFloat(i.quantity) || 0,
+                unit: i.unit,
+                price: parseFloat(i.price) || 0,
+                total: parseFloat(i.total) || 0,
+                photoUrl: i.photoUrl || null,
+                order: iIndex
+              }))
+            }
+          }))
+        }
+      }
+    });
+
+    // Record history
+    await prisma.quoteHistory.create({
+      data: {
+        quoteId: params.id,
+        action: "EDITED",
+        details: "Кошторис було відредаговано (змінені роботи або ціни)",
+        userId: session.user.id
+      }
+    });
+
+    return NextResponse.json(quote);
+  } catch (error) {
+    console.error("Quote PUT error:", error);
     return NextResponse.json({ error: "Error updating quote" }, { status: 500 });
   }
 }
