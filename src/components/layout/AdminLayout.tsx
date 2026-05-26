@@ -32,7 +32,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="flex flex-col md:flex-row min-h-screen bg-background text-on-background font-body-md">
       
       {/* Mobile Top Bar */}
-      <div className="md:hidden flex items-center justify-between p-4 bg-surface-container border-b border-outline-variant/30 sticky top-0 z-50">
+      <div className="print:hidden md:hidden flex items-center justify-between p-4 bg-surface-container border-b border-outline-variant/30 sticky top-0 z-50">
         <Link href="/" className="font-display-lg text-headline-sm tracking-tighter text-primary-fixed flex items-center gap-2">
           <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
           VOLT ADMIN
@@ -59,7 +59,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       </AnimatePresence>
 
       {/* Sidebar */}
-      <aside className={`fixed md:sticky top-0 left-0 h-screen z-50 bg-surface-container border-r border-outline-variant/30 flex flex-col w-72 shadow-xl transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside className={`print:hidden fixed md:sticky top-0 left-0 h-screen z-50 bg-surface-container border-r border-outline-variant/30 flex flex-col w-72 shadow-xl transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="p-8 border-b border-outline-variant/20 hidden md:block">
           <Link href="/" className="font-display-lg text-headline-xl tracking-tighter text-primary-fixed flex items-center gap-2">
             <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>

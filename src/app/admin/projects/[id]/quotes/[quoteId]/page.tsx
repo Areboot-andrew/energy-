@@ -8,8 +8,6 @@ import AdminLayout from "@/components/layout/AdminLayout";
 export default function AdminQuoteDetailsPage({ params }: { params: { id: string, quoteId: string } }) {
   const [quote, setQuote] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [generatingPDF, setGeneratingPDF] = useState(false);
-  const pdfRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetch(`/api/quotes/${params.quoteId}`)
@@ -20,32 +18,8 @@ export default function AdminQuoteDetailsPage({ params }: { params: { id: string
       });
   }, [params.quoteId]);
 
-  const handleDownloadPDF = async () => {
-    if (generatingPDF) return;
-    setGeneratingPDF(true);
-
-    try {
-      const html2pdf = (await import('html2pdf.js')).default;
-      const element = pdfRef.current;
-      
-      const opt = {
-        margin:       10,
-        filename:     `Кошторис_${quote.title.replace(/\s+/g, '_')}.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-
-      await html2pdf().set(opt).from(element).save();
-    } catch (error: any) {
-      console.error("PDF generation error:", error);
-      alert("Деталі помилки генерації PDF: " + (error?.message || error?.toString() || JSON.stringify(error)));
-    } finally {
-      setGeneratingPDF(false);
-      // Remove any leftover html2canvas iframes that block interactions
-      const iframes = document.querySelectorAll('iframe.html2canvas-container');
-      iframes.forEach(iframe => iframe.remove());
-    }
+  const handleDownloadPDF = () => {
+    window.print();
   };
 
   if (loading) return <AdminLayout><div className="text-white p-10">Завантаження кошторису...</div></AdminLayout>;
@@ -54,9 +28,9 @@ export default function AdminQuoteDetailsPage({ params }: { params: { id: string
   return (
     <AdminLayout>
       <div className="space-y-6 pb-20">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="print:hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <Link href={`/admin/projects/${quote.projectId}`} className="inline-flex items-center gap-2 text-secondary-fixed-dim hover:text-white transition-colors mb-4 text-sm font-bold uppercase tracking-widest">
+            <Link href={`/admin/projects/${params.id}`} className="inline-flex items-center gap-2 text-secondary-fixed-dim hover:text-white transition-colors mb-4 text-sm font-bold uppercase tracking-widest">
               <ArrowLeft size={16} /> Назад до проєкту
             </Link>
             <h1 className="text-3xl font-bold text-white mb-2">{quote.title}</h1>
@@ -64,25 +38,23 @@ export default function AdminQuoteDetailsPage({ params }: { params: { id: string
           </div>
 
           <div className="flex gap-2">
-            {/* The edit link will be handled in the next step */}
             <Link 
-              href={`/admin/projects/${quote.projectId}/quotes/${quote.id}/edit`}
-              className="bg-surface-container text-white px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-surface-container-high transition-all flex items-center gap-2 border border-outline-variant/30"
+              href={`/admin/projects/${params.id}/quotes/${quote.id}/edit`}
+              className="bg-surface-container-highest text-white px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-white/10 transition-all flex items-center gap-2"
             >
               <Edit size={18} /> Редагувати
             </Link>
             <button 
               onClick={handleDownloadPDF}
-              disabled={generatingPDF}
-              className={`${generatingPDF ? 'bg-gray-500 cursor-not-allowed' : 'bg-primary-fixed hover:shadow-[0_0_20px_rgba(213,240,0,0.3)]'} text-on-primary-fixed px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm transition-all flex items-center gap-2`}
+              className="bg-primary-fixed text-on-primary-fixed px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_20px_rgba(213,240,0,0.3)] transition-all flex items-center gap-2"
             >
-              <Download size={18} /> {generatingPDF ? "Генерація..." : "PDF"}
+              <Download size={18} /> PDF
             </button>
           </div>
         </div>
 
-        {/* This is the container that will be converted to PDF */}
-        <div ref={pdfRef} className="bg-white text-black p-8 md:p-12 rounded-2xl shadow-2xl mx-auto max-w-5xl">
+        {/* This is the container that will be printed */}
+        <div className="bg-white text-black p-8 md:p-12 rounded-2xl shadow-2xl mx-auto max-w-5xl print:shadow-none print:m-0 print:p-0 print:max-w-none w-full">
           <div className="flex justify-between items-start mb-12 border-b-2 border-black pb-8">
             <div>
               <h2 className="text-3xl font-black uppercase tracking-tight">VOLT PREMIUM</h2>
@@ -169,7 +141,7 @@ export default function AdminQuoteDetailsPage({ params }: { params: { id: string
 
           {/* History Log */}
           {quote.history && quote.history.length > 0 && (
-            <div className="mt-16 pt-8 border-t border-gray-300 break-inside-avoid">
+            <div className="mt-16 pt-8 border-t border-gray-300 break-inside-avoid print:hidden">
               <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                 <FileText size={18} /> Історія змін кошторису
               </h3>

@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-on-background flex flex-col md:flex-row mt-20 md:mt-0">
       {/* Sidebar for Desktop */}
-      <aside className="w-full md:w-64 bg-surface-container border-r border-outline-variant/20 flex-shrink-0 p-6 hidden md:flex flex-col h-screen sticky top-0">
+      <aside className="print:hidden w-full md:w-64 bg-surface-container border-r border-outline-variant/20 flex-shrink-0 p-6 hidden md:flex flex-col h-screen sticky top-0">
         <Link href="/" className="font-headline-md text-white mb-8 flex items-center gap-2">
            <span className="material-symbols-outlined text-primary-fixed">bolt</span>
            Кабінет
@@ -61,7 +61,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       </aside>
 
       {/* Mobile Nav */}
-      <div className="md:hidden bg-surface-container p-4 border-b border-outline-variant/20 flex gap-2 overflow-x-auto">
+      <div className="print:hidden md:hidden bg-surface-container p-4 border-b border-outline-variant/20 flex gap-2 overflow-x-auto">
         <Link 
           href="/dashboard"
           className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold whitespace-nowrap ${pathname === '/dashboard' ? 'bg-primary-fixed text-black' : 'text-secondary-fixed-dim bg-surface-container-high'}`}
