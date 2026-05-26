@@ -51,7 +51,7 @@ export default function ImageCropperModal({
         
         <div className="p-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-high z-10 shrink-0">
           <h3 className="text-lg font-bold text-white">Кадрування фото</h3>
-          <button onClick={onClose} className="p-2 rounded-full hover:bg-white/10 transition-colors text-white">
+          <button type="button" onClick={onClose} className="p-2 rounded-full hover:bg-white/10 transition-colors text-white">
             <X size={20} />
           </button>
         </div>
@@ -84,12 +84,14 @@ export default function ImageCropperModal({
           </div>
           <div className="flex gap-4">
             <button
+              type="button"
               onClick={onClose}
               className="flex-1 py-3 bg-surface-container border border-outline-variant/30 text-white font-bold rounded-lg hover:bg-surface-container-highest transition-colors"
             >
               Скасувати
             </button>
             <button
+              type="button"
               onClick={handleSave}
               className="flex-1 py-3 bg-primary-fixed text-on-primary-fixed font-bold rounded-lg hover:bg-primary-fixed-dim transition-colors flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(213,240,0,0.3)]"
             >
