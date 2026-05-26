@@ -100,6 +100,7 @@ model BlogPost {
   image           String?
   metaTitle       String?
   metaDescription String?
+  author          String   @default("VOLT PREMIUM")
   published       Boolean  @default(false)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -247,6 +248,11 @@ model PageContent {
   phones            String  @default("[\"+38 (098) 732 85 63\"]") // JSON array of phones
   socials           String  @default("[{\"network\":\"instagram\",\"url\":\"#\",\"isVisible\":true},{\"network\":\"facebook\",\"url\":\"#\",\"isVisible\":true},{\"network\":\"linkedin\",\"url\":\"#\",\"isVisible\":true}]")
   pricingFeatures   String  @default("[{\"icon\":\"Calculator\",\"title\":\"Фіксований кошторис\",\"description\":\"Ціна не змінюється в процесі роботи. Ви знаєте точну вартість до початку монтажу.\"},{\"icon\":\"ShieldCheck\",\"title\":\"Офіційна гарантія\",\"description\":\"Ми надаємо гарантію на всі види робіт терміном від 5 років.\"},{\"icon\":\"Zap\",\"title\":\"Безпека понад усе\",\"description\":\"Використовуємо тільки сертифіковані матеріали, що не підтримують горіння.\"}]")
+
+  // About Us SEO & Content
+  aboutHtmlContent  String?
+  aboutSeoTitle     String?
+  aboutSeoDescription String?
 }
 
 model CalculatorConfig {
