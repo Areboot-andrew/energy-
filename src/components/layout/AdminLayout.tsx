@@ -1,13 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ChevronRight, LogOut, LayoutDashboard, FileText, Settings, Users, Image as ImageIcon, Edit3, Globe } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, LogOut, LayoutDashboard, FileText, Settings, Users, Image as ImageIcon, Edit3, Globe, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { useState } from "react";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     signOut({ callbackUrl: "/" });
@@ -27,10 +29,38 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   return (
-    <div className="flex min-h-screen bg-background text-on-background font-body-md">
+    <div className="flex flex-col md:flex-row min-h-screen bg-background text-on-background font-body-md">
+      
+      {/* Mobile Top Bar */}
+      <div className="md:hidden flex items-center justify-between p-4 bg-surface-container border-b border-outline-variant/30 sticky top-0 z-50">
+        <Link href="/" className="font-display-lg text-headline-sm tracking-tighter text-primary-fixed flex items-center gap-2">
+          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
+          VOLT ADMIN
+        </Link>
+        <button 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="text-white hover:text-primary-fixed transition-colors p-2"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Sidebar Overlay for Mobile */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"
+          />
+        )}
+      </AnimatePresence>
+
       {/* Sidebar */}
-      <aside className="w-72 bg-surface-container border-r border-outline-variant/30 flex flex-col sticky top-0 h-screen z-40 shadow-xl">
-        <div className="p-8 border-b border-outline-variant/20">
+      <aside className={`fixed md:sticky top-0 left-0 h-screen z-50 bg-surface-container border-r border-outline-variant/30 flex flex-col w-72 shadow-xl transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}>
+        <div className="p-8 border-b border-outline-variant/20 hidden md:block">
           <Link href="/" className="font-display-lg text-headline-xl tracking-tighter text-primary-fixed flex items-center gap-2">
             <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
             VOLT ADMIN
@@ -43,6 +73,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
             <Link
               key={item.id}
               href={item.href}
+              onClick={() => setIsMobileMenuOpen(false)}
               className={`flex items-center justify-between p-4 rounded-xl transition-all group ${
                 pathname === item.href
                   ? "bg-primary-fixed text-on-primary-fixed font-bold shadow-[0_0_20px_rgba(213,240,0,0.15)]"
