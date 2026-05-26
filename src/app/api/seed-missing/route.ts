@@ -163,7 +163,12 @@ export async function GET() {
           "lightbulb": "Lightbulb",
           "battery_charging_full": "BatteryCharging",
           "thunderstorm": "Zap",
-          "architecture": "PenTool"
+          "architecture": "PenTool",
+          "engineering": "HardHat",
+          "security": "ShieldCheck",
+          "handyman": "Wrench",
+          "power": "Power",
+          "power_settings_new": "PowerOff"
         };
         
         let newIcon = s.icon;
