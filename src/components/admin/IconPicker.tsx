@@ -9,7 +9,7 @@ const PRESET_ICONS = [
   "Zap", "ZapOff", "Plug", "PlugZap", "Power", "PowerOff", "Cable", 
   "Battery", "BatteryCharging", "BatteryFull", "BatteryMedium", "BatteryLow", "BatteryWarning",
   "Flashlight", "Lightbulb", "LightbulbOff", "Sun", "SunDim", "Moon", "Flame",
-  "Wind", "Leaf", "UtilityPole", "RadioTower", "SatelliteDish", "Factory", "Droplet",
+  "Wind", "Leaf", "UtilityPole", "RadioTower", "SatelliteDish", "Factory", "Droplet", "Waves",
 
   // IT & Smart Home
   "Home", "Cpu", "Server", "Database", "Code", "Wifi", "Router", "Network", 
@@ -17,22 +17,26 @@ const PRESET_ICONS = [
   "Camera", "Cctv", "Fingerprint", "Lock", "Key", "Shield", "ShieldCheck", 
   "ShieldAlert", "Cloud", "HardDrive", "Fan", "Thermometer", "Snowflake",
   "Laptop", "Keyboard", "Mouse", "Printer", "Cast", "Watch", "AppWindow", 
-  "Terminal", "CircuitBoard", "Radio",
+  "Terminal", "CircuitBoard", "Radio", "Gamepad2", "Speaker", "Airplay",
 
   // Auto Energy & EV
   "Car", "CarFront", "Fuel", "Navigation", "MapPin", "Map", "Compass",
-  "Bus", "Truck", "Bike",
+  "Bus", "Truck", "Bike", "TrainFront", "CarTaxiFront",
 
   // Tools, Construction & Repair
   "Hammer", "Wrench", "Tool", "HardHat", "Ruler", "Paintbrush", "PenTool",
-  "Scissors", "PaintBucket", "Pipette", "Pencil", "Pen",
+  "Scissors", "PaintBucket", "Pipette", "Pencil", "Pen", "Drill", "Anvil",
+  "Axe", "Construction", "Shovel", "Screwdriver", "Wrench",
 
-  // General Business & UI
+  // General Business, Finance & UI
   "Settings", "Settings2", "Sliders", "CheckCircle", "CheckSquare", "List", 
   "Grid", "Layers", "Box", "Package", "Activity", "Clock", "Timer", "Calendar", 
   "Phone", "PhoneCall", "Mail", "MessageCircle", "MessageSquare", "Info", 
   "HelpCircle", "Star", "Award", "ThumbsUp", "Users", "User", "Globe",
-  "Briefcase", "FileText", "Folder", "Link", "Search", "Heart", "Eye", "EyeOff"
+  "Briefcase", "FileText", "Folder", "Link", "Search", "Heart", "Eye", "EyeOff",
+  "Calculator", "Banknote", "Coins", "CreditCard", "Wallet", "TrendingUp",
+  "Percent", "PieChart", "BarChart", "Handshake", "BadgeCheck", "Medal",
+  "Trophy", "CheckCircle2", "PlusCircle", "MinusCircle", "AlertCircle"
 ];
 
 interface IconPickerProps {

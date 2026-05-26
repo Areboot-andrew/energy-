@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Save, Plus, Trash2, Image as ImageIcon, Code, Type } from "lucide-react";
 import ImageUploader from "@/components/admin/ImageUploader";
 import dynamic from "next/dynamic";
+import IconPicker from "@/components/admin/IconPicker";
 import "react-quill-new/dist/quill.snow.css";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
@@ -321,15 +322,13 @@ const SettingsPage = () => {
                   
                   <div className="w-full md:w-1/3 z-10 relative">
                     <label className="text-xs text-secondary-fixed-dim font-bold uppercase mb-1 block">Іконка (Lucide)</label>
-                    <input
-                      type="text"
+                    <IconPicker 
                       value={feature.icon}
-                      onChange={e => {
+                      onChange={(val) => {
                         const newF = [...settings.pricingFeatures];
-                        newF[idx].icon = e.target.value;
+                        newF[idx].icon = val;
                         setSettings({...settings, pricingFeatures: newF});
                       }}
-                      className="w-full bg-surface-container border border-outline-variant/30 rounded-lg px-4 py-2 text-white outline-none"
                     />
                   </div>
                   <div className="w-full z-10 relative">

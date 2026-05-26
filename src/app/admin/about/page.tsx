@@ -4,6 +4,7 @@ import AdminLayout from "@/components/layout/AdminLayout";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import * as LucideIcons from "lucide-react";
+import IconPicker from "@/components/admin/IconPicker";
 
 // Динамічний імпорт для уникнення помилок SSR з Quill
 const RichEditor = dynamic(() => import("@/components/admin/RichEditor"), { ssr: false });
@@ -101,7 +102,16 @@ export default function AboutPageEditor() {
           {aboutValues.map((v, i) => (
             <div key={i} className="flex gap-4 p-4 border border-outline-variant/30 rounded-lg bg-background">
               <div className="flex flex-col gap-3 w-1/4">
-                <input type="text" placeholder="Назва іконки (Award)" value={v.icon} onChange={(e) => { const nv = [...aboutValues]; nv[i].icon = e.target.value; setAboutValues(nv); }} className="w-full bg-surface-container border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none text-sm" />
+                <div className="w-full z-10 relative">
+                  <IconPicker 
+                    value={v.icon}
+                    onChange={(val) => {
+                      const nv = [...aboutValues];
+                      nv[i].icon = val;
+                      setAboutValues(nv);
+                    }}
+                  />
+                </div>
                 <div className="w-12 h-12 flex items-center justify-center bg-surface-container rounded-lg border border-outline-variant/30 text-primary-fixed">
                   {(() => { const IconComp = (LucideIcons as any)[v.icon] || LucideIcons.CheckCircle2; return <IconComp size={24} />; })()}
                 </div>
