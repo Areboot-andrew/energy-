@@ -74,8 +74,7 @@ const SettingsPage = () => {
             { id: "general", label: "Загальні (Лого)" },
             { id: "contacts", label: "Контакти та Карта" },
             { id: "socials", label: "Соціальні мережі" },
-            { id: "pricing", label: "Блок Прайс-листа" },
-            { id: "about", label: "Про нас (SEO)" }
+            { id: "pricing", label: "Блок Прайс-листа" }
           ].map(t => (
             <button
               key={t.id}
@@ -365,54 +364,7 @@ const SettingsPage = () => {
           </section>
         )}
 
-        {activeTab === "about" && (
-          <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
-            <h2 className="text-xl font-bold text-white mb-6">Сторінка "Про нас" (Текст та SEO)</h2>
-            
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-secondary-fixed-dim uppercase">SEO Заголовок (Title)</label>
-              <input
-                type="text"
-                value={settings.aboutSeoTitle || ""}
-                onChange={e => setSettings({...settings, aboutSeoTitle: e.target.value})}
-                className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
-                placeholder="Заголовок для пошуковиків..."
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-secondary-fixed-dim uppercase">SEO Опис (Description)</label>
-              <textarea
-                rows={3}
-                value={settings.aboutSeoDescription || ""}
-                onChange={e => setSettings({...settings, aboutSeoDescription: e.target.value})}
-                className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
-                placeholder="Короткий опис для пошуковиків..."
-              />
-            </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Контент сторінки (HTML)</label>
-              <div className="bg-background rounded-lg border border-outline-variant/30 text-white min-h-[400px]">
-                <ReactQuill
-                  value={settings.aboutHtmlContent || ""}
-                  onChange={(val) => setSettings({...settings, aboutHtmlContent: val})}
-                  theme="snow"
-                  className="h-[350px]"
-                  modules={{
-                    toolbar: [
-                      [{ 'header': [2, 3, 4, false] }],
-                      ['bold', 'italic', 'underline', 'strike'],
-                      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                      ['link', 'image', 'video'],
-                      ['clean']
-                    ]
-                  }}
-                />
-              </div>
-            </div>
-          </section>
-        )}
       </div>
     </AdminLayout>
   );
