@@ -202,53 +202,7 @@ const PageEditor = () => {
                 onChange={(url) => setContent(prev => ({ ...prev, aboutImage: url }))}
               />
 
-              <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase pt-6 border-t border-outline-variant/10">Повна сторінка "Про нас" (/about)</h3>
-              
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок сторінки</label>
-                <input
-                  type="text"
-                  value={content.aboutPageSubtitle || ""}
-                  onChange={(e) => setContent(prev => ({ ...prev, aboutPageSubtitle: e.target.value }))}
-                  className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
-                />
-              </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Основний текст сторінки (Rich Text)</label>
-                <div className="bg-background rounded-lg border border-outline-variant/30 text-white">
-                  <RichEditor
-                    value={content.aboutPageText || ""}
-                    onChange={(val) => setContent(prev => ({ ...prev, aboutPageText: val }))}
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2 pt-4">
-                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Блок: Наші цінності</label>
-                {aboutValues.map((v, i) => (
-                  <div key={i} className="flex gap-2 mb-2 p-3 border border-outline-variant/30 rounded-lg bg-background">
-                    <input type="text" placeholder="Lucide Icon (e.g. Award)" value={v.icon} onChange={(e) => { const nv = [...aboutValues]; nv[i].icon = e.target.value; setAboutValues(nv); }} className="w-1/4 bg-surface-container border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none text-xs" />
-                    <input type="text" placeholder="Заголовок" value={v.title} onChange={(e) => { const nv = [...aboutValues]; nv[i].title = e.target.value; setAboutValues(nv); }} className="w-1/4 bg-surface-container border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none text-xs" />
-                    <textarea placeholder="Опис" value={v.description} onChange={(e) => { const nv = [...aboutValues]; nv[i].description = e.target.value; setAboutValues(nv); }} className="w-2/4 bg-surface-container border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none resize-none text-xs"></textarea>
-                    <button type="button" onClick={() => setAboutValues(aboutValues.filter((_, idx) => idx !== i))} className="px-3 bg-error/20 text-error rounded-lg">X</button>
-                  </div>
-                ))}
-                <button type="button" onClick={() => setAboutValues([...aboutValues, {icon: "Star", title: "", description: ""}])} className="text-primary-fixed font-bold text-sm hover:underline">+ Додати цінність</button>
-              </div>
-
-              <div className="space-y-2 pt-4">
-                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Блок: Етапи співпраці</label>
-                {aboutSteps.map((s, i) => (
-                  <div key={i} className="flex gap-2 mb-2 p-3 border border-outline-variant/30 rounded-lg bg-background">
-                    <div className="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-black font-bold flex-shrink-0">{i + 1}</div>
-                    <input type="text" placeholder="Заголовок етапу" value={s.title} onChange={(e) => { const ns = [...aboutSteps]; ns[i].title = e.target.value; setAboutSteps(ns); }} className="w-1/3 bg-surface-container border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none text-xs" />
-                    <textarea placeholder="Опис етапу" value={s.desc} onChange={(e) => { const ns = [...aboutSteps]; ns[i].desc = e.target.value; setAboutSteps(ns); }} className="w-full bg-surface-container border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none resize-none text-xs"></textarea>
-                    <button type="button" onClick={() => setAboutSteps(aboutSteps.filter((_, idx) => idx !== i))} className="px-3 bg-error/20 text-error rounded-lg">X</button>
-                  </div>
-                ))}
-                <button type="button" onClick={() => setAboutSteps([...aboutSteps, {title: "", desc: ""}])} className="text-primary-fixed font-bold text-sm hover:underline">+ Додати етап</button>
-              </div>
             </div>
           </section>
 

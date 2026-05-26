@@ -18,6 +18,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const menuItems = [
     { id: "dashboard", label: "Дашборд", icon: <LayoutDashboard size={18} />, href: "/admin" },
     { id: "edit-page", label: "Головна", icon: <Edit3 size={18} />, href: "/admin/edit-page" },
+    { id: "about", label: "Про нас", icon: <FileText size={18} />, href: "/admin/about" },
     { id: "services", label: "Послуги", icon: <LayoutDashboard size={18} />, href: "/admin/services" },
     { id: "how-we-work", label: "Як ми працюємо", icon: <FileText size={18} />, href: "/admin/how-we-work" },
     { id: "standards", label: "Стандарти", icon: <FileText size={18} />, href: "/admin/standards" },
