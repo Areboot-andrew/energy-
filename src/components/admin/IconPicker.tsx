@@ -7,26 +7,32 @@ import * as Icons from "lucide-react";
 const PRESET_ICONS = [
   // Electricity & Energy
   "Zap", "ZapOff", "Plug", "PlugZap", "Power", "PowerOff", "Cable", 
-  "Battery", "BatteryCharging", "BatteryFull", "BatteryMedium", "BatteryLow", 
+  "Battery", "BatteryCharging", "BatteryFull", "BatteryMedium", "BatteryLow", "BatteryWarning",
   "Flashlight", "Lightbulb", "LightbulbOff", "Sun", "SunDim", "Moon", "Flame",
+  "Wind", "Leaf", "UtilityPole", "RadioTower", "SatelliteDish", "Factory", "Droplet",
 
   // IT & Smart Home
   "Home", "Cpu", "Server", "Database", "Code", "Wifi", "Router", "Network", 
   "Bluetooth", "Monitor", "Tv", "Smartphone", "Tablet", "Speaker", "Mic", 
   "Camera", "Cctv", "Fingerprint", "Lock", "Key", "Shield", "ShieldCheck", 
   "ShieldAlert", "Cloud", "HardDrive", "Fan", "Thermometer", "Snowflake",
+  "Laptop", "Keyboard", "Mouse", "Printer", "Cast", "Watch", "AppWindow", 
+  "Terminal", "CircuitBoard", "Radio",
 
   // Auto Energy & EV
   "Car", "CarFront", "Fuel", "Navigation", "MapPin", "Map", "Compass",
+  "Bus", "Truck", "Bike",
 
-  // Tools & Construction
+  // Tools, Construction & Repair
   "Hammer", "Wrench", "Tool", "HardHat", "Ruler", "Paintbrush", "PenTool",
+  "Scissors", "PaintBucket", "Pipette", "Pencil", "Pen",
 
   // General Business & UI
   "Settings", "Settings2", "Sliders", "CheckCircle", "CheckSquare", "List", 
   "Grid", "Layers", "Box", "Package", "Activity", "Clock", "Timer", "Calendar", 
   "Phone", "PhoneCall", "Mail", "MessageCircle", "MessageSquare", "Info", 
-  "HelpCircle", "Star", "Award", "ThumbsUp", "Users", "User", "Globe"
+  "HelpCircle", "Star", "Award", "ThumbsUp", "Users", "User", "Globe",
+  "Briefcase", "FileText", "Folder", "Link", "Search", "Heart", "Eye", "EyeOff"
 ];
 
 interface IconPickerProps {
