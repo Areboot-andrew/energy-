@@ -27,11 +27,6 @@ export async function POST(req: Request) {
         shortDescription: data.shortDescription,
         content: data.content,
         totalPrice: data.totalPrice,
-        duration: data.duration,
-        systemPower: data.systemPower,
-        inverter: data.inverter,
-        panels: data.panels,
-        battery: data.battery,
         metaTitle: data.metaTitle,
         metaDescription: data.metaDescription,
         media: {

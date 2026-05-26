@@ -138,9 +138,9 @@ const SettingsPage = () => {
                 <div className="space-y-2 animate-in fade-in">
                   <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Завантажити Зображення</label>
                   <ImageUploader
-                    initialImage={settings.logoImageUrl}
-                    onImageUploaded={(url) => setSettings({...settings, logoImageUrl: url})}
-                    onImageDeleted={() => setSettings({...settings, logoImageUrl: null})}
+                    label="Логотип (зображення)"
+                    value={settings.logoImageUrl}
+                    onChange={(url: string) => setSettings({...settings, logoImageUrl: url})}
                   />
                 </div>
               )}

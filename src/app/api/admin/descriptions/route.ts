@@ -12,7 +12,7 @@ export async function GET() {
 
     const items = await prisma.quoteItem.findMany({
       where: { 
-        description: { not: null, not: "" } 
+        description: { not: null } 
       },
       select: { description: true },
       distinct: ['description'],

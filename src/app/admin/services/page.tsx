@@ -83,7 +83,7 @@ export default function ServicesAdminPage() {
 
     if (res.ok) {
       alert("Збережено!");
-      setFormData({ slug: "", title: "", description: "", icon: "", advantages: "" });
+      setFormData({ slug: "", title: "", description: "", icon: "", advantages: "", metaTitle: "", metaDescription: "", estimatedPrice: "", content: "", components: "", included: "", image: "", isFeatured: false, category: "Основні послуги" });
       setEditingId(null);
       fetchServices();
     } else {

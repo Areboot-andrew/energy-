@@ -27,7 +27,7 @@ async function main() {
   // 1. SERVICES
   if (initialData && initialData.ServicePage) {
     for (const s of initialData.ServicePage) {
-      const { createdAt, updatedAt, ...data } = s;
+      const { createdAt, updatedAt, ...data } = (s as any);
       await prisma.servicePage.upsert({
         where: { slug: data.slug },
         update: data,
@@ -39,7 +39,7 @@ async function main() {
   // 2. FAQs
   if (initialData && initialData.FAQ) {
     for (const f of initialData.FAQ) {
-      const { createdAt, updatedAt, id, ...data } = f;
+      const { createdAt, updatedAt, id, ...data } = (f as any);
       // Because FAQ has no unique field besides ID, we will just delete all and recreate or find by ID
       const exists = await prisma.fAQ.findUnique({ where: { id } });
       if (exists) {
@@ -100,7 +100,7 @@ async function main() {
   const portfolioCount = await prisma.portfolioProject.count();
   if (portfolioCount === 0 && initialData && initialData.PortfolioProject) {
     for (const p of initialData.PortfolioProject) {
-      const { createdAt, updatedAt, ...data } = p;
+      const { createdAt, updatedAt, ...data } = (p as any);
       await prisma.portfolioProject.create({ data });
     }
     console.log('Restored Portfolio Projects');
@@ -110,7 +110,7 @@ async function main() {
   const blogCount = await prisma.blogPost.count();
   if (blogCount === 0 && initialData && initialData.BlogPost) {
     for (const b of initialData.BlogPost) {
-      const { createdAt, updatedAt, published, ...data } = b;
+      const { createdAt, updatedAt, published, ...data } = (b as any);
       await prisma.blogPost.create({ 
         data: { ...data, published: Boolean(published) } 
       });
@@ -122,7 +122,7 @@ async function main() {
   const mediaCount = await prisma.projectMedia.count();
   if (mediaCount === 0 && initialData && initialData.ProjectMedia) {
     for (const m of initialData.ProjectMedia) {
-      const { createdAt, updatedAt, ...data } = m;
+      const { createdAt, updatedAt, ...data } = (m as any);
       await prisma.projectMedia.create({ data });
     }
     console.log('Restored Project Media');
@@ -132,7 +132,7 @@ async function main() {
   const requestCount = await prisma.clientRequest.count();
   if (requestCount === 0 && initialData && initialData.ClientRequest) {
     for (const r of initialData.ClientRequest) {
-      const { createdAt, ...data } = r;
+      const { createdAt, ...data } = (r as any);
       await prisma.clientRequest.create({ data });
     }
     console.log('Restored Client Requests');
@@ -142,7 +142,7 @@ async function main() {
   const pageContentCount = await prisma.pageContent.count();
   if (pageContentCount === 0 && initialData && initialData.PageContent) {
     for (const p of initialData.PageContent) {
-      const { createdAt, updatedAt, ...data } = p;
+      const { createdAt, updatedAt, ...data } = (p as any);
       await prisma.pageContent.create({ data });
     }
     console.log('Restored Page Content');
@@ -152,7 +152,7 @@ async function main() {
   const calcCount = await prisma.calculatorConfig.count();
   if (calcCount === 0 && initialData && initialData.CalculatorConfig) {
     for (const c of initialData.CalculatorConfig) {
-      const { createdAt, updatedAt, ...data } = c;
+      const { createdAt, updatedAt, ...data } = (c as any);
       await prisma.calculatorConfig.create({ data });
     }
     console.log('Restored Calculator Config');
