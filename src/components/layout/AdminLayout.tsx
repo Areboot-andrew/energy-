@@ -26,7 +26,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     { id: "blog", label: "Блог", icon: <FileText size={18} />, href: "/admin/blog" },
     { id: "requests", label: "Заявки", icon: <Users size={18} />, href: "/admin/requests" },
     { id: "projects", label: "Проєкти Клієнтів", icon: <LayoutDashboard size={18} />, href: "/admin/projects" },
-    { id: "settings", label: "Ціни", icon: <Settings size={18} />, href: "/admin/settings" },
+    { id: "prices", label: "Ціни", icon: <Settings size={18} />, href: "/admin/prices" },
+    { id: "settings", label: "Налаштування", icon: <Settings size={18} />, href: "/admin/settings" },
   ];
 
   return (

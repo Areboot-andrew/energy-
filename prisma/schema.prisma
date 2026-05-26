@@ -234,6 +234,18 @@ model PageContent {
   portfolioSeoTitle String?
   portfolioSeoText  String?
   portfolioVideoUrl String?
+
+  // Global Settings additions
+  logoType          String  @default("TEXT") // "TEXT", "IMAGE", "SVG"
+  logoText          String  @default("VOLT PREMIUM")
+  logoImageUrl      String?
+  logoSvgCode       String? // Raw SVG
+  companyName       String  @default("VOLT PREMIUM")
+  contactAddress    String  @default("м. Львів, вул. Івана Огієнка, 15")
+  contactMapIframe  String?
+  phones            String  @default("[\"+38 (098) 732 85 63\"]") // JSON array of phones
+  socials           String  @default("[{\"network\":\"instagram\",\"url\":\"#\",\"isVisible\":true},{\"network\":\"facebook\",\"url\":\"#\",\"isVisible\":true},{\"network\":\"linkedin\",\"url\":\"#\",\"isVisible\":true}]")
+  pricingFeatures   String  @default("[{\"icon\":\"Calculator\",\"title\":\"Фіксований кошторис\",\"description\":\"Ціна не змінюється в процесі роботи. Ви знаєте точну вартість до початку монтажу.\"},{\"icon\":\"ShieldCheck\",\"title\":\"Офіційна гарантія\",\"description\":\"Ми надаємо гарантію на всі види робіт терміном від 5 років.\"},{\"icon\":\"Zap\",\"title\":\"Безпека понад усе\",\"description\":\"Використовуємо тільки сертифіковані матеріали, що не підтримують горіння.\"}]")
 }
 
 model CalculatorConfig {

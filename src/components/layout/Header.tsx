@@ -11,15 +11,20 @@ import { Menu, X } from "lucide-react";
 const Header = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
-  const [content, setContent] = useState({
+  const [content, setContent] = useState<any>({
     contactPhone: "+38 098 732 85 63",
-    contactEmail: "tarasbuina2@icloud.com"
+    contactEmail: "tarasbuina2@icloud.com",
+    logoType: "TEXT",
+    logoText: "VOLT PREMIUM"
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/content").then(res => res.json()).then(data => {
-      if (data.contactPhone) setContent(data);
+      if (data) {
+        try { data.phones = JSON.parse(data.phones || "[]"); } catch { data.phones = []; }
+        setContent(data);
+      }
     });
   }, []);
 
@@ -27,8 +32,16 @@ const Header = () => {
     <header className="w-full sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant/30">
       <nav className="flex justify-between items-center max-w-container-max mx-auto px-margin-desktop py-base">
         <Link href="/" className="font-display-lg text-headline-xl tracking-tighter text-primary-fixed flex items-center gap-2">
-          <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
-          VOLT PREMIUM
+          {content.logoType === "IMAGE" && content.logoImageUrl ? (
+            <img src={content.logoImageUrl} alt={content.companyName || "Logo"} className="h-10 object-contain" />
+          ) : content.logoType === "SVG" && content.logoSvgCode ? (
+            <div dangerouslySetInnerHTML={{ __html: content.logoSvgCode }} className="h-10 flex items-center" />
+          ) : (
+            <>
+              <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
+              {content.logoText || content.companyName || "VOLT PREMIUM"}
+            </>
+          )}
         </Link>
         
         <div className="hidden md:flex items-center gap-8">
@@ -69,8 +82,8 @@ const Header = () => {
 
         <div className="flex items-center gap-4">
           <div className="hidden xl:flex flex-col items-end mr-4">
-            <a href={`tel:${content.contactPhone.replace(/[^\d+]/g, '')}`} className="text-white font-bold text-sm hover:text-primary-fixed transition-colors">
-              {content.contactPhone}
+            <a href={`tel:${(content.phones && content.phones[0]) ? content.phones[0].replace(/[^\d+]/g, '') : content.contactPhone?.replace(/[^\d+]/g, '')}`} className="text-white font-bold text-sm hover:text-primary-fixed transition-colors">
+              {(content.phones && content.phones[0]) ? content.phones[0] : content.contactPhone}
             </a>
             <a href={`mailto:${content.contactEmail}`} className="text-secondary-fixed-dim text-xs hover:text-primary-fixed transition-colors">
               {content.contactEmail}
@@ -149,8 +162,8 @@ const Header = () => {
           })}
           
           <div className="flex flex-col items-center mt-4 border-t border-outline-variant/30 pt-6 w-3/4">
-            <a href={`tel:${content.contactPhone.replace(/[^\d+]/g, '')}`} className="text-white font-bold text-lg hover:text-primary-fixed transition-colors mb-2">
-              {content.contactPhone}
+            <a href={`tel:${(content.phones && content.phones[0]) ? content.phones[0].replace(/[^\d+]/g, '') : content.contactPhone?.replace(/[^\d+]/g, '')}`} className="text-white font-bold text-lg hover:text-primary-fixed transition-colors mb-2">
+              {(content.phones && content.phones[0]) ? content.phones[0] : content.contactPhone}
             </a>
             {session ? (
               <Link

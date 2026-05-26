@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Calculator, ShieldCheck, Zap } from "lucide-react";
+import { Calculator, ShieldCheck, Zap, Star, Award, CheckCircle, Lightbulb, ThumbsUp, Activity, PenTool, Wrench, Battery, Cpu, Fingerprint } from "lucide-react";
 
 interface PriceItem {
   id?: string;
@@ -16,6 +16,7 @@ interface PriceItem {
 interface PageContent {
   pricingSeoTitle?: string;
   pricingSeoText?: string;
+  pricingFeatures?: any;
 }
 
 const defaultPrices: PriceItem[] = [
@@ -66,9 +67,34 @@ export default function PricingPage() {
 
     fetch("/api/content")
       .then((res) => res.json())
-      .then((data) => setContent(data))
+      .then((data) => {
+        if (data) {
+          try { data.pricingFeatures = JSON.parse(data.pricingFeatures || "[]"); } catch { data.pricingFeatures = []; }
+          setContent(data);
+        }
+      })
       .catch(() => setContent(null));
   }, []);
+
+  const getFeatureIcon = (iconName: string) => {
+    switch (iconName.toLowerCase()) {
+      case 'calculator': return <Calculator className="text-primary-fixed" size={28} />;
+      case 'shieldcheck': return <ShieldCheck className="text-primary-fixed" size={28} />;
+      case 'zap': return <Zap className="text-primary-fixed" size={28} />;
+      case 'star': return <Star className="text-primary-fixed" size={28} />;
+      case 'award': return <Award className="text-primary-fixed" size={28} />;
+      case 'checkcircle': return <CheckCircle className="text-primary-fixed" size={28} />;
+      case 'lightbulb': return <Lightbulb className="text-primary-fixed" size={28} />;
+      case 'thumbsup': return <ThumbsUp className="text-primary-fixed" size={28} />;
+      case 'activity': return <Activity className="text-primary-fixed" size={28} />;
+      case 'pentool': return <PenTool className="text-primary-fixed" size={28} />;
+      case 'wrench': return <Wrench className="text-primary-fixed" size={28} />;
+      case 'battery': return <Battery className="text-primary-fixed" size={28} />;
+      case 'cpu': return <Cpu className="text-primary-fixed" size={28} />;
+      case 'fingerprint': return <Fingerprint className="text-primary-fixed" size={28} />;
+      default: return <CheckCircle className="text-primary-fixed" size={28} />;
+    }
+  };
 
   const groupedPrices = prices.reduce((acc, item) => {
     const cat = item.category || "Інші роботи";
@@ -147,32 +173,47 @@ export default function PricingPage() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-            <div className="bg-surface-container rounded-3xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all group relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-fixed/10 transition-colors"></div>
-              <div className="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 border border-outline-variant/30 group-hover:scale-110 transition-transform">
-                <Calculator className="text-primary-fixed" size={28} />
-              </div>
-              <h4 className="font-title-lg text-white mb-3">Фіксований кошторис</h4>
-              <p className="text-secondary-fixed-dim leading-relaxed">Ціна не змінюється в процесі роботи. Ви знаєте точну вартість до початку монтажу.</p>
-            </div>
-            
-            <div className="bg-surface-container rounded-3xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all group relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-fixed/10 transition-colors"></div>
-              <div className="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 border border-outline-variant/30 group-hover:scale-110 transition-transform">
-                <ShieldCheck className="text-primary-fixed" size={28} />
-              </div>
-              <h4 className="font-title-lg text-white mb-3">Офіційна гарантія</h4>
-              <p className="text-secondary-fixed-dim leading-relaxed">Ми надаємо гарантію на всі види робіт та матеріали терміном від 5 років.</p>
-            </div>
-            
-            <div className="bg-surface-container rounded-3xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all group relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-fixed/10 transition-colors"></div>
-              <div className="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 border border-outline-variant/30 group-hover:scale-110 transition-transform">
-                <Zap className="text-primary-fixed" size={28} />
-              </div>
-              <h4 className="font-title-lg text-white mb-3">Безпека понад усе</h4>
-              <p className="text-secondary-fixed-dim leading-relaxed">Використовуємо тільки сертифіковані матеріали, що не підтримують горіння.</p>
-            </div>
+            {content?.pricingFeatures && content.pricingFeatures.length > 0 ? (
+              content.pricingFeatures.map((feature: any, idx: number) => (
+                <div key={idx} className="bg-surface-container rounded-3xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all group relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-fixed/10 transition-colors"></div>
+                  <div className="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 border border-outline-variant/30 group-hover:scale-110 transition-transform">
+                    {getFeatureIcon(feature.icon)}
+                  </div>
+                  <h4 className="font-title-lg text-white mb-3">{feature.title}</h4>
+                  <p className="text-secondary-fixed-dim leading-relaxed">{feature.description}</p>
+                </div>
+              ))
+            ) : (
+              <>
+                <div className="bg-surface-container rounded-3xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all group relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-fixed/10 transition-colors"></div>
+                  <div className="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 border border-outline-variant/30 group-hover:scale-110 transition-transform">
+                    <Calculator className="text-primary-fixed" size={28} />
+                  </div>
+                  <h4 className="font-title-lg text-white mb-3">Фіксований кошторис</h4>
+                  <p className="text-secondary-fixed-dim leading-relaxed">Ціна не змінюється в процесі роботи. Ви знаєте точну вартість до початку монтажу.</p>
+                </div>
+                
+                <div className="bg-surface-container rounded-3xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all group relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-fixed/10 transition-colors"></div>
+                  <div className="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 border border-outline-variant/30 group-hover:scale-110 transition-transform">
+                    <ShieldCheck className="text-primary-fixed" size={28} />
+                  </div>
+                  <h4 className="font-title-lg text-white mb-3">Офіційна гарантія</h4>
+                  <p className="text-secondary-fixed-dim leading-relaxed">Ми надаємо гарантію на всі види робіт та матеріали терміном від 5 років.</p>
+                </div>
+                
+                <div className="bg-surface-container rounded-3xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all group relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-fixed/10 transition-colors"></div>
+                  <div className="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 border border-outline-variant/30 group-hover:scale-110 transition-transform">
+                    <Zap className="text-primary-fixed" size={28} />
+                  </div>
+                  <h4 className="font-title-lg text-white mb-3">Безпека понад усе</h4>
+                  <p className="text-secondary-fixed-dim leading-relaxed">Використовуємо тільки сертифіковані матеріали, що не підтримують горіння.</p>
+                </div>
+              </>
+            )}
           </div>
         </section>
       </div>
