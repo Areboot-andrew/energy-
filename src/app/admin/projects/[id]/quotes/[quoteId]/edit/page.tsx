@@ -13,6 +13,7 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [memoryItems, setMemoryItems] = useState<any[]>([]);
+  const [activeDropdownId, setActiveDropdownId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/prices").then(res => res.json()).then(data => {
@@ -180,9 +181,6 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
   return (
     <AdminLayout>
       <div className="space-y-6 pb-24">
-        <datalist id="price-items-memory">
-          {memoryItems.map(m => <option key={m.id} value={m.name} />)}
-        </datalist>
 
         <Link href={`/admin/projects/${params.id}/quotes/${params.quoteId}`} className="inline-flex items-center gap-2 text-secondary-fixed-dim hover:text-white transition-colors mb-2 text-sm font-bold uppercase tracking-widest">
           <ArrowLeft size={16} /> Скасувати
@@ -241,13 +239,37 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                         {group.items.map((item: any) => (
                           <tr key={item.id} className="group/row hover:bg-white/5 transition-colors">
                             <td className="py-3 px-2">
-                              <input 
-                                list="price-items-memory"
-                                className="w-full bg-transparent border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm mb-1"
-                                value={item.name}
-                                onChange={e => updateItem(group.id, item.id, 'name', e.target.value)}
-                                placeholder="Назва (почніть вводити для підказки)"
-                              />
+                              <div className="relative">
+                                <input 
+                                  className="w-full bg-transparent border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm mb-1"
+                                  value={item.name}
+                                  onChange={e => updateItem(group.id, item.id, 'name', e.target.value)}
+                                  onFocus={() => setActiveDropdownId(item.id)}
+                                  onBlur={() => setTimeout(() => { if (activeDropdownId === item.id) setActiveDropdownId(null) }, 200)}
+                                  placeholder="Назва послуги чи матеріалу..."
+                                />
+                                {activeDropdownId === item.id && memoryItems.filter(m => m.name.toLowerCase().includes(item.name.toLowerCase())).length > 0 && (
+                                  <div className="absolute z-50 left-0 right-0 top-[38px] bg-surface-container-highest border border-outline-variant/30 rounded shadow-2xl max-h-48 overflow-y-auto">
+                                    {memoryItems
+                                      .filter(m => m.name.toLowerCase().includes(item.name.toLowerCase()))
+                                      .map(m => (
+                                        <div 
+                                          key={m.id}
+                                          className="p-3 hover:bg-primary-fixed hover:text-black cursor-pointer text-sm border-b border-outline-variant/10 text-white flex justify-between items-center transition-colors"
+                                          onClick={() => {
+                                            updateItem(group.id, item.id, 'name', m.name);
+                                            updateItem(group.id, item.id, 'price', m.price);
+                                            updateItem(group.id, item.id, 'unit', m.unit);
+                                            setActiveDropdownId(null);
+                                          }}
+                                        >
+                                          <span className="font-bold">{m.name}</span>
+                                          <span className="text-xs opacity-70 bg-black/20 px-2 py-1 rounded">{m.price} ₴ / {m.unit}</span>
+                                        </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
                               <input 
                                 className="w-full bg-transparent border border-outline-variant/10 rounded p-1.5 text-secondary-fixed-dim focus:text-white focus:border-primary-fixed outline-none text-xs italic"
                                 value={item.description || ''}
@@ -287,11 +309,17 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                                   value={item.quantity}
                                   onChange={e => updateItem(group.id, item.id, 'quantity', e.target.value)}
                                 />
-                                <input 
-                                  className="w-12 bg-background border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm text-center"
+                                <select 
+                                  className="w-16 bg-background border border-outline-variant/20 rounded p-2 text-white focus:border-primary-fixed outline-none text-sm text-center appearance-none"
                                   value={item.unit}
                                   onChange={e => updateItem(group.id, item.id, 'unit', e.target.value)}
-                                />
+                                >
+                                  <option value="шт">шт</option>
+                                  <option value="м">м</option>
+                                  <option value="м²">м²</option>
+                                  <option value="послуга">послуга</option>
+                                  <option value="компл">компл</option>
+                                </select>
                               </div>
                             </td>
                             <td className="py-3 px-2">
