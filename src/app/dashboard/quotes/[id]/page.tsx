@@ -127,40 +127,44 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
                     // Table Header
                     [
                       { text: '№', style: 'tableHeader', alignment: 'center' },
-                      { text: 'Найменування', style: 'tableHeader' },
+                      { text: 'Найменування', style: 'tableHeader', alignment: 'center' },
                       { text: 'Фото', style: 'tableHeader', alignment: 'center' },
                       { text: 'Кіл-ть', style: 'tableHeader', alignment: 'center' },
-                      { text: 'Ціна (грн)', style: 'tableHeader', alignment: 'right' },
-                      { text: 'Сума (грн)', style: 'tableHeader', alignment: 'right' }
+                      { text: 'Ціна (грн)', style: 'tableHeader', alignment: 'center' },
+                      { text: 'Сума (грн)', style: 'tableHeader', alignment: 'center' }
                     ],
                     // Table Body
                     ...group.items.map((item: any, idx: number) => [
-                      { text: (idx + 1).toString(), alignment: 'center', margin: [0, 10, 0, 10] },
+                      { text: (idx + 1).toString(), alignment: 'center', margin: [0, 5, 0, 5] },
                       { 
                         text: item.description 
                           ? [ { text: item.name + '\n' }, { text: item.description, fontSize: 8, color: '#6B7280', italics: true } ]
                           : item.name, 
-                        margin: [0, 10, 0, 10] 
+                        margin: [0, 5, 0, 5] 
                       },
                       item.base64Photo 
                         ? { image: item.base64Photo, width: 35, height: 35, alignment: 'center', margin: [0, 2, 0, 2] } 
-                        : { text: '-', alignment: 'center', margin: [0, 10, 0, 10], color: '#9CA3AF' },
-                      { text: `${item.quantity} ${item.unit}`, alignment: 'center', margin: [0, 10, 0, 10] },
-                      { text: item.price.toLocaleString(), alignment: 'right', margin: [0, 10, 0, 10] },
-                      { text: item.total.toLocaleString(), alignment: 'right', bold: true, margin: [0, 10, 0, 10] }
+                        : { text: '-', alignment: 'center', margin: [0, 5, 0, 5], color: '#9CA3AF' },
+                      { text: `${item.quantity} ${item.unit}`, alignment: 'center', margin: [0, 5, 0, 5] },
+                      { text: item.price.toLocaleString(), alignment: 'right', margin: [0, 5, 0, 5] },
+                      { text: item.total.toLocaleString(), alignment: 'right', bold: true, margin: [0, 5, 0, 5] }
                     ])
                   ]
                 },
                 layout: {
-                  hLineWidth: (i: number, node: any) => (i === 0 || i === node.table.body.length) ? 2 : 1,
-                  vLineWidth: (i: number, node: any) => (i === 0 || i === node.table.widths.length) ? 2 : 1,
-                  hLineColor: (i: number, node: any) => (i === 0 || i === node.table.body.length) ? '#000000' : '#D1D5DB',
+                  hLineWidth: (i: number, node: any) => {
+                    if (i === 0 || i === node.table.body.length) return 1; // outer borders
+                    if (i === 1) return 1.5; // Thicker line under header
+                    return 0.5; // inner borders
+                  },
+                  vLineWidth: (i: number, node: any) => (i === 0 || i === node.table.widths.length) ? 1 : 0.5,
+                  hLineColor: (i: number, node: any) => (i === 0 || i === node.table.body.length || i === 1) ? '#000000' : '#D1D5DB',
                   vLineColor: (i: number, node: any) => (i === 0 || i === node.table.widths.length) ? '#000000' : '#D1D5DB',
                   fillColor: (rowIndex: number) => (rowIndex === 0) ? '#E5E7EB' : (rowIndex % 2 === 0 ? '#F9FAFB' : null),
-                  paddingTop: () => 5,
-                  paddingBottom: () => 5,
-                  paddingLeft: () => 8,
-                  paddingRight: () => 8,
+                  paddingTop: () => 4,
+                  paddingBottom: () => 4,
+                  paddingLeft: () => 6,
+                  paddingRight: () => 6,
                 },
                 margin: [0, 0, 0, 20]
               }
