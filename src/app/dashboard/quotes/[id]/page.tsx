@@ -21,8 +21,125 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
       });
   }, [params.id]);
 
-  const handleDownloadPDF = () => {
-    window.print();
+  const handleDownloadPDF = async () => {
+    try {
+      // Dynamically import pdfmake to avoid SSR issues
+      const pdfMakeModule = await import("pdfmake/build/pdfmake");
+      const pdfFonts = await import("pdfmake/build/vfs_fonts");
+      const pdfMake = pdfMakeModule.default || pdfMakeModule;
+      // Handle different module resolutions
+      const vfs = pdfFonts.pdfMake ? pdfFonts.pdfMake.vfs : (pdfFonts.default ? pdfFonts.default.pdfMake.vfs : pdfFonts);
+      pdfMake.vfs = vfs;
+
+      const docDefinition: any = {
+        pageSize: 'A4',
+        pageMargins: [40, 60, 40, 60],
+        content: [
+          // Header section
+          {
+            columns: [
+              {
+                text: [
+                  { text: 'VOLT PREMIUM\n', style: 'brandTitle' },
+                  { text: 'Офіційний Кошторис', style: 'brandSub' }
+                ]
+              },
+              {
+                text: [
+                  { text: `Клієнт: ${quote.project.user.name}\n`, style: 'clientInfo' },
+                  { text: `${quote.project.user.phone}\n`, style: 'clientInfo' },
+                  { text: `Дата: ${new Date(quote.createdAt).toLocaleDateString('uk-UA')}\n`, style: 'clientInfo' },
+                  { text: `Статус: ${quote.status === 'APPROVED' ? 'ПОГОДЖЕНО' : quote.status === 'REJECTED' ? 'ВІДХИЛЕНО' : 'В ОЧІКУВАННІ'}`, style: 'clientStatus' }
+                ],
+                alignment: 'right'
+              }
+            ],
+            columnGap: 20,
+            margin: [0, 0, 0, 30]
+          },
+          // Document Title
+          { text: quote.title, style: 'docTitle' },
+          { text: `Об'єкт: ${quote.project.title}`, style: 'docSubTitle', margin: [0, 0, 0, 20] },
+          
+          // Groups
+          ...quote.groups.map((group: any) => {
+            const groupTotal = group.items.reduce((sum: number, item: any) => sum + item.total, 0);
+            return [
+              {
+                columns: [
+                  { text: group.title, style: 'groupTitle' },
+                  { text: `${groupTotal.toLocaleString()} ₴`, style: 'groupTotal', alignment: 'right' }
+                ],
+                margin: [0, 15, 0, 5]
+              },
+              {
+                table: {
+                  headerRows: 1,
+                  widths: ['auto', '*', 'auto', 'auto', 'auto'],
+                  body: [
+                    // Table Header
+                    [
+                      { text: '№', style: 'tableHeader', alignment: 'center' },
+                      { text: 'Найменування', style: 'tableHeader' },
+                      { text: 'Кіл-ть', style: 'tableHeader', alignment: 'center' },
+                      { text: 'Ціна (₴)', style: 'tableHeader', alignment: 'right' },
+                      { text: 'Сума (₴)', style: 'tableHeader', alignment: 'right' }
+                    ],
+                    // Table Body
+                    ...group.items.map((item: any, idx: number) => [
+                      { text: (idx + 1).toString(), alignment: 'center', margin: [0, 5, 0, 5] },
+                      { text: item.description ? `${item.name}\n(${item.description})` : item.name, margin: [0, 5, 0, 5] },
+                      { text: `${item.quantity} ${item.unit}`, alignment: 'center', margin: [0, 5, 0, 5] },
+                      { text: item.price.toLocaleString(), alignment: 'right', margin: [0, 5, 0, 5] },
+                      { text: item.total.toLocaleString(), alignment: 'right', bold: true, margin: [0, 5, 0, 5] }
+                    ])
+                  ]
+                },
+                layout: {
+                  hLineWidth: (i: number, node: any) => (i === 0 || i === node.table.body.length) ? 2 : 1,
+                  vLineWidth: () => 0,
+                  hLineColor: (i: number, node: any) => (i === 0 || i === node.table.body.length) ? '#000000' : '#E5E7EB',
+                  fillColor: (rowIndex: number) => (rowIndex === 0) ? '#F3F4F6' : (rowIndex % 2 === 0 ? '#F9FAFB' : null)
+                },
+                margin: [0, 0, 0, 20]
+              }
+            ];
+          }),
+          
+          // Grand Total
+          {
+            text: [
+              { text: 'ЗАГАЛЬНА ВАРТІСТЬ: ', style: 'grandTotalLabel' },
+              { text: `${quote.totalAmount.toLocaleString()} ₴`, style: 'grandTotalValue' }
+            ],
+            alignment: 'right',
+            margin: [0, 30, 0, 0]
+          }
+        ],
+        styles: {
+          brandTitle: { fontSize: 20, bold: true, color: '#000000' },
+          brandSub: { fontSize: 12, bold: true, color: '#6B7280' },
+          clientInfo: { fontSize: 10, color: '#374151', lineHeight: 1.2 },
+          clientStatus: { fontSize: 10, bold: true, color: '#111827', marginTop: 5 },
+          docTitle: { fontSize: 18, bold: true, color: '#111827' },
+          docSubTitle: { fontSize: 12, color: '#6B7280' },
+          groupTitle: { fontSize: 14, bold: true, color: '#111827' },
+          groupTotal: { fontSize: 14, bold: true, color: '#111827' },
+          tableHeader: { bold: true, fontSize: 11, color: '#374151', margin: [0, 5, 0, 5] },
+          grandTotalLabel: { fontSize: 14, bold: true, color: '#374151' },
+          grandTotalValue: { fontSize: 24, bold: true, color: '#1d4ed8' }
+        },
+        defaultStyle: {
+          fontSize: 10,
+          color: '#111827'
+        }
+      };
+
+      pdfMake.createPdf(docDefinition).download(`Кошторис_${quote.title.replace(/\s+/g, '_')}.pdf`);
+    } catch (error: any) {
+      console.error("PDF generation error:", error);
+      alert("Помилка генерації PDF: " + (error?.message || error?.toString()));
+    }
   };
 
   const handleStatusChange = async (status: string, details: string) => {
