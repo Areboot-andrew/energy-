@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Calculator, ShieldCheck, Zap } from "lucide-react";
 
 interface PriceItem {
   id?: string;
@@ -137,23 +138,42 @@ export default function PricingPage() {
           </div>
         )}
         
-        <section className="mt-24 bg-surface-container p-8 lg:p-12 rounded-3xl border border-outline-variant/10 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary-fixed/5 blur-3xl rounded-full -mr-20 -mt-20 pointer-events-none"></div>
-          <h3 className="font-headline-md mb-4 text-white">Чому обирають нас?</h3>
-          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 relative z-10">
-            <li>
-              <h4 className="font-title-md text-primary-fixed mb-2">Фіксований кошторис</h4>
-              <p className="text-secondary-fixed-dim text-sm lg:text-base">Ціна не змінюється в процесі роботи. Ви знаєте точну вартість до початку монтажу.</p>
-            </li>
-            <li>
-              <h4 className="font-title-md text-primary-fixed mb-2">Офіційна гарантія</h4>
-              <p className="text-secondary-fixed-dim text-sm lg:text-base">Ми надаємо гарантію на всі види робіт терміном від 5 років.</p>
-            </li>
-            <li>
-              <h4 className="font-title-md text-primary-fixed mb-2">Безпека понад усе</h4>
-              <p className="text-secondary-fixed-dim text-sm lg:text-base">Використовуємо тільки сертифіковані матеріали, що не підтримують горіння.</p>
-            </li>
-          </ul>
+        <section className="mt-24 relative">
+          <div className="text-center mb-12">
+            <h3 className="font-headline-lg text-white mb-4">Чому обирають нас?</h3>
+            <p className="text-secondary-fixed-dim max-w-2xl mx-auto">
+              Ми гарантуємо прозорість, надійність та безпеку на кожному етапі співпраці.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+            <div className="bg-surface-container rounded-3xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all group relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-fixed/10 transition-colors"></div>
+              <div className="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 border border-outline-variant/30 group-hover:scale-110 transition-transform">
+                <Calculator className="text-primary-fixed" size={28} />
+              </div>
+              <h4 className="font-title-lg text-white mb-3">Фіксований кошторис</h4>
+              <p className="text-secondary-fixed-dim leading-relaxed">Ціна не змінюється в процесі роботи. Ви знаєте точну вартість до початку монтажу.</p>
+            </div>
+            
+            <div className="bg-surface-container rounded-3xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all group relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-fixed/10 transition-colors"></div>
+              <div className="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 border border-outline-variant/30 group-hover:scale-110 transition-transform">
+                <ShieldCheck className="text-primary-fixed" size={28} />
+              </div>
+              <h4 className="font-title-lg text-white mb-3">Офіційна гарантія</h4>
+              <p className="text-secondary-fixed-dim leading-relaxed">Ми надаємо гарантію на всі види робіт та матеріали терміном від 5 років.</p>
+            </div>
+            
+            <div className="bg-surface-container rounded-3xl p-8 border border-outline-variant/20 hover:border-primary-fixed/40 transition-all group relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/5 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-fixed/10 transition-colors"></div>
+              <div className="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 border border-outline-variant/30 group-hover:scale-110 transition-transform">
+                <Zap className="text-primary-fixed" size={28} />
+              </div>
+              <h4 className="font-title-lg text-white mb-3">Безпека понад усе</h4>
+              <p className="text-secondary-fixed-dim leading-relaxed">Використовуємо тільки сертифіковані матеріали, що не підтримують горіння.</p>
+            </div>
+          </div>
         </section>
       </div>
     </main>
