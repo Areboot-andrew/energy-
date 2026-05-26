@@ -14,12 +14,18 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [memoryItems, setMemoryItems] = useState<any[]>([]);
+  const [descriptionMemory, setDescriptionMemory] = useState<string[]>([]);
   const [activeDropdownId, setActiveDropdownId] = useState<string | null>(null);
+  const [activeDescDropdownId, setActiveDescDropdownId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/prices").then(res => res.json()).then(data => {
       if (Array.isArray(data)) setMemoryItems(data);
     }).catch(e => console.error("Memory fetch failed"));
+
+    fetch("/api/admin/descriptions").then(res => res.json()).then(data => {
+      if (Array.isArray(data)) setDescriptionMemory(data);
+    }).catch(e => console.error("Desc memory fetch failed"));
 
     fetch(`/api/quotes/${params.quoteId}`)
       .then(res => res.json())
@@ -91,6 +97,15 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
         unit: item.unit
       }];
     });
+
+    if (item.description && item.description.trim() !== '') {
+      setDescriptionMemory(prev => {
+        if (!prev.includes(item.description.trim())) {
+          return [...prev, item.description.trim()];
+        }
+        return prev;
+      });
+    }
   };
 
   const addItem = (groupId: string) => {
@@ -348,12 +363,38 @@ export default function EditQuotePage({ params }: { params: { id: string, quoteI
                                   </div>
                                 )}
                               </div>
-                              <input 
-                                className="w-full bg-transparent border border-outline-variant/10 rounded p-1.5 text-secondary-fixed-dim focus:text-white focus:border-primary-fixed outline-none text-xs italic"
-                                value={item.description || ''}
-                                onChange={e => updateItem(group.id, item.id, 'description', e.target.value)}
-                                placeholder="Опис / Артикул (необов'язково)"
-                              />
+                              <div className="relative mt-2">
+                                <input 
+                                  className="w-full bg-transparent border border-outline-variant/10 rounded p-1.5 text-secondary-fixed-dim focus:text-white focus:border-primary-fixed outline-none text-xs italic"
+                                  value={item.description || ''}
+                                  onChange={e => updateItem(group.id, item.id, 'description', e.target.value)}
+                                  onFocus={() => setActiveDescDropdownId(item.id)}
+                                  onBlur={() => {
+                                    handleItemBlur(item);
+                                    setTimeout(() => { if (activeDescDropdownId === item.id) setActiveDescDropdownId(null) }, 200);
+                                  }}
+                                  placeholder="Опис / Артикул (необов'язково)"
+                                />
+                                {activeDescDropdownId === item.id && descriptionMemory.filter(d => d.toLowerCase().includes((item.description || '').toLowerCase())).length > 0 && (
+                                  <div className="absolute z-50 left-0 right-0 top-[30px] bg-surface-container-highest border border-outline-variant/30 rounded shadow-2xl max-h-48 overflow-y-auto">
+                                    {descriptionMemory
+                                      .filter(d => d.toLowerCase().includes((item.description || '').toLowerCase()))
+                                      .map((d, dIdx) => (
+                                        <div 
+                                          key={dIdx}
+                                          className="p-2 hover:bg-primary-fixed hover:text-black cursor-pointer text-xs border-b border-outline-variant/10 text-white transition-colors truncate"
+                                          onMouseDown={(e) => {
+                                            e.preventDefault();
+                                            updateItem(group.id, item.id, 'description', d);
+                                            setActiveDescDropdownId(null);
+                                          }}
+                                        >
+                                          {d}
+                                        </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
                             </td>
                             <td className="py-3 px-2">
                               <label className="cursor-pointer flex items-center justify-center w-12 h-12 bg-background border border-dashed border-outline-variant/30 rounded hover:border-primary-fixed transition-colors overflow-hidden relative group/upload">
