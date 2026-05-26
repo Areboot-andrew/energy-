@@ -9,6 +9,7 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
   const [quote, setQuote] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const [generatingPDF, setGeneratingPDF] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -20,8 +21,39 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
       });
   }, [params.id]);
 
-  const handleDownloadPDF = async () => {
+  const getBase64ImageFromUrl = async (imageUrl: string) => {
     try {
+      // Ensure absolute URL if it's relative
+      const url = imageUrl.startsWith('/') ? window.location.origin + imageUrl : imageUrl;
+      const res = await fetch(url);
+      const blob = await res.blob();
+      return new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.error("Failed to load image for PDF:", e);
+      return null;
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    if (generatingPDF) return;
+    setGeneratingPDF(true);
+
+    try {
+      // Pre-load images
+      const groupsWithImages = await Promise.all(quote.groups.map(async (group: any) => {
+        const itemsWithImages = await Promise.all(group.items.map(async (item: any) => {
+          let base64Photo = null;
+          if (item.photoUrl) {
+            base64Photo = await getBase64ImageFromUrl(item.photoUrl);
+          }
+          return { ...item, base64Photo };
+        }));
+        return { ...group, items: itemsWithImages };
+      }));
       // Dynamically import pdfmake to avoid SSR issues
       const pdfMakeModule: any = await import("pdfmake/build/pdfmake");
       const pdfFonts: any = await import("pdfmake/build/vfs_fonts");
@@ -67,7 +99,7 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
           { text: `Об'єкт: ${quote.project.title}`, style: 'docSubTitle', margin: [0, 0, 0, 20] },
           
           // Groups
-          ...quote.groups.map((group: any) => {
+          ...groupsWithImages.map((group: any) => {
             const groupTotal = group.items.reduce((sum: number, item: any) => sum + item.total, 0);
             return [
               {
@@ -80,31 +112,45 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
               {
                 table: {
                   headerRows: 1,
-                  widths: ['auto', '*', 'auto', 'auto', 'auto'],
+                  widths: ['auto', '*', 'auto', 'auto', 'auto', 'auto'],
                   body: [
                     // Table Header
                     [
                       { text: '№', style: 'tableHeader', alignment: 'center' },
                       { text: 'Найменування', style: 'tableHeader' },
+                      { text: 'Фото', style: 'tableHeader', alignment: 'center' },
                       { text: 'Кіл-ть', style: 'tableHeader', alignment: 'center' },
                       { text: 'Ціна (₴)', style: 'tableHeader', alignment: 'right' },
                       { text: 'Сума (₴)', style: 'tableHeader', alignment: 'right' }
                     ],
                     // Table Body
                     ...group.items.map((item: any, idx: number) => [
-                      { text: (idx + 1).toString(), alignment: 'center', margin: [0, 5, 0, 5] },
-                      { text: item.description ? `${item.name}\n(${item.description})` : item.name, margin: [0, 5, 0, 5] },
-                      { text: `${item.quantity} ${item.unit}`, alignment: 'center', margin: [0, 5, 0, 5] },
-                      { text: item.price.toLocaleString(), alignment: 'right', margin: [0, 5, 0, 5] },
-                      { text: item.total.toLocaleString(), alignment: 'right', bold: true, margin: [0, 5, 0, 5] }
+                      { text: (idx + 1).toString(), alignment: 'center', margin: [0, 10, 0, 10] },
+                      { 
+                        text: item.description 
+                          ? [ { text: item.name + '\n' }, { text: item.description, fontSize: 8, color: '#6B7280', italics: true } ]
+                          : item.name, 
+                        margin: [0, 10, 0, 10] 
+                      },
+                      item.base64Photo 
+                        ? { image: item.base64Photo, width: 35, height: 35, alignment: 'center', margin: [0, 2, 0, 2] } 
+                        : { text: '-', alignment: 'center', margin: [0, 10, 0, 10], color: '#9CA3AF' },
+                      { text: `${item.quantity} ${item.unit}`, alignment: 'center', margin: [0, 10, 0, 10] },
+                      { text: item.price.toLocaleString(), alignment: 'right', margin: [0, 10, 0, 10] },
+                      { text: item.total.toLocaleString(), alignment: 'right', bold: true, margin: [0, 10, 0, 10] }
                     ])
                   ]
                 },
                 layout: {
                   hLineWidth: (i: number, node: any) => (i === 0 || i === node.table.body.length) ? 2 : 1,
-                  vLineWidth: () => 0,
-                  hLineColor: (i: number, node: any) => (i === 0 || i === node.table.body.length) ? '#000000' : '#E5E7EB',
-                  fillColor: (rowIndex: number) => (rowIndex === 0) ? '#F3F4F6' : (rowIndex % 2 === 0 ? '#F9FAFB' : null)
+                  vLineWidth: (i: number, node: any) => (i === 0 || i === node.table.widths.length) ? 2 : 1,
+                  hLineColor: (i: number, node: any) => (i === 0 || i === node.table.body.length) ? '#000000' : '#D1D5DB',
+                  vLineColor: (i: number, node: any) => (i === 0 || i === node.table.widths.length) ? '#000000' : '#D1D5DB',
+                  fillColor: (rowIndex: number) => (rowIndex === 0) ? '#E5E7EB' : (rowIndex % 2 === 0 ? '#F9FAFB' : null),
+                  paddingTop: () => 5,
+                  paddingBottom: () => 5,
+                  paddingLeft: () => 8,
+                  paddingRight: () => 8,
                 },
                 margin: [0, 0, 0, 20]
               }
@@ -144,6 +190,8 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
     } catch (error: any) {
       console.error("PDF generation error:", error);
       alert("Помилка генерації PDF: " + (error?.message || error?.toString()));
+    } finally {
+      setGeneratingPDF(false);
     }
   };
 
@@ -197,9 +245,10 @@ export default function QuoteDetailsPage({ params }: { params: { id: string } })
           )}
           <button 
             onClick={handleDownloadPDF}
-            className="bg-primary-fixed text-on-primary-fixed px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_20px_rgba(213,240,0,0.3)] transition-all flex items-center gap-2"
+            disabled={generatingPDF}
+            className={`${generatingPDF ? 'bg-gray-500 cursor-not-allowed' : 'bg-primary-fixed hover:shadow-[0_0_20px_rgba(213,240,0,0.3)]'} text-on-primary-fixed px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm transition-all flex items-center gap-2`}
           >
-            <Download size={18} /> Завантажити PDF
+            <Download size={18} /> {generatingPDF ? "Генерація..." : "Завантажити PDF"}
           </button>
         </div>
       </div>
