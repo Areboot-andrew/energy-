@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Clock } from "lucide-react";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 
 interface Post {
   id: string;
@@ -18,6 +19,7 @@ interface Post {
 const BlogListingPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [content, setContent] = useState<any>(null);
 
   useEffect(() => {
     fetch("/api/blog")
@@ -26,6 +28,11 @@ const BlogListingPage = () => {
         setPosts(data);
         setLoading(false);
       });
+      
+    fetch("/api/content")
+      .then(res => res.json())
+      .then(data => setContent(data))
+      .catch(() => {});
   }, []);
 
   return (
@@ -37,7 +44,11 @@ const BlogListingPage = () => {
         
         <div className="mb-16">
           <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">База знань</span>
-          <h1 className="font-display-lg text-white mb-6">Блог та корисні поради</h1>
+          <HighlightedTitle 
+            text={content?.blogTitle || "*Блог* та корисні поради"} 
+            className="font-display-lg text-4xl md:text-5xl lg:text-6xl text-white mb-6" 
+            as="h1" 
+          />
           <p className="text-secondary-fixed-dim text-body-lg max-w-2xl">
             Ділимося експертним досвідом у сфері електромонтажу, енергоефективності та автоматизації сучасних об'єктів.
           </p>

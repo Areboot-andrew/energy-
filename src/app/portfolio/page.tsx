@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Play } from "lucide-react";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 
 const prisma = new PrismaClient();
 
@@ -31,6 +32,10 @@ export default async function PortfolioPage() {
     orderBy: { createdAt: "desc" },
   });
 
+  const content = await prisma.pageContent.findUnique({
+    where: { id: "singleton" },
+  });
+
   return (
     <main className="min-h-screen bg-background text-on-background pb-24 pt-32">
       <div className="max-w-container-max mx-auto px-margin-desktop">
@@ -39,7 +44,11 @@ export default async function PortfolioPage() {
             <span>←</span> На головну
           </Link>
           <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">Галерея</span>
-          <h1 className="font-headline-xl text-display-lg-mobile md:text-display-lg text-white">Усі проєкти</h1>
+          <HighlightedTitle 
+            text={content?.portfolioTitle || "Усі *проєкти*"} 
+            className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-white" 
+            as="h1" 
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

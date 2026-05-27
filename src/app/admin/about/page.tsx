@@ -168,12 +168,8 @@ export default function AboutPageEditor() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок блоку цінностей</label>
-              <input
-                type="text"
-                value={content.aboutValuesTitle || ""}
-                onChange={(e) => setContent((prev: any) => ({ ...prev, aboutValuesTitle: e.target.value }))}
-                className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
-              />
+              <input type="text" value={content.aboutValuesTitle} onChange={(e) => setContent((prev: any) => ({ ...prev, aboutValuesTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              <p className="text-xs text-secondary-fixed-dim mt-1">Використовуйте *зірочки*, щоб виділити слово жовтим кольором.</p>
             </div>
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок блоку цінностей</label>
@@ -217,12 +213,8 @@ export default function AboutPageEditor() {
 
           <div className="space-y-2 mb-6">
             <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок блоку етапів</label>
-            <input
-              type="text"
-              value={content.aboutStepsTitle || ""}
-              onChange={(e) => setContent((prev: any) => ({ ...prev, aboutStepsTitle: e.target.value }))}
-              className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
-            />
+            <input type="text" value={content.aboutStepsTitle} onChange={(e) => setContent((prev: any) => ({ ...prev, aboutStepsTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            <p className="text-xs text-secondary-fixed-dim mt-1">Використовуйте *зірочки*, щоб виділити слово жовтим кольором.</p>
           </div>
           
           {aboutSteps.map((s, i) => (

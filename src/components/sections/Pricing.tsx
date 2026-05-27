@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 
 const Pricing = () => {
@@ -35,7 +36,11 @@ const Pricing = () => {
   return (
     <section className="py-24 px-margin-desktop max-w-container-max mx-auto" id="pricing">
       <div className="text-center mb-16">
-        <h2 className="font-headline-xl mb-6">{content.pricingTitle}</h2>
+        <HighlightedTitle 
+          text={content.pricingTitle} 
+          className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-white mb-6" 
+          as="h2" 
+        />
         <p className="text-secondary-fixed-dim text-lg max-w-2xl mx-auto">
           Ми пропонуємо чесні ціни за найвищу якість роботи. Виберіть пакет послуг або ознайомтеся з повним прайс-листом для детального розрахунку.
         </p>

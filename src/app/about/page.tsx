@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import * as LucideIcons from "lucide-react";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 import PortfolioCarousel from "@/components/sections/PortfolioCarousel";
 import Contacts from "@/components/sections/Contacts";
 import { PrismaClient } from "@prisma/client";
@@ -109,7 +110,11 @@ export default async function AboutPage() {
         <section className="py-24 bg-surface-dim border-y border-outline-variant/10">
           <div className="px-margin-desktop max-w-container-max mx-auto">
             <div className="text-center mb-16">
-              <h2 className="font-headline-xl mb-4 text-white">{content?.aboutValuesTitle || "Наші цінності"}</h2>
+              <HighlightedTitle 
+                text={content?.aboutValuesTitle || "Наші *цінності*"} 
+                className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-white mb-4" 
+                as="h2" 
+              />
               <p className="text-secondary-fixed-dim text-lg max-w-2xl mx-auto">
                 {content?.aboutValuesSubtitle || "Ми не йдемо на компроміси, коли справа стосується якості та безпеки."}
               </p>
@@ -133,7 +138,11 @@ export default async function AboutPage() {
       {/* How we work steps */}
       {steps.length > 0 && (
         <section className="py-24 px-margin-desktop max-w-container-max mx-auto">
-          <h2 className="font-headline-xl text-center mb-16 text-white">{content?.aboutStepsTitle || "Етапи співпраці"}</h2>
+          <HighlightedTitle 
+            text={content?.aboutStepsTitle || "Етапи *співпраці*"} 
+            className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-center mb-16 text-white" 
+            as="h2" 
+          />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
             <div className="hidden lg:block absolute top-1/2 left-0 w-full h-px bg-outline-variant/20 -translate-y-1/2 -z-10"></div>
             {steps.map((step, idx) => (

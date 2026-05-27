@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Script from "next/script";
 
 import { PrismaClient } from "@prisma/client";
 
@@ -48,18 +49,43 @@ export async function generateMetadata(): Promise<Metadata> {
 
 import { Providers } from "@/components/Providers";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const prisma = new PrismaClient();
+  const content = await prisma.pageContent.findUnique({
+    where: { id: "singleton" },
+    select: { googleAnalyticsId: true, googleSiteVerification: true }
+  });
+
   return (
     <html lang="uk" className="dark">
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+        {content?.googleSiteVerification && (
+          <meta name="google-site-verification" content={content.googleSiteVerification} />
+        )}
       </head>
       <body className="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden w-full">
+        {content?.googleAnalyticsId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${content.googleAnalyticsId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${content.googleAnalyticsId}');
+              `}
+            </Script>
+          </>
+        )}
         <Providers>
           <Header />
           {children}

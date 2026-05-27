@@ -234,6 +234,7 @@ const PageEditor = () => {
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Головний заголовок секції</label>
                 <input type="text" value={content.portfolioTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, portfolioTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <p className="text-xs text-secondary-fixed-dim mt-1">Використовуйте *зірочки*, щоб виділити слово жовтим кольором (напр., Усі *проєкти*).</p>
               </div>
               
               <div className="pt-4 border-t border-outline-variant/10 space-y-4">
@@ -259,6 +260,7 @@ const PageEditor = () => {
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Головний заголовок секції</label>
                 <input type="text" value={content.pricingTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, pricingTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <p className="text-xs text-secondary-fixed-dim mt-1">Використовуйте *зірочки*, щоб виділити слово жовтим кольором (напр., Прозоре *ціноутворення*).</p>
               </div>
               
               <div className="pt-4 border-t border-outline-variant/10 space-y-4">
@@ -285,6 +287,7 @@ const PageEditor = () => {
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок секції</label>
                   <input type="text" value={content.videoblogTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, videoblogTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <p className="text-xs text-secondary-fixed-dim mt-1">Використовуйте *зірочки*, щоб виділити слово жовтим кольором.</p>
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок</label>
@@ -321,6 +324,7 @@ const PageEditor = () => {
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Блог - Заголовок</label>
                 <input type="text" value={content.blogTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, blogTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <p className="text-xs text-secondary-fixed-dim mt-1">Використовуйте *зірочки*, щоб виділити слово жовтим кольором.</p>
               </div>
             </div>
           </section>

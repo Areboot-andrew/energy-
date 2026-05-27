@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 import { Calculator, ShieldCheck, Zap, Star, Award, CheckCircle, Lightbulb, ThumbsUp, Activity, PenTool, Wrench, Battery, Cpu, Fingerprint } from "lucide-react";
 
 interface PriceItem {
@@ -111,7 +112,11 @@ export default function PricingPage() {
         </Link>
         
         <header className="mb-16">
-          <h1 className="font-headline-xl mb-6">{content?.pricingSeoTitle || "Повний прайс-лист на електромонтажні роботи"}</h1>
+          <HighlightedTitle 
+            text={content?.pricingSeoTitle || "Повний прайс-лист на *електромонтажні* роботи"} 
+            className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-white mb-6" 
+            as="h1" 
+          />
           {content?.pricingSeoText ? (
             <div 
               className="font-body-lg text-secondary-fixed-dim max-w-3xl prose prose-invert prose-p:text-secondary-fixed-dim break-words whitespace-pre-wrap"

@@ -75,7 +75,8 @@ const SettingsPage = () => {
             { id: "general", label: "Загальні (Лого)" },
             { id: "contacts", label: "Контакти та Карта" },
             { id: "socials", label: "Соціальні мережі" },
-            { id: "pricing", label: "Блок Прайс-листа" }
+            { id: "pricing", label: "Блок Прайс-листа" },
+            { id: "seo", label: "SEO та Аналітика" }
           ].map(t => (
             <button
               key={t.id}
@@ -363,6 +364,37 @@ const SettingsPage = () => {
           </section>
         )}
 
+        {activeTab === "seo" && (
+          <div className="space-y-8">
+            <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+              <h2 className="text-xl font-bold text-white mb-6">SEO та Аналітика (Google)</h2>
+              
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Google Analytics ID (G-XXXXXXX)</label>
+                <input
+                  type="text"
+                  value={settings.googleAnalyticsId || ""}
+                  onChange={e => setSettings({...settings, googleAnalyticsId: e.target.value})}
+                  className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
+                  placeholder="G-..."
+                />
+                <p className="text-xs text-secondary-fixed-dim mt-1">Введіть ваш ідентифікатор Google Analytics для відстеження відвідуваності сайту.</p>
+              </div>
+
+              <div className="space-y-2 pt-4">
+                <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Google Site Verification</label>
+                <input
+                  type="text"
+                  value={settings.googleSiteVerification || ""}
+                  onChange={e => setSettings({...settings, googleSiteVerification: e.target.value})}
+                  className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none"
+                  placeholder="Код з мета-тегу..."
+                />
+                <p className="text-xs text-secondary-fixed-dim mt-1">Використовується для підтвердження прав на сайт у Google Search Console.</p>
+              </div>
+            </section>
+          </div>
+        )}
 
       </div>
     </AdminLayout>

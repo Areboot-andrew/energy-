@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 
 interface PortfolioProject {
   id: string;
@@ -44,7 +45,7 @@ const PortfolioCarousel = () => {
       >
         <div>
           <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-2 md:mb-4 block">Галерея</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">{content.portfolioTitle}</h2>
+          <HighlightedTitle text={content.portfolioTitle} className="text-4xl md:text-5xl lg:text-6xl font-bold text-white" as="h2" />
         </div>
         <Link href="/portfolio" className="text-primary-fixed font-bold hover:underline mb-2 flex items-center gap-2">
           Всі проєкти <span>→</span>
