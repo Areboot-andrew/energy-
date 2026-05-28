@@ -219,6 +219,7 @@ const PageEditor = () => {
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок секції</label>
                 <input type="text" value={content.servicesTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, servicesTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                <p className="text-xs text-secondary-fixed-dim mt-1">Використовуйте *зірочки*, щоб виділити слово жовтим кольором (напр., Наші *послуги*).</p>
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок</label>

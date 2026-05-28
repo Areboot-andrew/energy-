@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 
 const Services = () => {
   const [servicesList, setServicesList] = useState<any[]>([]);
@@ -49,7 +50,11 @@ const Services = () => {
       >
         <div className="max-w-xl">
           <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-2 md:mb-4 block">{content.servicesSub}</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">{content.servicesTitle}</h2>
+          <HighlightedTitle 
+            text={content.servicesTitle} 
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white" 
+            as="h2" 
+          />
         </div>
         <div className="h-px bg-outline-variant/30 flex-grow mx-8 mb-4 hidden md:block"></div>
       </motion.div>
