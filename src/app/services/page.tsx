@@ -41,7 +41,7 @@ export default async function ServicesPage() {
     <main className="min-h-screen bg-background selection:bg-primary-fixed/30 text-on-background font-sans overflow-x-hidden">
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-margin-desktop max-w-container-max mx-auto text-center">
-        <h1 className="font-headline-xl text-display-md-mobile md:text-display-lg text-white mb-6">
+        <h1 className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-white mb-6">
           {content?.allServicesPageTitle?.replace(/\*/g, '') || "Всі Послуги"}
         </h1>
         <p className="text-secondary-fixed-dim text-lg md:text-xl max-w-3xl mx-auto">

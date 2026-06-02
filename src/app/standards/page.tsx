@@ -27,7 +27,7 @@ export default async function StandardsPage() {
             </span>
             <span className="text-on-surface-variant font-label-lg uppercase tracking-wider">Premium Quality</span>
           </div>
-          <h1 className="font-headline-xl text-display-lg-mobile md:text-display-lg mb-6 bg-gradient-to-br from-on-background to-on-surface-variant bg-clip-text text-transparent max-w-4xl mx-auto">
+          <h1 className="font-headline-xl text-4xl md:text-5xl lg:text-6xl mb-6 bg-gradient-to-br from-on-background to-on-surface-variant bg-clip-text text-transparent max-w-4xl mx-auto">
             Наші стандарти
           </h1>
           <p className="text-secondary-fixed-dim text-xl leading-relaxed max-w-2xl mx-auto">
