@@ -49,7 +49,7 @@ const PortfolioCarousel = () => {
       >
         <div>
           <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-2 md:mb-4 block">{content.portfolioBadge}</span>
-          <HighlightedTitle text={content.portfolioTitle} className="font-headline-xl text-white" as="h2" />
+          <HighlightedTitle text={content.portfolioTitle} className="font-headline-xl text-3xl md:text-4xl lg:text-headline-xl text-white" as="h2" />
         </div>
         <Link href="/portfolio" className="text-primary-fixed font-bold hover:underline mb-2 flex items-center gap-2">
           {content.portfolioLinkText}

@@ -34,7 +34,7 @@ export default function HowWeWork() {
     <section className="py-16 md:py-24 px-4 md:px-margin-desktop max-w-container-max mx-auto border-t border-outline-variant/10">
       <div className="mb-12 md:mb-16 text-center max-w-3xl mx-auto">
         <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">{content.howWeWorkBadge}</span>
-        <HighlightedTitle text={content.howWeWorkTitle} className="font-headline-xl text-white mb-6" as="h2" />
+        <HighlightedTitle text={content.howWeWorkTitle} className="font-headline-xl text-3xl md:text-4xl lg:text-headline-xl text-white mb-6" as="h2" />
         <p className="text-secondary-fixed-dim text-base md:text-lg">{content.howWeWorkSub}</p>
       </div>
 

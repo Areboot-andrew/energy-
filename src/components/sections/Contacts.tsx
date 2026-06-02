@@ -59,7 +59,7 @@ const Contacts = ({ initialPrice }: ContactsProps) => {
           
           <div className="lg:col-span-5 space-y-12">
             <div>
-              <HighlightedTitle text={content.contactsTitle} className="font-headline-xl mb-6 text-white" as="h2" />
+              <HighlightedTitle text={content.contactsTitle} className="font-headline-xl text-3xl md:text-4xl lg:text-headline-xl mb-6 text-white" as="h2" />
               <p className="text-secondary-fixed-dim text-body-lg">
                 {content.contactsSub}
               </p>

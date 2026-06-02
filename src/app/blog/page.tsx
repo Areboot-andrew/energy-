@@ -46,7 +46,7 @@ const BlogListingPage = () => {
           <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">{content?.blogBadge || "База знань"}</span>
           <HighlightedTitle 
             text={content?.blogTitle || "*Блог* та корисні поради"} 
-            className="font-display-lg text-white mb-6" 
+            className="font-display-lg text-4xl md:text-5xl lg:text-display-lg text-white mb-6" 
             as="h1" 
           />
           <p className="text-secondary-fixed-dim text-body-lg max-w-2xl">

@@ -112,7 +112,7 @@ export default async function AboutPage() {
             <div className="text-center mb-16">
               <HighlightedTitle 
                 text={content?.aboutValuesTitle || "Наші *цінності*"} 
-                className="font-headline-xl text-white mb-4" 
+                className="font-headline-xl text-3xl md:text-4xl lg:text-headline-xl text-white mb-4" 
                 as="h2" 
               />
               <p className="text-secondary-fixed-dim text-lg max-w-2xl mx-auto">
@@ -140,7 +140,7 @@ export default async function AboutPage() {
         <section className="py-24 px-margin-desktop max-w-container-max mx-auto">
           <HighlightedTitle 
             text={content?.aboutStepsTitle || "Етапи *співпраці*"} 
-            className="font-headline-xl text-center mb-16 text-white" 
+            className="font-headline-xl text-3xl md:text-4xl lg:text-headline-xl text-center mb-16 text-white" 
             as="h2" 
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">

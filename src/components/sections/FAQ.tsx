@@ -39,7 +39,7 @@ const FAQSection = () => {
     <section className="py-24 px-margin-desktop max-w-3xl mx-auto" id="faq">
       <div className="text-center mb-12">
         <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">{content.faqBadge}</span>
-        <HighlightedTitle text={content.faqTitle} className="font-headline-xl text-white" as="h2" />
+        <HighlightedTitle text={content.faqTitle} className="font-headline-xl text-3xl md:text-4xl lg:text-headline-xl text-white" as="h2" />
       </div>
 
       <div className="space-y-4">

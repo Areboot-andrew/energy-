@@ -50,7 +50,7 @@ const Hero = () => {
           <HighlightedTitle 
             text={content.heroTitle} 
             as="h1"
-            className="font-display-lg text-display-lg leading-[1.05] tracking-tight"
+            className="font-display-lg text-4xl md:text-5xl lg:text-display-lg leading-[1.05] tracking-tight text-white"
           />
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
