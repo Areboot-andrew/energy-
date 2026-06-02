@@ -70,6 +70,12 @@ const PageEditor = () => {
     allProjectsPageTitle: "",
     allVideosPageTitle: "",
     standardsPageTitle: "",
+    footerText: "",
+    footerLinksTitle: "",
+    footerScheduleTitle: "",
+    footerSchedule: "",
+    footerOfficeText: "",
+    footerCopyright: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -524,6 +530,40 @@ const PageEditor = () => {
             </div>
           </section>
 
+          {/* Footer Texts */}
+          <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+            <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Тексти Футера</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст під логотипом</label>
+                  <textarea rows={2} value={content.footerText || ""} onChange={(e) => setContent(prev => ({ ...prev, footerText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок посилань</label>
+                  <input type="text" value={content.footerLinksTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, footerLinksTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Офіс (для зустрічі):"</label>
+                  <input type="text" value={content.footerOfficeText || ""} onChange={(e) => setContent(prev => ({ ...prev, footerOfficeText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст копірайту (внизу футера)</label>
+                  <input type="text" value={content.footerCopyright || ""} onChange={(e) => setContent(prev => ({ ...prev, footerCopyright: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок графіку</label>
+                  <input type="text" value={content.footerScheduleTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, footerScheduleTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Графік роботи (Можна в кілька рядків)</label>
+                  <textarea rows={4} value={content.footerSchedule || ""} onChange={(e) => setContent(prev => ({ ...prev, footerSchedule: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none" />
+                </div>
+              </div>
+            </div>
+          </section>
           {/* Dedicated Pages Titles */}
           <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
             <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Заголовки Окремих Сторінок</h2>

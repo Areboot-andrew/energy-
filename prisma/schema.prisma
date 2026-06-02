@@ -314,6 +314,14 @@ model PageContent {
   allProjectsPageTitle  String @default("Всі *проєкти*")
   allVideosPageTitle    String @default("Всі *відео*")
   standardsPageTitle    String @default("Стандарти *якості*")
+
+  // Footer
+  footerText            String @default("Професійні електромонтажні рішення для життя та бізнесу. Надійність, що вимірюється роками.")
+  footerLinksTitle      String @default("Швидкі посилання")
+  footerScheduleTitle   String @default("Графік роботи")
+  footerSchedule        String @default("Пн — Пт: 09:00 - 19:00\nСб: 10:00 - 16:00\nНд: Вихідний")
+  footerOfficeText      String @default("Офіс (для зустрічі):")
+  footerCopyright       String @default("Професійні електромонтажні рішення.")
 }
 
 model CalculatorConfig {

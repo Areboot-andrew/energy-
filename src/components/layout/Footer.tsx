@@ -13,7 +13,13 @@ const Footer = () => {
     contactEmail: "tarasbuina2@icloud.com",
     contactAddress: "м. Львів, вул. Івана Огієнка, 15",
     logoText: "VOLT PREMIUM",
-    companyName: "VOLT PREMIUM"
+    companyName: "VOLT PREMIUM",
+    footerText: "Професійні електромонтажні рішення для життя та бізнесу. Надійність, що вимірюється роками.",
+    footerLinksTitle: "Швидкі посилання",
+    footerScheduleTitle: "Графік роботи",
+    footerSchedule: "Пн — Пт: 09:00 - 19:00\nСб: 10:00 - 16:00\nНд: Вихідний",
+    footerOfficeText: "Офіс (для зустрічі):",
+    footerCopyright: "Професійні електромонтажні рішення."
   });
 
   useEffect(() => {
@@ -51,8 +57,8 @@ const Footer = () => {
               settings.logoText || settings.companyName || "VOLT PREMIUM"
             )}
           </div>
-          <p className="text-secondary-fixed-dim font-body-md max-w-xs">
-            Професійні електромонтажні рішення для життя та бізнесу. Надійність, що вимірюється роками.
+          <p className="text-secondary-fixed-dim font-body-md max-w-xs whitespace-pre-wrap">
+            {settings.footerText}
           </p>
           <div className="flex gap-4">
             {(settings.socials || []).filter((s: any) => s.isVisible).map((social: any, idx: number) => (
@@ -69,7 +75,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="space-y-6">
-          <h4 className="text-white font-label-md uppercase tracking-widest">Швидкі посилання</h4>
+          <h4 className="text-white font-label-md uppercase tracking-widest">{settings.footerLinksTitle}</h4>
           <div className="flex flex-col gap-3">
             {(settings.navLinks || [
               { label: "Послуги", href: "/services", isVisible: true },
@@ -105,11 +111,9 @@ const Footer = () => {
           </div>
         </div>
         <div className="space-y-6">
-          <h4 className="text-white font-label-md uppercase tracking-widest">Графік роботи</h4>
-          <div className="space-y-2 text-secondary-fixed-dim font-body-md">
-            <p>Пн — Пт: 09:00 - 19:00</p>
-            <p>Сб: 10:00 - 16:00</p>
-            <p>Нд: Вихідний</p>
+          <h4 className="text-white font-label-md uppercase tracking-widest">{settings.footerScheduleTitle}</h4>
+          <div className="space-y-2 text-secondary-fixed-dim font-body-md whitespace-pre-wrap">
+            {settings.footerSchedule}
           </div>
           <div className="space-y-3 pt-2">
             {settings.phones && settings.phones.length > 0 ? settings.phones.map((phone: string, idx: number) => (
@@ -130,7 +134,7 @@ const Footer = () => {
             <div className="flex items-start gap-3 text-secondary-fixed-dim pt-2">
               <MapPin className="text-primary-fixed shrink-0 mt-1" size={20} />
               <span>
-                Офіс (для зустрічі):<br/>
+                {settings.footerOfficeText}<br/>
                 {settings.contactAddress}
               </span>
             </div>
@@ -138,7 +142,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="max-w-container-max mx-auto px-4 md:px-margin-desktop mt-12 md:mt-16 pt-8 border-t border-outline-variant/10 text-center">
-        <p className="text-secondary-fixed-dim font-label-sm">© {new Date().getFullYear()} {settings.companyName || "VOLT PREMIUM"}. Професійні електромонтажні рішення.</p>
+        <p className="text-secondary-fixed-dim font-label-sm">© {new Date().getFullYear()} {settings.companyName || "VOLT PREMIUM"}. {settings.footerCopyright}</p>
       </div>
     </footer>
   );
