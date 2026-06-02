@@ -167,6 +167,24 @@ const SettingsPage = () => {
               <h2 className="text-xl font-bold text-white mb-6">Контактні дані</h2>
               
               <div className="space-y-2">
+                <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Favicon (квадратне лого для вкладки)</label>
+                <ImageUploader
+                  value={settings.faviconUrl || ""}
+                  onChange={(url) => setSettings({ ...settings, faviconUrl: url })}
+                />
+              </div>
+              <div className="space-y-2 pt-4 border-t border-outline-variant/10">
+                <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Словник: Текст "Повернутися на головну"</label>
+                <input
+                  type="text"
+                  value={settings.termBackToHome || ""}
+                  onChange={(e) => setSettings({ ...settings, termBackToHome: e.target.value })}
+                  className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 text-white focus:border-primary-fixed outline-none"
+                />
+                <p className="text-xs text-secondary-fixed-dim">Використовується на різних сторінках для повернення на головну.</p>
+              </div>
+              
+              <div className="space-y-2">
                 <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Email адреса</label>
                 <input
                   type="email"

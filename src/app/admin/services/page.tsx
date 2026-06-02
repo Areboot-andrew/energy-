@@ -12,6 +12,9 @@ export default function ServicesAdminPage() {
   const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
 
+  const [content, setContent] = useState<any>({});
+  const [isSavingContent, setIsSavingContent] = useState(false);
+
   const [formData, setFormData] = useState({
     slug: "",
     title: "",
@@ -31,6 +34,7 @@ export default function ServicesAdminPage() {
 
   useEffect(() => {
     fetchServices();
+    fetch("/api/content").then(res => res.json()).then(data => { if (data) setContent(data); });
   }, []);
 
   const fetchServices = async () => {
@@ -137,14 +141,87 @@ export default function ServicesAdminPage() {
       components: "", included: "", image: "", isFeatured: false, category: "Основні послуги"
     });
   };
+  const handleSaveContent = async () => {
+    setIsSavingContent(true);
+    try {
+      await fetch('/api/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          termEstimatedPrice: content.termEstimatedPrice,
+          termComponents: content.termComponents,
+          termIncluded: content.termIncluded,
+          termWhyUs: content.termWhyUs,
+          termReadyToStart: content.termReadyToStart,
+          termReadyToStartSub: content.termReadyToStartSub,
+          termContactUs: content.termContactUs,
+          termLeaveRequest: content.termLeaveRequest
+        })
+      });
+      alert('Тексти успішно збережено!');
+    } catch (e) {
+      alert('Помилка при збереженні');
+    } finally {
+      setIsSavingContent(false);
+    }
+  };
 
   return (
     <AdminLayout>
       <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold text-white mb-2">Послуги</h1>
-          <p className="text-secondary-fixed-dim">Управління сторінками послуг.</p>
+          <p className="text-secondary-fixed-dim">Управління сторінками послуг та текстами для них.</p>
         </div>
+
+        {/* Dictionary Texts for Services */}
+        <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+          <div className="flex justify-between items-center border-b border-outline-variant/10 pb-4">
+            <h2 className="text-xl font-bold text-white">Тексти внутрішньої сторінки послуги</h2>
+            <button 
+              onClick={handleSaveContent} 
+              disabled={isSavingContent}
+              className="bg-primary-fixed text-on-primary-fixed px-6 py-2 rounded-lg font-bold hover:shadow-lg disabled:opacity-50 transition-all text-sm"
+            >
+              {isSavingContent ? "Збереження..." : "Зберегти тексти"}
+            </button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Орієнтовна вартість"</label>
+              <input type="text" value={content.termEstimatedPrice || ""} onChange={(e) => setContent({ ...content, termEstimatedPrice: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Що входить у вартість?"</label>
+              <input type="text" value={content.termComponents || ""} onChange={(e) => setContent({ ...content, termComponents: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Детальний перелік"</label>
+              <input type="text" value={content.termIncluded || ""} onChange={(e) => setContent({ ...content, termIncluded: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Чому обирають нас"</label>
+              <input type="text" value={content.termWhyUs || ""} onChange={(e) => setContent({ ...content, termWhyUs: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Готові розпочати?"</label>
+              <input type="text" value={content.termReadyToStart || ""} onChange={(e) => setContent({ ...content, termReadyToStart: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок "Залиште заявку"</label>
+              <input type="text" value={content.termReadyToStartSub || ""} onChange={(e) => setContent({ ...content, termReadyToStartSub: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Кнопка "Зв'язатись з нами"</label>
+              <input type="text" value={content.termContactUs || ""} onChange={(e) => setContent({ ...content, termContactUs: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Кнопка "Залишити заявку"</label>
+              <input type="text" value={content.termLeaveRequest || ""} onChange={(e) => setContent({ ...content, termLeaveRequest: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+          </div>
+        </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Form */}

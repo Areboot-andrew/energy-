@@ -16,11 +16,20 @@ const SettingsPage = () => {
   const [prices, setPrices] = useState<PriceItem[]>([]);
   const [newPrice, setNewPrice] = useState({ name: "", unit: "", price: "", isPublic: true });
   const [editingId, setEditingId] = useState<string | null>(null);
+  
+  const [content, setContent] = useState<any>({});
+  const [isSavingContent, setIsSavingContent] = useState(false);
 
   useEffect(() => {
     fetch("/api/prices")
       .then(res => res.json())
       .then(data => setPrices(data));
+      
+    fetch("/api/content")
+      .then(res => res.json())
+      .then(data => {
+        if (data) setContent(data);
+      });
   }, []);
 
   const handleSubmitPrice = async (e: React.FormEvent) => {
@@ -61,6 +70,25 @@ const SettingsPage = () => {
     if (res.ok) {
       setPrices(prices.filter(p => p.id !== id));
     }
+  const handleSaveContent = async () => {
+    setIsSavingContent(true);
+    try {
+      await fetch('/api/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          termService: content.termService,
+          termUnit: content.termUnit,
+          termPrice: content.termPrice,
+          termPricingGuarantee: content.termPricingGuarantee
+        })
+      });
+      alert('Тексти успішно збережено!');
+    } catch (e) {
+      alert('Помилка при збереженні');
+    } finally {
+      setIsSavingContent(false);
+    }
   };
 
   return (
@@ -68,8 +96,41 @@ const SettingsPage = () => {
       <div className="space-y-12">
         <div>
           <h1 className="text-3xl font-bold text-white mb-2">Налаштування прайсу</h1>
-          <p className="text-secondary-fixed-dim">Керування детальним прайс-листом послуг.</p>
+          <p className="text-secondary-fixed-dim">Керування детальним прайс-листом послуг та текстами сторінки Прайс.</p>
         </div>
+
+        {/* Dictionary Texts for Pricing */}
+        <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+          <div className="flex justify-between items-center border-b border-outline-variant/10 pb-4">
+            <h2 className="text-xl font-bold text-white">Тексти сторінки "Прайси"</h2>
+            <button 
+              onClick={handleSaveContent} 
+              disabled={isSavingContent}
+              className="bg-primary-fixed text-on-primary-fixed px-6 py-2 rounded-lg font-bold hover:shadow-lg disabled:opacity-50 transition-all text-sm"
+            >
+              {isSavingContent ? "Збереження..." : "Зберегти тексти"}
+            </button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Назва колонки "Послуга"</label>
+              <input type="text" value={content.termService || ""} onChange={(e) => setContent({ ...content, termService: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Назва колонки "Одиниця"</label>
+              <input type="text" value={content.termUnit || ""} onChange={(e) => setContent({ ...content, termUnit: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Назва колонки "Ціна"</label>
+              <input type="text" value={content.termPrice || ""} onChange={(e) => setContent({ ...content, termPrice: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+          </div>
+          <div className="space-y-2 mt-4">
+            <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст-гарантія під прайсом</label>
+            <textarea rows={2} value={content.termPricingGuarantee || ""} onChange={(e) => setContent({ ...content, termPricingGuarantee: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none" />
+          </div>
+        </section>
 
         {/* Pricing Items */}
         <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">

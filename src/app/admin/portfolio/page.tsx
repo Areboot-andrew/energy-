@@ -8,9 +8,12 @@ import Image from "next/image";
 
 export default function PortfolioAdminPage() {
   const [projects, setProjects] = useState<any[]>([]);
+  const [content, setContent] = useState<any>({});
+  const [isSavingContent, setIsSavingContent] = useState(false);
 
   useEffect(() => {
     fetchProjects();
+    fetch("/api/content").then(res => res.json()).then(data => { if (data) setContent(data); });
   }, []);
 
   const fetchProjects = async () => {
@@ -29,13 +32,32 @@ export default function PortfolioAdminPage() {
     }
   };
 
+  const handleSaveContent = async () => {
+    setIsSavingContent(true);
+    try {
+      await fetch('/api/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          termToAllProjects: content.termToAllProjects,
+          termProjectGallery: content.termProjectGallery
+        })
+      });
+      alert('Тексти успішно збережено!');
+    } catch (e) {
+      alert('Помилка при збереженні');
+    } finally {
+      setIsSavingContent(false);
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="space-y-8">
         <div className="flex justify-between items-end">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">Портфоліо Проєктів</h1>
-            <p className="text-secondary-fixed-dim">Управління повноцінними кейсами та виконаними роботами.</p>
+            <p className="text-secondary-fixed-dim">Управління повноцінними кейсами, виконаними роботами та текстами для цих сторінок.</p>
           </div>
           <Link
             href="/admin/portfolio/new"
@@ -44,6 +66,31 @@ export default function PortfolioAdminPage() {
             <Plus size={20} /> Створити Проєкт
           </Link>
         </div>
+
+        {/* Dictionary Texts for Portfolio */}
+        <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+          <div className="flex justify-between items-center border-b border-outline-variant/10 pb-4">
+            <h2 className="text-xl font-bold text-white">Тексти сторінок портфоліо</h2>
+            <button 
+              onClick={handleSaveContent} 
+              disabled={isSavingContent}
+              className="bg-primary-fixed text-on-primary-fixed px-6 py-2 rounded-lg font-bold hover:shadow-lg disabled:opacity-50 transition-all text-sm"
+            >
+              {isSavingContent ? "Збереження..." : "Зберегти тексти"}
+            </button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Всі проєкти"</label>
+              <input type="text" value={content.termToAllProjects || ""} onChange={(e) => setContent({ ...content, termToAllProjects: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Галерея"</label>
+              <input type="text" value={content.termProjectGallery || ""} onChange={(e) => setContent({ ...content, termProjectGallery: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+          </div>
+        </section>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
