@@ -22,9 +22,14 @@ const BlogAdmin = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [currentPost, setCurrentPost] = useState({ title: "", slug: "", image: "", content: "", metaTitle: "", metaDescription: "", published: true });
+  const [content, setContent] = useState<any>({});
+  const [isSavingContent, setIsSavingContent] = useState(false);
 
   useEffect(() => {
     fetch("/api/blog").then(res => res.json()).then(data => setPosts(data));
+    fetch("/api/content").then(res => res.json()).then(data => {
+      if (data) setContent(data);
+    });
   }, []);
 
   const generateSlug = (text: string) => {
@@ -41,6 +46,26 @@ const BlogAdmin = () => {
       setCurrentPost(prev => ({ ...prev, title: newTitle, slug: generateSlug(newTitle) }));
     } else {
       setCurrentPost(prev => ({ ...prev, title: newTitle }));
+    }
+  };
+
+  const handleSaveContent = async () => {
+    setIsSavingContent(true);
+    try {
+      await fetch('/api/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          blogTitle: content.blogTitle,
+          blogBadge: content.blogBadge,
+          blogPageSub: content.blogPageSub
+        })
+      });
+      alert('Налаштування сторінки Блог успішно збережено!');
+    } catch (e) {
+      alert('Помилка при збереженні');
+    } finally {
+      setIsSavingContent(false);
     }
   };
 
@@ -114,6 +139,34 @@ const BlogAdmin = () => {
             {isEditing ? <Trash2 size={20} /> : <Plus size={20} />}
             {isEditing ? "Скасувати" : "Нова стаття"}
           </button>
+        </div>
+
+        <div className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+          <div className="flex justify-between items-center border-b border-outline-variant/10 pb-4">
+            <h2 className="text-xl font-bold text-white">Налаштування сторінки "Блог"</h2>
+            <button 
+              onClick={handleSaveContent} 
+              disabled={isSavingContent}
+              className="bg-primary-fixed text-on-primary-fixed px-6 py-2 rounded-lg font-bold hover:shadow-lg disabled:opacity-50 transition-all text-sm"
+            >
+              {isSavingContent ? "Збереження..." : "Зберегти налаштування"}
+            </button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Бейдж (над заголовком)</label>
+              <input type="text" value={content.blogBadge || ""} onChange={(e) => setContent({ ...content, blogBadge: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Головний заголовок</label>
+              <input type="text" value={content.blogTitle || ""} onChange={(e) => setContent({ ...content, blogTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+            <div className="space-y-2 md:col-span-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Опис сторінки</label>
+              <textarea rows={2} value={content.blogPageSub || ""} onChange={(e) => setContent({ ...content, blogPageSub: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"></textarea>
+            </div>
+          </div>
         </div>
 
         {isEditing && (

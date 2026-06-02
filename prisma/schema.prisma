@@ -333,6 +333,7 @@ model PageContent {
   videoblogLinkText     String @default("Всі відео →")
   videoblogText         String @default("Показуємо внутрішню кухню складних проєктів та ділимося досвідом у форматі відео.")
   blogBadge             String @default("Блог та поради")
+  blogPageSub           String @default("Ділимося експертним досвідом у сфері електромонтажу, енергоефективності та автоматизації сучасних об'єктів.")
   blogLinkText          String @default("Всі статті →")
   faqBadge              String @default("Запитання-відповіді")
   contactsTitle         String @default("Зв'яжіться з *нами*")
