@@ -43,7 +43,7 @@ const Pricing = () => {
       <div className="text-center mb-16">
         <HighlightedTitle 
           text={content.pricingTitle} 
-          className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-white mb-6" 
+          className="font-headline-xl mb-6 text-white text-center" 
           as="h2" 
         />
         <p className="text-secondary-fixed-dim text-lg max-w-2xl mx-auto">

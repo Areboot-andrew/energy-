@@ -53,7 +53,7 @@ const Services = () => {
           <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-2 md:mb-4 block">{content.servicesSub}</span>
           <HighlightedTitle 
             text={content.servicesTitle} 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white" 
+            className="font-headline-xl text-white" 
             as="h2" 
           />
         </div>

@@ -120,7 +120,7 @@ export default function PricingPage() {
         <header className="mb-16">
           <HighlightedTitle 
             text={content?.pricingSeoTitle || "Повний прайс-лист на *електромонтажні* роботи"} 
-            className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-white mb-6" 
+            className="font-headline-xl text-white mb-6" 
             as="h1" 
           />
           {content?.pricingSeoText ? (

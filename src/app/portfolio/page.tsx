@@ -46,7 +46,7 @@ export default async function PortfolioPage() {
           <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">{content?.portfolioBadge || "Галерея"}</span>
           <HighlightedTitle 
             text={content?.allProjectsPageTitle || "Усі *проєкти*"} 
-            className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-white" 
+            className="font-headline-xl text-white" 
             as="h1" 
           />
         </div>

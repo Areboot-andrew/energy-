@@ -12,7 +12,7 @@ interface PriceItem {
   isPublic?: boolean;
 }
 
-const SettingsPage = () => {
+const PricesAdminPage = () => {
   const [prices, setPrices] = useState<PriceItem[]>([]);
   const [newPrice, setNewPrice] = useState({ name: "", unit: "", price: "", isPublic: true });
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -70,6 +70,8 @@ const SettingsPage = () => {
     if (res.ok) {
       setPrices(prices.filter(p => p.id !== id));
     }
+  };
+
   const handleSaveContent = async () => {
     setIsSavingContent(true);
     try {
@@ -245,4 +247,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default PricesAdminPage;

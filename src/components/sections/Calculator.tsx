@@ -61,7 +61,7 @@ const Calculator = ({ onPriceChange }: CalculatorProps) => {
     <section className="py-24 bg-surface-container-lowest px-margin-desktop" id="calculator">
       <div className="max-w-4xl mx-auto bg-surface-container rounded-2xl p-8 md:p-12 border border-outline-variant/20 shadow-2xl">
         <div className="text-center mb-12">
-          <HighlightedTitle text={content.calculatorTitle} className="font-headline-xl text-4xl text-white mb-4" as="h2" />
+          <HighlightedTitle text={content.calculatorTitle} className="font-headline-xl text-white mb-4" as="h2" />
           <p className="text-secondary-fixed-dim">{content.calculatorSub}</p>
         </div>
         <div className="space-y-10">
