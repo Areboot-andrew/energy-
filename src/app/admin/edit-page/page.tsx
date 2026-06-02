@@ -496,12 +496,115 @@ const PageEditor = () => {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки "Прайс-лист"</label>
                 <input type="text" value={content.pricingButtonText || ""} onChange={(e) => setContent(prev => ({ ...prev, pricingButtonText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
-              <div className="space-y-2 pt-4 border-t border-outline-variant/10">
-                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Картки тарифів на головній (JSON формат)</label>
-                <p className="text-[10px] text-secondary-fixed-dim -mt-1">Для зміни вмісту карток з цінами редагуйте цей JSON об'єкт.</p>
-                <textarea rows={10} value={content.pricingPackagesJson || ""} onChange={(e) => setContent(prev => ({ ...prev, pricingPackagesJson: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-y font-mono text-xs" />
-              </div>
-              
+              <div className="space-y-4 pt-4 border-t border-outline-variant/10">
+                <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Картки тарифів на головній</label>
+                <div className="space-y-4 bg-background/50 p-4 rounded-xl border border-outline-variant/10">
+                  {(() => {
+                    let pPackages = [];
+                    try { pPackages = JSON.parse(content.pricingPackagesJson || "[]"); } catch (e) {}
+                    return (
+                      <>
+                        {pPackages.map((pkg: any, index: number) => (
+                          <div key={index} className="space-y-3 p-4 bg-surface-container rounded-lg border border-outline-variant/20 relative">
+                            <button 
+                              type="button" 
+                              onClick={() => {
+                                const newPackages = pPackages.filter((_: any, i: number) => i !== index);
+                                setContent({ ...content, pricingPackagesJson: JSON.stringify(newPackages) });
+                              }} 
+                              className="absolute top-2 right-2 p-2 text-error hover:bg-error/10 rounded-lg transition-colors"
+                            >
+                              <span className="material-symbols-outlined text-sm">delete</span>
+                            </button>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <label className="text-[10px] text-secondary-fixed-dim uppercase mb-1 block">Назва тарифу</label>
+                                <input 
+                                  type="text" 
+                                  value={pkg.title || ""} 
+                                  onChange={(e) => {
+                                    const newPackages = [...pPackages];
+                                    newPackages[index].title = e.target.value;
+                                    setContent({ ...content, pricingPackagesJson: JSON.stringify(newPackages) });
+                                  }} 
+                                  className="w-full bg-background border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none text-sm" 
+                                />
+                              </div>
+                              <div>
+                                <label className="text-[10px] text-secondary-fixed-dim uppercase mb-1 block">Ціна (рядок)</label>
+                                <input 
+                                  type="text" 
+                                  value={pkg.price || ""} 
+                                  onChange={(e) => {
+                                    const newPackages = [...pPackages];
+                                    newPackages[index].price = e.target.value;
+                                    setContent({ ...content, pricingPackagesJson: JSON.stringify(newPackages) });
+                                  }} 
+                                  className="w-full bg-background border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none text-sm" 
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <label className="text-[10px] text-secondary-fixed-dim uppercase mb-1 flex items-center justify-between">
+                                <span>Перелік послуг</span>
+                                <button 
+                                  type="button"
+                                  onClick={() => {
+                                    const newPackages = [...pPackages];
+                                    if (!newPackages[index].features) newPackages[index].features = [];
+                                    newPackages[index].features.push("Нова послуга");
+                                    setContent({ ...content, pricingPackagesJson: JSON.stringify(newPackages) });
+                                  }}
+                                  className="text-primary-fixed hover:underline"
+                                >
+                                  + додати рядок
+                                </button>
+                              </label>
+                              <div className="space-y-2 mt-2">
+                                {(pkg.features || []).map((feat: string, featIndex: number) => (
+                                  <div key={featIndex} className="flex gap-2">
+                                    <input 
+                                      type="text" 
+                                      value={feat} 
+                                      onChange={(e) => {
+                                        const newPackages = [...pPackages];
+                                        newPackages[index].features[featIndex] = e.target.value;
+                                        setContent({ ...content, pricingPackagesJson: JSON.stringify(newPackages) });
+                                      }} 
+                                      className="flex-1 bg-background border border-outline-variant/30 rounded-lg px-3 py-2 text-white outline-none text-sm" 
+                                    />
+                                    <button 
+                                      type="button" 
+                                      onClick={() => {
+                                        const newPackages = [...pPackages];
+                                        newPackages[index].features = newPackages[index].features.filter((_: any, fI: number) => fI !== featIndex);
+                                        setContent({ ...content, pricingPackagesJson: JSON.stringify(newPackages) });
+                                      }}
+                                      className="p-2 text-error hover:bg-error/10 rounded-lg transition-colors"
+                                    >
+                                      <span className="material-symbols-outlined text-sm">close</span>
+                                    </button>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        <button 
+                          type="button" 
+                          onClick={() => {
+                            const newPackages = [...pPackages, { title: "Новий тариф", price: "від 100 ₴", features: ["Послуга 1"] }];
+                            setContent({ ...content, pricingPackagesJson: JSON.stringify(newPackages) });
+                          }} 
+                          className="mt-2 text-primary-fixed text-sm font-bold flex items-center gap-1 hover:underline"
+                        >
+                          <span className="material-symbols-outlined text-sm">add</span> Додати тариф
+                        </button>
+                      </>
+                    );
+                  })()}
+                </div>
+              </div>              
               <div className="pt-4 border-t border-outline-variant/10 space-y-4">
                 <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase">SEO Опис під цінами</h3>
                 <div className="space-y-2">
