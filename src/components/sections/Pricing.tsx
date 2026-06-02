@@ -7,11 +7,16 @@ import HighlightedTitle from "@/components/ui/HighlightedTitle";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 
 const Pricing = () => {
-  const [content, setContent] = useState({ pricingTitle: "Прозоре ціноутворення", pricingSeoText: "" });
+  const [content, setContent] = useState({ 
+    pricingTitle: "Прозоре ціноутворення", 
+    pricingSeoText: "",
+    pricingSub: "Ми пропонуємо чесні ціни за найвищу якість роботи. Виберіть пакет послуг або ознайомтеся з повним прайс-листом для детального розрахунку.",
+    pricingButtonText: "Дивитись повний прайс-лист"
+  });
 
   useEffect(() => {
     fetch("/api/content").then(res => res.json()).then(data => {
-      if (data.pricingTitle) setContent(data);
+      if (data) setContent(prev => ({ ...prev, ...data }));
     });
   }, []);
 
@@ -42,7 +47,7 @@ const Pricing = () => {
           as="h2" 
         />
         <p className="text-secondary-fixed-dim text-lg max-w-2xl mx-auto">
-          Ми пропонуємо чесні ціни за найвищу якість роботи. Виберіть пакет послуг або ознайомтеся з повним прайс-листом для детального розрахунку.
+          {content.pricingSub}
         </p>
       </div>
 
@@ -85,7 +90,7 @@ const Pricing = () => {
           href="/pricing"
           className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary-fixed text-on-primary-fixed font-bold text-lg rounded-full hover:bg-primary-fixed-dim transition-all hover:shadow-[0_0_20px_rgba(213,240,0,0.3)] hover:-translate-y-1"
         >
-          Дивитись повний прайс-лист
+          {content.pricingButtonText}
           <ArrowRight size={20} />
         </Link>
       </div>

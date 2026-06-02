@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import * as LucideIcons from "lucide-react";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 
 interface WorkStep {
   id: string;
@@ -14,9 +15,17 @@ interface WorkStep {
 
 export default function HowWeWork() {
   const [steps, setSteps] = useState<WorkStep[]>([]);
+  const [content, setContent] = useState({
+    howWeWorkBadge: "Процес",
+    howWeWorkTitle: "Як ми *працюємо*",
+    howWeWorkSub: "Прозорий та зрозумілий процес роботи над вашим об'єктом від першого дзвінка до здачі в експлуатацію."
+  });
 
   useEffect(() => {
     fetch("/api/work-steps").then(res => res.json()).then(data => setSteps(data));
+    fetch("/api/content").then(res => res.json()).then(data => {
+      if (data) setContent(prev => ({ ...prev, ...data }));
+    });
   }, []);
 
   if (steps.length === 0) return null;
@@ -24,9 +33,9 @@ export default function HowWeWork() {
   return (
     <section className="py-16 md:py-24 px-4 md:px-margin-desktop max-w-container-max mx-auto border-t border-outline-variant/10">
       <div className="mb-12 md:mb-16 text-center max-w-3xl mx-auto">
-        <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-2 md:mb-4 block">Процес</span>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">Як ми працюємо</h2>
-        <p className="text-secondary-fixed-dim text-base md:text-lg">Прозорий та зрозумілий процес роботи над вашим об'єктом від першого дзвінка до здачі в експлуатацію.</p>
+        <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-2 md:mb-4 block">{content.howWeWorkBadge}</span>
+        <HighlightedTitle text={content.howWeWorkTitle} className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6" as="h2" />
+        <p className="text-secondary-fixed-dim text-base md:text-lg">{content.howWeWorkSub}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">

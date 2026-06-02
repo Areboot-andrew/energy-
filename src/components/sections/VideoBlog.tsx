@@ -4,11 +4,15 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
+
 const VideoBlog = () => {
   const [videos, setVideos] = useState<string[]>([]);
   const [content, setContent] = useState({
     videoblogTitle: "Експертний погляд",
-    videoblogSub: "Відеоблог"
+    videoblogSub: "Відеоблог",
+    videoblogLinkText: "Всі відео →",
+    videoblogText: "Показуємо внутрішню кухню складних проєктів та ділимося досвідом у форматі відео."
   });
 
   useEffect(() => {
@@ -29,7 +33,9 @@ const VideoBlog = () => {
         } else if (data.videoUrl) {
           setVideos([data.videoUrl]);
         }
-        if (data.videoblogTitle) setContent(data);
+        if (data) {
+          setContent(prev => ({ ...prev, ...data }));
+        }
       });
   }, []);
 
@@ -54,10 +60,10 @@ const VideoBlog = () => {
           <div className="max-w-xl space-y-4">
             <span className="text-primary-fixed font-label-md tracking-[0.3em] uppercase block">{content.videoblogSub}</span>
             <div className="flex flex-wrap items-center gap-4">
-              <h2 className="font-display-lg text-4xl md:text-5xl">{content.videoblogTitle}</h2>
-              <Link href="/videoblog" className="text-primary-fixed font-bold hover:underline mb-4">Всі відео →</Link>
+              <HighlightedTitle text={content.videoblogTitle} className="font-display-lg text-4xl md:text-5xl" as="h2" />
+              <Link href="/videoblog" className="text-primary-fixed font-bold hover:underline mb-4">{content.videoblogLinkText}</Link>
             </div>
-            <p className="text-secondary-fixed-dim text-lg">Показуємо внутрішню кухню складних проєктів та ділимося досвідом у форматі відео.</p>
+            <p className="text-secondary-fixed-dim text-lg">{content.videoblogText}</p>
           </div>
           <div className="h-px bg-outline-variant/30 flex-grow mx-8 mb-4 hidden md:block"></div>
         </div>

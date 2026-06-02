@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin, Send } from "lucide-react";
 import ContactButton from "@/components/ui/ContactButton";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 
 interface ContactsProps {
   initialPrice?: number;
@@ -14,6 +15,9 @@ const Contacts = ({ initialPrice }: ContactsProps) => {
     contactPhone: "+38 098 732 85 63",
     contactEmail: "tarasbuina2@icloud.com",
     contactAddress: "м. Львів, вул. Івана Огієнка, 15",
+    contactsTitle: "Зв'яжіться з *нами*",
+    contactsSub: "Запрошуємо до нашого офісу для обговорення вашого проєкту або залиште заявку онлайн.",
+    contactsButtonText: "Залишити заявку онлайн"
   });
 
   useEffect(() => {
@@ -21,7 +25,7 @@ const Contacts = ({ initialPrice }: ContactsProps) => {
       if (data) {
         try { data.phones = JSON.parse(data.phones || "[]"); } catch { data.phones = []; }
         try { data.socials = JSON.parse(data.socials || "[]"); } catch { data.socials = []; }
-        setContent(data);
+        setContent(prev => ({ ...prev, ...data }));
       }
     });
   }, []);
@@ -55,9 +59,9 @@ const Contacts = ({ initialPrice }: ContactsProps) => {
           
           <div className="lg:col-span-5 space-y-12">
             <div>
-              <h2 className="font-headline-xl mb-6 text-white">Зв'яжіться з нами</h2>
+              <HighlightedTitle text={content.contactsTitle} className="font-headline-xl mb-6 text-white" as="h2" />
               <p className="text-secondary-fixed-dim text-body-lg">
-                Запрошуємо до нашого офісу для обговорення вашого проєкту або залиште заявку онлайн.
+                {content.contactsSub}
               </p>
             </div>
             
@@ -116,7 +120,7 @@ const Contacts = ({ initialPrice }: ContactsProps) => {
 
             <div className="pt-4">
               <ContactButton className="w-full sm:w-auto bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-xl font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_30px_rgba(213,240,0,0.4)] transition-all flex items-center justify-center gap-2">
-                <span>Залишити заявку онлайн</span>
+                <span>{content.contactsButtonText}</span>
               </ContactButton>
             </div>
           </div>

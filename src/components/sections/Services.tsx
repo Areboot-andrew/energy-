@@ -10,12 +10,13 @@ const Services = () => {
   const [servicesList, setServicesList] = useState<any[]>([]);
   const [content, setContent] = useState({
     servicesTitle: "Комплексні рішення для будь-якої складності",
-    servicesSub: "Що ми робимо"
+    servicesSub: "Що ми робимо",
+    servicesButtonText: "Всі послуги"
   });
 
   useEffect(() => {
     fetch("/api/content").then(res => res.json()).then(data => {
-      if (data.servicesTitle) setContent(data);
+      if (data) setContent(prev => ({ ...prev, ...data }));
     });
     fetch("/api/services").then(res => res.json()).then(data => {
       setServicesList(data);
@@ -94,7 +95,7 @@ const Services = () => {
       </div>
       <div className="mt-16 text-center">
         <Link href="/services" className="inline-flex items-center gap-2 px-8 py-4 bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 hover:border-primary-fixed/50 rounded-full font-bold text-white transition-all group">
-          Всі послуги
+          {content.servicesButtonText}
           <Icons.ArrowRight className="text-primary-fixed group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>

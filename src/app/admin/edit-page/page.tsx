@@ -45,6 +45,31 @@ const PageEditor = () => {
     aboutPageText: "",
     aboutValuesBlock: "[]",
     aboutStepsBlock: "[]",
+    heroButton1Text: "",
+    heroButton2Text: "",
+    servicesButtonText: "",
+    howWeWorkBadge: "",
+    howWeWorkTitle: "",
+    howWeWorkSub: "",
+    calculatorTitle: "",
+    calculatorSub: "",
+    calculatorButtonText: "",
+    pricingSub: "",
+    pricingButtonText: "",
+    portfolioBadge: "",
+    portfolioLinkText: "",
+    videoblogLinkText: "",
+    videoblogText: "",
+    blogBadge: "",
+    blogLinkText: "",
+    faqBadge: "",
+    contactsTitle: "",
+    contactsSub: "",
+    contactsButtonText: "",
+    allServicesPageTitle: "",
+    allProjectsPageTitle: "",
+    allVideosPageTitle: "",
+    standardsPageTitle: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -138,6 +163,16 @@ const PageEditor = () => {
                 value={content.heroImage}
                 onChange={(url) => setContent(prev => ({ ...prev, heroImage: url }))}
               />
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant/10">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки 1</label>
+                  <input type="text" value={content.heroButton1Text || ""} onChange={(e) => setContent(prev => ({ ...prev, heroButton1Text: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки 2</label>
+                  <input type="text" value={content.heroButton2Text || ""} onChange={(e) => setContent(prev => ({ ...prev, heroButton2Text: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+              </div>
             </div>
           </section>
 
@@ -226,12 +261,64 @@ const PageEditor = () => {
                 <input type="text" value={content.servicesSub || ""} onChange={(e) => setContent(prev => ({ ...prev, servicesSub: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
             </div>
+            <div className="space-y-2 pt-4 border-t border-outline-variant/10">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки "Всі послуги"</label>
+              <input type="text" value={content.servicesButtonText || ""} onChange={(e) => setContent(prev => ({ ...prev, servicesButtonText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+          </section>
+
+          {/* How We Work Section */}
+          <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+            <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Секція: Як ми працюємо</h2>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Бейдж (надпис над заголовком)</label>
+                <input type="text" value={content.howWeWorkBadge || ""} onChange={(e) => setContent(prev => ({ ...prev, howWeWorkBadge: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок</label>
+                <input type="text" value={content.howWeWorkTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, howWeWorkTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок</label>
+                <textarea rows={2} value={content.howWeWorkSub || ""} onChange={(e) => setContent(prev => ({ ...prev, howWeWorkSub: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none" />
+              </div>
+            </div>
+          </section>
+
+          {/* Calculator Section */}
+          <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+            <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Секція: Калькулятор</h2>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок</label>
+                <input type="text" value={content.calculatorTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, calculatorTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок</label>
+                <input type="text" value={content.calculatorSub || ""} onChange={(e) => setContent(prev => ({ ...prev, calculatorSub: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки</label>
+                <input type="text" value={content.calculatorButtonText || ""} onChange={(e) => setContent(prev => ({ ...prev, calculatorButtonText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+            </div>
           </section>
 
           {/* Portfolio Section */}
           <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
             <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Секція: Портфоліо</h2>
             <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Бейдж (напр. Галерея)</label>
+                  <input type="text" value={content.portfolioBadge || ""} onChange={(e) => setContent(prev => ({ ...prev, portfolioBadge: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст лінка (напр. Всі проєкти)</label>
+                  <input type="text" value={content.portfolioLinkText || ""} onChange={(e) => setContent(prev => ({ ...prev, portfolioLinkText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+              </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Головний заголовок секції</label>
                 <input type="text" value={content.portfolioTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, portfolioTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
@@ -262,6 +349,14 @@ const PageEditor = () => {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Головний заголовок секції</label>
                 <input type="text" value={content.pricingTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, pricingTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
                 <p className="text-xs text-secondary-fixed-dim mt-1">Використовуйте *зірочки*, щоб виділити слово жовтим кольором (напр., Прозоре *ціноутворення*).</p>
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок</label>
+                <textarea rows={2} value={content.pricingSub || ""} onChange={(e) => setContent(prev => ({ ...prev, pricingSub: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки "Прайс-лист"</label>
+                <input type="text" value={content.pricingButtonText || ""} onChange={(e) => setContent(prev => ({ ...prev, pricingButtonText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
               
               <div className="pt-4 border-t border-outline-variant/10 space-y-4">
@@ -295,6 +390,16 @@ const PageEditor = () => {
                   <input type="text" value={content.videoblogSub || ""} onChange={(e) => setContent(prev => ({ ...prev, videoblogSub: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
                 </div>
               </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст лінка (Всі відео)</label>
+                  <input type="text" value={content.videoblogLinkText || ""} onChange={(e) => setContent(prev => ({ ...prev, videoblogLinkText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Короткий опис</label>
+                  <input type="text" value={content.videoblogText || ""} onChange={(e) => setContent(prev => ({ ...prev, videoblogText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+              </div>
               <div className="space-y-2 pt-4">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Список відео (YouTube URLs)</label>
                 {videoList.map((url, i) => (
@@ -318,14 +423,29 @@ const PageEditor = () => {
           <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
             <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Секції: FAQ та Блог</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">FAQ - Заголовок</label>
-                <input type="text" value={content.faqTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, faqTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">FAQ - Бейдж</label>
+                  <input type="text" value={content.faqBadge || ""} onChange={(e) => setContent(prev => ({ ...prev, faqBadge: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">FAQ - Заголовок</label>
+                  <input type="text" value={content.faqTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, faqTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Блог - Заголовок</label>
-                <input type="text" value={content.blogTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, blogTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
-                <p className="text-xs text-secondary-fixed-dim mt-1">Використовуйте *зірочки*, щоб виділити слово жовтим кольором.</p>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Блог - Бейдж</label>
+                  <input type="text" value={content.blogBadge || ""} onChange={(e) => setContent(prev => ({ ...prev, blogBadge: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Блог - Заголовок</label>
+                  <input type="text" value={content.blogTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, blogTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Блог - Текст лінка</label>
+                  <input type="text" value={content.blogLinkText || ""} onChange={(e) => setContent(prev => ({ ...prev, blogLinkText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
               </div>
             </div>
           </section>
@@ -358,7 +478,23 @@ const PageEditor = () => {
           {/* Contacts & Socials */}
           <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
             <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Контакти та Соцмережі (Футер)</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4 mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Заголовок Секції Контактів</label>
+                  <input type="text" value={content.contactsTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, contactsTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки</label>
+                  <input type="text" value={content.contactsButtonText || ""} onChange={(e) => setContent(prev => ({ ...prev, contactsButtonText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок</label>
+                <textarea rows={2} value={content.contactsSub || ""} onChange={(e) => setContent(prev => ({ ...prev, contactsSub: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none" />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-outline-variant/10">
               <div className="space-y-4">
                 <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase border-b border-outline-variant/10 pb-2">Контакти</h3>
                 <div className="space-y-2">
@@ -384,6 +520,29 @@ const PageEditor = () => {
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim flex items-center gap-2"><Linkedin size={14}/> LinkedIn</label>
                   <input type="text" value={content.linkedin || ""} onChange={(e) => setContent(prev => ({ ...prev, linkedin: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" placeholder="https://linkedin.com/..." />
                 </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Dedicated Pages Titles */}
+          <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+            <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Заголовки Окремих Сторінок</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Всі послуги</label>
+                <input type="text" value={content.allServicesPageTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, allServicesPageTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Всі проєкти</label>
+                <input type="text" value={content.allProjectsPageTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, allProjectsPageTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Всі відео</label>
+                <input type="text" value={content.allVideosPageTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, allVideosPageTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Стандарти якості</label>
+                <input type="text" value={content.standardsPageTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, standardsPageTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
             </div>
           </section>

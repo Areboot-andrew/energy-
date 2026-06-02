@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 
 interface FAQ {
   id: string;
@@ -13,7 +14,10 @@ interface FAQ {
 const FAQSection = () => {
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [openId, setOpenId] = useState<string | null>(null);
-  const [content, setContent] = useState({ faqTitle: "Часті запитання" });
+  const [content, setContent] = useState({ 
+    faqTitle: "Часті запитання",
+    faqBadge: "Запитання-відповіді"
+  });
 
   useEffect(() => {
     fetch("/api/faq")
@@ -21,7 +25,7 @@ const FAQSection = () => {
       .then((data) => setFaqs(data));
 
     fetch("/api/content").then(res => res.json()).then(data => {
-      if (data.faqTitle) setContent(data);
+      if (data) setContent(prev => ({ ...prev, ...data }));
     });
   }, []);
 
@@ -34,8 +38,8 @@ const FAQSection = () => {
   return (
     <section className="py-24 px-margin-desktop max-w-3xl mx-auto" id="faq">
       <div className="text-center mb-12">
-        <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">Запитання-відповіді</span>
-        <h2 className="font-headline-xl text-white">{content.faqTitle}</h2>
+        <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">{content.faqBadge}</span>
+        <HighlightedTitle text={content.faqTitle} className="font-headline-xl text-white" as="h2" />
       </div>
 
       <div className="space-y-4">

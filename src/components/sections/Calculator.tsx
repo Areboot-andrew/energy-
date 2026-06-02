@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ContactButton from "@/components/ui/ContactButton";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 
 interface CalculatorProps {
   onPriceChange?: (price: number) => void;
@@ -13,6 +14,11 @@ const Calculator = ({ onPriceChange }: CalculatorProps) => {
   const [multiplier, setMultiplier] = useState(1);
   const [total, setTotal] = useState(0);
   const [basePerRoom, setBasePerRoom] = useState(7500);
+  const [content, setContent] = useState({
+    calculatorTitle: "Розрахуйте вартість *проєкту*",
+    calculatorSub: "Отримайте попередню оцінку за 30 секунд",
+    calculatorButtonText: "Залишити заявку"
+  });
 
   useEffect(() => {
     fetch("/api/calculator-config")
@@ -21,6 +27,10 @@ const Calculator = ({ onPriceChange }: CalculatorProps) => {
         if (data.basePerRoom) setBasePerRoom(data.basePerRoom);
       })
       .catch(err => console.error("Failed to fetch calculator config", err));
+      
+    fetch("/api/content").then(res => res.json()).then(data => {
+      if (data) setContent(prev => ({ ...prev, ...data }));
+    });
   }, []);
 
   useEffect(() => {
@@ -43,8 +53,8 @@ const Calculator = ({ onPriceChange }: CalculatorProps) => {
     <section className="py-24 bg-surface-container-lowest px-margin-desktop" id="calculator">
       <div className="max-w-4xl mx-auto bg-surface-container rounded-2xl p-8 md:p-12 border border-outline-variant/20 shadow-2xl">
         <div className="text-center mb-12">
-          <h2 className="font-headline-xl text-white mb-4">Розрахуйте вартість проєкту</h2>
-          <p className="text-secondary-fixed-dim">Отримайте попередню оцінку за 30 секунд</p>
+          <HighlightedTitle text={content.calculatorTitle} className="font-headline-xl text-4xl text-white mb-4" as="h2" />
+          <p className="text-secondary-fixed-dim">{content.calculatorSub}</p>
         </div>
         <div className="space-y-10">
           <div>
@@ -94,7 +104,7 @@ const Calculator = ({ onPriceChange }: CalculatorProps) => {
               price={total}
               className="mt-6 w-full md:w-auto text-center bg-primary-fixed text-on-primary-fixed font-bold py-4 px-8 rounded-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.3)] transition-all block"
             >
-              Залишити заявку
+              {content.calculatorButtonText}
             </ContactButton>
           </div>
         </div>

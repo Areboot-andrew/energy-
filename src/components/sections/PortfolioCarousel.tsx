@@ -18,7 +18,11 @@ interface PortfolioProject {
 
 const PortfolioCarousel = () => {
   const [items, setItems] = useState<PortfolioProject[]>([]);
-  const [content, setContent] = useState({ portfolioTitle: "Галерея виконаних робіт" });
+  const [content, setContent] = useState({ 
+    portfolioTitle: "Галерея виконаних робіт",
+    portfolioBadge: "Галерея",
+    portfolioLinkText: "Всі проєкти →"
+  });
 
   useEffect(() => {
     fetch("/api/portfolio")
@@ -26,7 +30,7 @@ const PortfolioCarousel = () => {
       .then((data) => setItems(data));
       
     fetch("/api/content").then(res => res.json()).then(data => {
-      if (data.portfolioTitle) setContent(data);
+      if (data) setContent(prev => ({ ...prev, ...data }));
     });
   }, []);
 
@@ -44,11 +48,11 @@ const PortfolioCarousel = () => {
         className="max-w-container-max mx-auto px-4 md:px-margin-desktop mb-8 md:mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4"
       >
         <div>
-          <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-2 md:mb-4 block">Галерея</span>
+          <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-2 md:mb-4 block">{content.portfolioBadge}</span>
           <HighlightedTitle text={content.portfolioTitle} className="text-4xl md:text-5xl lg:text-6xl font-bold text-white" as="h2" />
         </div>
         <Link href="/portfolio" className="text-primary-fixed font-bold hover:underline mb-2 flex items-center gap-2">
-          Всі проєкти <span>→</span>
+          {content.portfolioLinkText}
         </Link>
       </motion.div>
 

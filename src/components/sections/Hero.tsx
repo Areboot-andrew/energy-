@@ -3,19 +3,21 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import ContactButton from "@/components/ui/ContactButton";
+import HighlightedTitle from "@/components/ui/HighlightedTitle";
 
 const Hero = () => {
   const [content, setContent] = useState({
     heroTitle: "Енергія Вашого Прогресу Під Ключ",
     heroBadgeText: "Turnkey Електромонтаж",
     heroSub: "Професійні інженерні рішення для преміальної нерухомості та комерційних об'єктів. Від щитка до повного 'Розумного дому'.",
-    heroImage: null
+    heroImage: null,
+    heroButton1Text: "Безкоштовний прорахунок",
+    heroButton2Text: "Наші роботи"
   });
 
   useEffect(() => {
     fetch("/api/content").then(res => res.json()).then(data => {
-      if (data.heroTitle) setContent(data);
+      if (data) setContent(data);
     });
   }, []);
 
@@ -44,21 +46,11 @@ const Hero = () => {
             </span>
             {content.heroBadgeText}
           </motion.div>
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+          <HighlightedTitle 
+            text={content.heroTitle} 
+            as="h1"
             className="font-display-lg text-4xl sm:text-5xl lg:text-display-lg leading-[1.1] md:leading-[1.05] tracking-tight text-white"
-          >
-            {content.heroTitle.includes("Під Ключ") ? (
-              <>
-                {content.heroTitle.split("Під Ключ")[0]}
-                <span className="text-primary-fixed">Під Ключ</span>
-              </>
-            ) : (
-              content.heroTitle
-            )}
-          </motion.h1>
+          />
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -76,10 +68,10 @@ const Hero = () => {
             className="flex flex-col sm:flex-row flex-wrap gap-4"
           >
             <ContactButton className="bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-lg font-bold text-lg hover:shadow-[0_0_20px_rgba(213,240,0,0.4)] transition-all w-full sm:w-auto text-center flex items-center justify-center">
-              Безкоштовний прорахунок
+              {content.heroButton1Text}
             </ContactButton>
             <Link href="/portfolio" className="border border-white/20 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/5 transition-all w-full sm:w-auto text-center flex items-center justify-center">
-              Наші роботи
+              {content.heroButton2Text}
             </Link>
           </motion.div>
         </motion.div>

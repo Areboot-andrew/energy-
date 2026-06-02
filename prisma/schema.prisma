@@ -285,6 +285,35 @@ model PageContent {
   navLinks          String  @default("[{\"id\":\"services\",\"label\":\"Послуги\",\"href\":\"/services\",\"isVisible\":true},{\"id\":\"pricing\",\"label\":\"Ціни\",\"href\":\"/pricing\",\"isVisible\":true},{\"id\":\"about\",\"label\":\"Про нас\",\"href\":\"/about\",\"isVisible\":true},{\"id\":\"portfolio\",\"label\":\"Портфоліо\",\"href\":\"/portfolio\",\"isVisible\":true},{\"id\":\"blog\",\"label\":\"Блог\",\"href\":\"/blog\",\"isVisible\":true},{\"id\":\"contacts\",\"label\":\"Контакти\",\"href\":\"/#contacts\",\"isVisible\":true}]")
   contactButtonText String  @default("Замовити дзвінок")
   terminology       String  @default("{}") // e.g. {"prices": "Інвойси"}
+
+  // Editable Texts for Sections
+  heroButton1Text       String @default("Безкоштовний прорахунок")
+  heroButton2Text       String @default("Наші роботи")
+  servicesButtonText    String @default("Всі послуги")
+  howWeWorkBadge        String @default("Процес")
+  howWeWorkTitle        String @default("Як ми *працюємо*")
+  howWeWorkSub          String @default("Прозорий та зрозумілий процес роботи над вашим об'єктом від першого дзвінка до здачі в експлуатацію.")
+  calculatorTitle       String @default("Розрахуйте вартість *проєкту*")
+  calculatorSub         String @default("Отримайте попередню оцінку за 30 секунд")
+  calculatorButtonText  String @default("Залишити заявку")
+  pricingSub            String @default("Ми пропонуємо чесні ціни за найвищу якість роботи. Виберіть пакет послуг або ознайомтеся з повним прайс-листом для детального розрахунку.")
+  pricingButtonText     String @default("Дивитись повний прайс-лист")
+  portfolioBadge        String @default("Галерея")
+  portfolioLinkText     String @default("Всі проєкти →")
+  videoblogLinkText     String @default("Всі відео →")
+  videoblogText         String @default("Показуємо внутрішню кухню складних проєктів та ділимося досвідом у форматі відео.")
+  blogBadge             String @default("Блог та поради")
+  blogLinkText          String @default("Всі статті →")
+  faqBadge              String @default("Запитання-відповіді")
+  contactsTitle         String @default("Зв'яжіться з *нами*")
+  contactsSub           String @default("Запрошуємо до нашого офісу для обговорення вашого проєкту або залиште заявку онлайн.")
+  contactsButtonText    String @default("Залишити заявку онлайн")
+
+  // Pages
+  allServicesPageTitle  String @default("Всі *послуги*")
+  allProjectsPageTitle  String @default("Всі *проєкти*")
+  allVideosPageTitle    String @default("Всі *відео*")
+  standardsPageTitle    String @default("Стандарти *якості*")
 }
 
 model CalculatorConfig {
