@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import HighlightedTitle from "@/components/ui/HighlightedTitle";
+import ContactButton from "@/components/ui/ContactButton";
 
 const Hero = () => {
   const [content, setContent] = useState({
