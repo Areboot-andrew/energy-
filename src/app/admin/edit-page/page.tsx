@@ -379,10 +379,65 @@ const PageEditor = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Пакети калькулятора (JSON формат)</label>
-                  <p className="text-[10px] text-secondary-fixed-dim -mt-1">Масив об'єктів з полями name та multiplier (наприклад: <code>[{`{"name":"Base","multiplier":1}`}]</code>)</p>
-                  <textarea rows={4} value={content.calcPackagesJson || ""} onChange={(e) => setContent({ ...content, calcPackagesJson: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none font-mono text-xs" />
+                <div className="space-y-4">
+                  <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Варіанти вибору (множники калькулятора)</label>
+                  <div className="space-y-2 bg-background/50 p-4 rounded-xl border border-outline-variant/10">
+                    {(() => {
+                      let packages = [];
+                      try { packages = JSON.parse(content.calcPackagesJson || "[]"); } catch (e) {}
+                      return (
+                        <>
+                          {packages.map((pkg: any, index: number) => (
+                            <div key={index} className="flex gap-2 items-center">
+                              <input 
+                                type="text" 
+                                placeholder="Назва (напр. Стандарт)" 
+                                value={pkg.name} 
+                                onChange={(e) => {
+                                  const newPackages = [...packages];
+                                  newPackages[index].name = e.target.value;
+                                  setContent({ ...content, calcPackagesJson: JSON.stringify(newPackages) });
+                                }} 
+                                className="flex-1 bg-background border border-outline-variant/30 rounded-lg px-3 py-2 text-white focus:border-primary-fixed outline-none text-sm" 
+                              />
+                              <input 
+                                type="number" 
+                                step="0.1"
+                                placeholder="Множник (напр. 1.2)" 
+                                value={pkg.multiplier} 
+                                onChange={(e) => {
+                                  const newPackages = [...packages];
+                                  newPackages[index].multiplier = parseFloat(e.target.value) || 1;
+                                  setContent({ ...content, calcPackagesJson: JSON.stringify(newPackages) });
+                                }} 
+                                className="w-24 bg-background border border-outline-variant/30 rounded-lg px-3 py-2 text-white focus:border-primary-fixed outline-none text-sm" 
+                              />
+                              <button 
+                                type="button" 
+                                onClick={() => {
+                                  const newPackages = packages.filter((_: any, i: number) => i !== index);
+                                  setContent({ ...content, calcPackagesJson: JSON.stringify(newPackages) });
+                                }} 
+                                className="p-2 text-error hover:bg-error/10 rounded-lg transition-colors"
+                              >
+                                <span className="material-symbols-outlined text-sm">delete</span>
+                              </button>
+                            </div>
+                          ))}
+                          <button 
+                            type="button" 
+                            onClick={() => {
+                              const newPackages = [...packages, { name: "Новий пункт", multiplier: 1 }];
+                              setContent({ ...content, calcPackagesJson: JSON.stringify(newPackages) });
+                            }} 
+                            className="mt-2 text-primary-fixed text-sm font-bold flex items-center gap-1 hover:underline"
+                          >
+                            <span className="material-symbols-outlined text-sm">add</span> Додати пункт
+                          </button>
+                        </>
+                      );
+                    })()}
+                  </div>
                 </div>
               </div>
             </div>
