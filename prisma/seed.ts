@@ -148,15 +148,6 @@ async function main() {
     console.log('Restored Page Content');
   }
 
-  // 11. CALCULATOR CONFIG
-  const calcCount = await prisma.calculatorConfig.count();
-  if (calcCount === 0 && initialData && initialData.CalculatorConfig) {
-    for (const c of initialData.CalculatorConfig) {
-      const { createdAt, updatedAt, ...data } = (c as any);
-      await prisma.calculatorConfig.create({ data });
-    }
-    console.log('Restored Calculator Config');
-  }
 
   console.log('Database seeded successfully!');
 }
