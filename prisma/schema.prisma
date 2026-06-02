@@ -325,6 +325,24 @@ model PageContent {
 }
 
 model CalculatorConfig {
-  id          String @id @default("singleton")
-  basePerRoom Float  @default(7500)
+  id               String   @id @default("singleton")
+  basePrice        Int      @default(7500)
+  
+  // Slider config
+  sliderLabel      String   @default("Кількість кімнат")
+  sliderMin        Int      @default(1)
+  sliderMax        Int      @default(5)
+  sliderStep       Int      @default(1)
+  sliderSuffix     String   @default(" кімн.")
+
+  // Packages config
+  packagesLabel    String   @default("Рівень інсталяції")
+  packagesJson     String   @default("[{\"name\":\"Base\",\"multiplier\":1},{\"name\":\"Standard\",\"multiplier\":1.5},{\"name\":\"Premium\",\"multiplier\":2.5}]")
+  
+  // Result config
+  resultLabel      String   @default("Орієнтовна вартість")
+  resultPrefix     String   @default("від")
+  resultCurrency   String   @default("₴")
+
+  updatedAt        DateTime @updatedAt
 }
