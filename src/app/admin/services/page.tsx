@@ -155,7 +155,9 @@ export default function ServicesAdminPage() {
           termReadyToStart: content.termReadyToStart,
           termReadyToStartSub: content.termReadyToStartSub,
           termContactUs: content.termContactUs,
-          termLeaveRequest: content.termLeaveRequest
+          termLeaveRequest: content.termLeaveRequest,
+          allServicesPageTitle: content.allServicesPageTitle,
+          servicesPageSubtitle: content.servicesPageSubtitle
         })
       });
       alert('Тексти успішно збережено!');
@@ -187,7 +189,17 @@ export default function ServicesAdminPage() {
             </button>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-2 pt-4 border-t border-outline-variant/10">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Головний H1 заголовок сторінки Всі Послуги (/services)</label>
+              <input type="text" value={content.allServicesPageTitle || ""} onChange={(e) => setContent({ ...content, allServicesPageTitle: e.target.value })} placeholder="Наприклад: Всі Послуги" className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+
+            <div className="space-y-2 pt-2 pb-4 border-b border-outline-variant/10">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок / Опис на сторінці Всі Послуги</label>
+              <textarea rows={3} value={content.servicesPageSubtitle || ""} onChange={(e) => setContent({ ...content, servicesPageSubtitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"></textarea>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Орієнтовна вартість"</label>
               <input type="text" value={content.termEstimatedPrice || ""} onChange={(e) => setContent({ ...content, termEstimatedPrice: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />

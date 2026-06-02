@@ -51,7 +51,9 @@ export default function AboutPageEditor() {
       ...content,
       aboutStatsBlock: JSON.stringify(aboutStats),
       aboutValuesBlock: JSON.stringify(aboutValues),
-      aboutStepsBlock: JSON.stringify(aboutSteps)
+      aboutStepsBlock: JSON.stringify(aboutSteps),
+      aboutSeoTitle: content.aboutSeoTitle,
+      aboutSeoDescription: content.aboutSeoDescription
     };
 
     const res = await fetch("/api/content", {
@@ -83,6 +85,19 @@ export default function AboutPageEditor() {
 
       <div className="bg-surface-container border border-outline-variant/20 rounded-2xl p-6 md:p-8 space-y-8">
         
+        {/* Налаштування SEO */}
+        <div className="space-y-4 pb-6 border-b border-outline-variant/10">
+          <h2 className="text-xl font-bold text-white mb-2">Налаштування SEO (для пошукових систем)</h2>
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Заголовок (Title)</label>
+            <input type="text" value={content.aboutSeoTitle || ""} onChange={(e) => setContent((prev: any) => ({ ...prev, aboutSeoTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Опис (Description)</label>
+            <textarea rows={3} value={content.aboutSeoDescription || ""} onChange={(e) => setContent((prev: any) => ({ ...prev, aboutSeoDescription: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"></textarea>
+          </div>
+        </div>
+
         {/* Головний Банер */}
         <div className="space-y-4">
           <h2 className="text-xl font-bold text-white mb-2">Головний банер (Заголовок та Фото)</h2>

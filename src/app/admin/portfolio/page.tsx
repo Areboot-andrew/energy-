@@ -40,7 +40,11 @@ export default function PortfolioAdminPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           termToAllProjects: content.termToAllProjects,
-          termProjectGallery: content.termProjectGallery
+          termProjectGallery: content.termProjectGallery,
+          allProjectsPageTitle: content.allProjectsPageTitle,
+          portfolioSeoTitle: content.portfolioSeoTitle,
+          portfolioSeoText: content.portfolioSeoText,
+          portfolioVideoUrl: content.portfolioVideoUrl
         })
       });
       alert('Тексти успішно збережено!');
@@ -80,16 +84,36 @@ export default function PortfolioAdminPage() {
             </button>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Всі проєкти"</label>
-              <input type="text" value={content.termToAllProjects || ""} onChange={(e) => setContent({ ...content, termToAllProjects: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки "Всі проєкти"</label>
+                <input type="text" value={content.termToAllProjects || ""} onChange={(e) => setContent({ ...content, termToAllProjects: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Слово "Галерея"</label>
+                <input type="text" value={content.termProjectGallery || ""} onChange={(e) => setContent({ ...content, termProjectGallery: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
             </div>
-            <div className="space-y-2">
-              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст "Галерея"</label>
-              <input type="text" value={content.termProjectGallery || ""} onChange={(e) => setContent({ ...content, termProjectGallery: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+
+            <div className="space-y-2 pt-4 border-t border-outline-variant/10">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Головний H1 заголовок сторінки Портфоліо (/portfolio)</label>
+              <input type="text" value={content.allProjectsPageTitle || ""} onChange={(e) => setContent({ ...content, allProjectsPageTitle: e.target.value })} placeholder="Наприклад: Усі проєкти" className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
             </div>
-          </div>
+
+            <div className="space-y-2 pt-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Заголовок (Title)</label>
+              <input type="text" value={content.portfolioSeoTitle || ""} onChange={(e) => setContent({ ...content, portfolioSeoTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
+
+            <div className="space-y-2 pt-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Опис (Description)</label>
+              <textarea rows={3} value={content.portfolioSeoText || ""} onChange={(e) => setContent({ ...content, portfolioSeoText: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"></textarea>
+            </div>
+
+            <div className="space-y-2 pt-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Посилання на відео (YouTube URL)</label>
+              <input type="text" value={content.portfolioVideoUrl || ""} onChange={(e) => setContent({ ...content, portfolioVideoUrl: e.target.value })} placeholder="https://youtube.com/..." className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+            </div>
         </section>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

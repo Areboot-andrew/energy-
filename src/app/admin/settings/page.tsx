@@ -76,7 +76,8 @@ const SettingsPage = () => {
             { id: "contacts", label: "Контакти та Карта" },
             { id: "socials", label: "Соціальні мережі" },
             { id: "pricing", label: "Блок Прайс-листа" },
-            { id: "seo", label: "SEO та Аналітика" }
+            { id: "seo", label: "SEO та Аналітика" },
+            { id: "footer", label: "Футер (Низ сайту)" }
           ].map(t => (
             <button
               key={t.id}
@@ -409,6 +410,46 @@ const SettingsPage = () => {
                   placeholder="Код з мета-тегу..."
                 />
                 <p className="text-xs text-secondary-fixed-dim mt-1">Використовується для підтвердження прав на сайт у Google Search Console.</p>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {activeTab === "footer" && (
+          <div className="space-y-8">
+            <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
+              <h2 className="text-xl font-bold text-white mb-6">Тексти Футера (Нижня частина сайту)</h2>
+              
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Основний текст футера</label>
+                <textarea rows={3} value={settings.footerText || ""} onChange={(e) => setSettings({ ...settings, footerText: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"></textarea>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Заголовок посилань</label>
+                  <input type="text" value={settings.footerLinksTitle || ""} onChange={(e) => setSettings({ ...settings, footerLinksTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Копірайт</label>
+                  <input type="text" value={settings.footerCopyright || ""} onChange={(e) => setSettings({ ...settings, footerCopyright: e.target.value })} placeholder="© 2026 Всі права захищено" className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-outline-variant/10">
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Заголовок графіку роботи</label>
+                  <input type="text" value={settings.footerScheduleTitle || ""} onChange={(e) => setSettings({ ...settings, footerScheduleTitle: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Графік роботи</label>
+                  <input type="text" value={settings.footerSchedule || ""} onChange={(e) => setSettings({ ...settings, footerSchedule: e.target.value })} placeholder="Пн-Сб: 09:00 - 18:00" className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-4">
+                <label className="text-sm font-bold text-secondary-fixed-dim uppercase">Текст про офіс</label>
+                <input type="text" value={settings.footerOfficeText || ""} onChange={(e) => setSettings({ ...settings, footerOfficeText: e.target.value })} placeholder="Офіс та шоурум" className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
             </section>
           </div>

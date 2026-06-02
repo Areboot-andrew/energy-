@@ -82,7 +82,9 @@ const PricesAdminPage = () => {
           termService: content.termService,
           termUnit: content.termUnit,
           termPrice: content.termPrice,
-          termPricingGuarantee: content.termPricingGuarantee
+          termPricingGuarantee: content.termPricingGuarantee,
+          pricingSeoTitle: content.pricingSeoTitle,
+          pricingSeoText: content.pricingSeoText
         })
       });
       alert('Тексти успішно збережено!');
@@ -114,20 +116,31 @@ const PricesAdminPage = () => {
             </button>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Назва колонки "Послуга"</label>
-              <input type="text" value={content.termService || ""} onChange={(e) => setContent({ ...content, termService: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Назва колонки "Послуга"</label>
+                <input type="text" value={content.termService || ""} onChange={(e) => setContent({ ...content, termService: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Назва колонки "Од. виміру"</label>
+                <input type="text" value={content.termUnit || ""} onChange={(e) => setContent({ ...content, termUnit: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Назва колонки "Ціна"</label>
+                <input type="text" value={content.termPrice || ""} onChange={(e) => setContent({ ...content, termPrice: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
             </div>
-            <div className="space-y-2">
-              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Назва колонки "Одиниця"</label>
-              <input type="text" value={content.termUnit || ""} onChange={(e) => setContent({ ...content, termUnit: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+
+            <div className="space-y-2 pt-4 border-t border-outline-variant/10">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Головний H1 заголовок сторінки Ціни (/pricing)</label>
+              <input type="text" value={content.pricingSeoTitle || ""} onChange={(e) => setContent({ ...content, pricingSeoTitle: e.target.value })} placeholder="Наприклад: Повний прайс-лист на електромонтажні роботи" className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
             </div>
-            <div className="space-y-2">
-              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Назва колонки "Ціна"</label>
-              <input type="text" value={content.termPrice || ""} onChange={(e) => setContent({ ...content, termPrice: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+
+            <div className="space-y-2 pt-2">
+              <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Текст під прайсом</label>
+              <textarea rows={4} value={content.pricingSeoText || ""} onChange={(e) => setContent({ ...content, pricingSeoText: e.target.value })} placeholder="Детальний опис для пошукових систем..." className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none"></textarea>
             </div>
-          </div>
+            
           <div className="space-y-2 mt-4">
             <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст-гарантія під прайсом</label>
             <textarea rows={2} value={content.termPricingGuarantee || ""} onChange={(e) => setContent({ ...content, termPricingGuarantee: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none" />
