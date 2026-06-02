@@ -11,32 +11,32 @@ const Pricing = () => {
     pricingTitle: "Прозоре ціноутворення", 
     pricingSeoText: "",
     pricingSub: "Ми пропонуємо чесні ціни за найвищу якість роботи. Виберіть пакет послуг або ознайомтеся з повним прайс-листом для детального розрахунку.",
-    pricingButtonText: "Дивитись повний прайс-лист"
+    pricingButtonText: "Дивитись повний прайс-лист",
+    pricingPackagesJson: ""
   });
+  const [packages, setPackages] = useState<any[]>([]);
 
   useEffect(() => {
     fetch("/api/content").then(res => res.json()).then(data => {
-      if (data) setContent(prev => ({ ...prev, ...data }));
+      if (data) {
+        setContent(prev => ({ ...prev, ...data }));
+        if (data.pricingPackagesJson) {
+          try {
+            setPackages(JSON.parse(data.pricingPackagesJson));
+          } catch (e) {
+            console.error("Failed to parse pricingPackagesJson", e);
+          }
+        } else {
+          // fallback default
+          setPackages([
+            { title: "Чорновий монтаж", price: "від 150 ₴ / м.п.", features: ["Штроблення без пилу", "Прокладання кабелю в гофрі", "Встановлення підрозетників", "Збірка тимчасового щита"] },
+            { title: "Електрика під ключ", price: "від 800 ₴ / м²", features: ["Повний комплекс робіт", "Збірка щита (Hager/ABB)", "Захист від перепадів напруги", "Встановлення розеток та світла"] },
+            { title: "Розумний дім", price: "Індивідуально", features: ["Проєктування системи", "Управління освітленням", "Клімат-контроль", "Система антипотоп"] }
+          ]);
+        }
+      }
     });
   }, []);
-
-  const packages = [
-    {
-      title: "Чорновий монтаж",
-      price: "від 150 ₴ / м.п.",
-      features: ["Штроблення без пилу", "Прокладання кабелю в гофрі", "Встановлення підрозетників", "Збірка тимчасового щита"]
-    },
-    {
-      title: "Електрика під ключ",
-      price: "від 800 ₴ / м²",
-      features: ["Повний комплекс робіт", "Збірка щита (Hager/ABB)", "Захист від перепадів напруги", "Встановлення розеток та світла"]
-    },
-    {
-      title: "Розумний дім",
-      price: "Індивідуально",
-      features: ["Проєктування системи", "Управління освітленням", "Клімат-контроль", "Система антипотоп"]
-    }
-  ];
 
   return (
     <section className="py-24 px-margin-desktop max-w-container-max mx-auto" id="pricing">

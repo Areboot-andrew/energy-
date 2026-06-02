@@ -56,6 +56,7 @@ const PageEditor = () => {
     calculatorButtonText: "",
     pricingSub: "",
     pricingButtonText: "",
+    pricingPackagesJson: "",
     portfolioBadge: "",
     portfolioLinkText: "",
     videoblogLinkText: "",
@@ -67,6 +68,8 @@ const PageEditor = () => {
     contactsSub: "",
     contactsButtonText: "",
     allServicesPageTitle: "",
+    servicesPageSubtitle: "",
+    servicesPageCardLink: "",
     allProjectsPageTitle: "",
     allVideosPageTitle: "",
     standardsPageTitle: "",
@@ -364,6 +367,11 @@ const PageEditor = () => {
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки "Прайс-лист"</label>
                 <input type="text" value={content.pricingButtonText || ""} onChange={(e) => setContent(prev => ({ ...prev, pricingButtonText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
+              <div className="space-y-2 pt-4 border-t border-outline-variant/10">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Картки тарифів на головній (JSON формат)</label>
+                <p className="text-[10px] text-secondary-fixed-dim -mt-1">Для зміни вмісту карток з цінами редагуйте цей JSON об'єкт.</p>
+                <textarea rows={10} value={content.pricingPackagesJson || ""} onChange={(e) => setContent(prev => ({ ...prev, pricingPackagesJson: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-y font-mono text-xs" />
+              </div>
               
               <div className="pt-4 border-t border-outline-variant/10 space-y-4">
                 <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase">SEO Опис під цінами</h3>
@@ -569,8 +577,16 @@ const PageEditor = () => {
             <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Заголовки Окремих Сторінок</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Всі послуги</label>
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Всі послуги (Заголовок)</label>
                 <input type="text" value={content.allServicesPageTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, allServicesPageTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Всі послуги (Підзаголовок)</label>
+                <textarea rows={2} value={content.servicesPageSubtitle || ""} onChange={(e) => setContent(prev => ({ ...prev, servicesPageSubtitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Всі послуги (Кнопка на картці)</label>
+                <input type="text" value={content.servicesPageCardLink || ""} onChange={(e) => setContent(prev => ({ ...prev, servicesPageCardLink: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Всі проєкти</label>

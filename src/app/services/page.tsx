@@ -15,6 +15,10 @@ export default async function ServicesPage() {
     orderBy: { createdAt: "asc" }
   });
 
+  const content = await prisma.pageContent.findUnique({
+    where: { id: "singleton" }
+  });
+
   // Group by category
   const grouped = allServices.reduce((acc, service) => {
     const cat = service.category || "Основні послуги";
@@ -38,10 +42,10 @@ export default async function ServicesPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-margin-desktop max-w-container-max mx-auto text-center">
         <h1 className="font-headline-xl text-display-md-mobile md:text-display-lg text-white mb-6">
-          Всі Послуги
+          {content?.allServicesPageTitle?.replace(/\*/g, '') || "Всі Послуги"}
         </h1>
         <p className="text-secondary-fixed-dim text-lg md:text-xl max-w-3xl mx-auto">
-          Комплексні інженерні рішення для преміальної нерухомості. Оберіть категорію, щоб дізнатися більше.
+          {content?.servicesPageSubtitle || "Комплексні інженерні рішення для преміальної нерухомості. Оберіть категорію, щоб дізнатися більше."}
         </p>
       </section>
 
@@ -68,7 +72,7 @@ export default async function ServicesPage() {
                   </div>
                   
                   <div className="mt-8 relative z-10 flex items-center text-primary-fixed font-bold text-sm">
-                    Детальніше <span className="material-symbols-outlined ml-1 text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    {content?.servicesPageCardLink || "Детальніше"} <span className="material-symbols-outlined ml-1 text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
                   </div>
 
                   {service.image && (

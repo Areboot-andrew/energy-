@@ -298,6 +298,7 @@ model PageContent {
   calculatorButtonText  String @default("Залишити заявку")
   pricingSub            String @default("Ми пропонуємо чесні ціни за найвищу якість роботи. Виберіть пакет послуг або ознайомтеся з повним прайс-листом для детального розрахунку.")
   pricingButtonText     String @default("Дивитись повний прайс-лист")
+  pricingPackagesJson   String @default("[{\"title\":\"Чорновий монтаж\",\"price\":\"від 150 ₴ / м.п.\",\"features\":[\"Штроблення без пилу\",\"Прокладання кабелю в гофрі\",\"Встановлення підрозетників\",\"Збірка тимчасового щита\"]},{\"title\":\"Електрика під ключ\",\"price\":\"від 800 ₴ / м²\",\"features\":[\"Повний комплекс робіт\",\"Збірка щита (Hager/ABB)\",\"Захист від перепадів напруги\",\"Встановлення розеток та світла\"]},{\"title\":\"Розумний дім\",\"price\":\"Індивідуально\",\"features\":[\"Проєктування системи\",\"Управління освітленням\",\"Клімат-контроль\",\"Система антипотоп\"]}]") @db.Text
   portfolioBadge        String @default("Галерея")
   portfolioLinkText     String @default("Всі проєкти →")
   videoblogLinkText     String @default("Всі відео →")
@@ -311,6 +312,8 @@ model PageContent {
 
   // Pages
   allServicesPageTitle  String @default("Всі *послуги*")
+  servicesPageSubtitle  String @default("Комплексні інженерні рішення для преміальної нерухомості. Оберіть категорію, щоб дізнатися більше.")
+  servicesPageCardLink  String @default("Детальніше")
   allProjectsPageTitle  String @default("Всі *проєкти*")
   allVideosPageTitle    String @default("Всі *відео*")
   standardsPageTitle    String @default("Стандарти *якості*")
