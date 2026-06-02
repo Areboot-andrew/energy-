@@ -200,7 +200,7 @@ export default function AboutPageEditor() {
           {aboutValues.map((v, i) => (
             <div key={i} className="flex flex-col md:flex-row gap-4 p-4 border border-outline-variant/30 rounded-lg bg-background">
               <div className="flex flex-col gap-3 w-full md:w-1/4">
-                <div className="w-full z-10 relative">
+                <div className="w-full relative">
                   <IconPicker 
                     value={v.icon}
                     onChange={(val) => {

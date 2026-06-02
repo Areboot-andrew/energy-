@@ -340,7 +340,7 @@ const SettingsPage = () => {
                     {idx + 1}
                   </div>
                   
-                  <div className="w-full md:w-1/3 z-10 relative">
+                  <div className="w-full md:w-1/3 relative">
                     <label className="text-xs text-secondary-fixed-dim font-bold uppercase mb-1 block">Іконка (Lucide)</label>
                     <IconPicker 
                       value={feature.icon}
@@ -351,7 +351,7 @@ const SettingsPage = () => {
                       }}
                     />
                   </div>
-                  <div className="w-full z-10 relative">
+                  <div className="w-full relative">
                     <label className="text-xs text-secondary-fixed-dim font-bold uppercase mb-1 block">Заголовок</label>
                     <input
                       type="text"
@@ -364,7 +364,7 @@ const SettingsPage = () => {
                       className="w-full bg-surface-container border border-outline-variant/30 rounded-lg px-4 py-2 text-white outline-none font-bold text-lg"
                     />
                   </div>
-                  <div className="w-full z-10 relative">
+                  <div className="w-full relative">
                     <label className="text-xs text-secondary-fixed-dim font-bold uppercase mb-1 block">Опис</label>
                     <textarea
                       rows={3}
