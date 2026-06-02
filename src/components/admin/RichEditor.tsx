@@ -36,6 +36,13 @@ export default function RichEditor({ value, onChange, placeholder }: RichEditorP
           border-top-left-radius: 0.5rem;
           border-top-right-radius: 0.5rem;
           background-color: #1e1e1e;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 4px;
+        }
+        .rich-editor-container .ql-formats {
+          margin-right: 8px !important;
+          margin-bottom: 4px !important;
         }
         .rich-editor-container .ql-container {
           border-color: rgba(255, 255, 255, 0.2);

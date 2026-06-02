@@ -77,7 +77,7 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Content Section (Rich Text) */}
         <div className="max-w-4xl mx-auto mb-12 md:mb-20 bg-surface-container-low p-6 md:p-12 rounded-3xl border border-outline-variant/20 prose prose-invert prose-lg max-w-none prose-headings:text-white prose-a:text-primary-fixed break-words whitespace-pre-wrap overflow-hidden w-full">
-          <div dangerouslySetInnerHTML={{ __html: project.content }} />
+          <div className="prose prose-invert prose-lg max-w-none prose-img:rounded-xl prose-a:text-primary-fixed prose-headings:text-white" dangerouslySetInnerHTML={{ __html: project.content }} />
         </div>
 
         {/* Internal Media Gallery */}

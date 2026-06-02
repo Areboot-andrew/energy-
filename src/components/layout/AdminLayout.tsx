@@ -70,7 +70,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
           </Link>
         </div>
         
-        <nav className="flex-grow p-6 space-y-2">
+        <nav className="flex-grow p-6 space-y-2 overflow-y-auto">
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary-fixed-dim mb-4 ml-2 opacity-50">Меню керування</p>
           {menuItems.map((item) => (
             <Link
@@ -110,11 +110,11 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-grow overflow-y-auto bg-surface-dim relative overflow-x-hidden break-words">
+      <main className="flex-grow overflow-y-auto bg-surface-dim relative overflow-x-hidden break-words w-full">
         {/* Top Header Decor */}
         <div className="h-32 w-full bg-gradient-to-b from-surface-container to-transparent opacity-50 absolute top-0 left-0 pointer-events-none"></div>
         
-        <div className="p-4 md:p-10 lg:p-16 relative z-10 w-full overflow-hidden">
+        <div className="p-4 md:p-8 lg:p-12 relative z-10 w-full overflow-hidden max-w-[100vw]">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
