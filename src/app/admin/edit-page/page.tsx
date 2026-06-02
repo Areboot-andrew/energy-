@@ -54,6 +54,17 @@ const PageEditor = () => {
     calculatorTitle: "",
     calculatorSub: "",
     calculatorButtonText: "",
+    calcBasePrice: 0,
+    calcSliderLabel: "",
+    calcSliderMin: 0,
+    calcSliderMax: 0,
+    calcSliderStep: 0,
+    calcSliderSuffix: "",
+    calcPackagesLabel: "",
+    calcPackagesJson: "",
+    calcResultLabel: "",
+    calcResultPrefix: "",
+    calcResultCurrency: "",
     pricingSub: "",
     pricingButtonText: "",
     pricingPackagesJson: "",
@@ -310,6 +321,69 @@ const PageEditor = () => {
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки</label>
                 <input type="text" value={content.calculatorButtonText || ""} onChange={(e) => setContent(prev => ({ ...prev, calculatorButtonText: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+              </div>
+
+              {/* Advanced Calculator Config from PageContent */}
+              <div className="pt-6 border-t border-outline-variant/10">
+                <h3 className="text-sm font-bold text-primary-fixed mb-4">Налаштування логіки калькулятора</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Базова ціна (множник)</label>
+                      <input type="number" value={content.calcBasePrice || 0} onChange={(e) => setContent({ ...content, calcBasePrice: parseInt(e.target.value) })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Лейбл повзунка</label>
+                      <input type="text" value={content.calcSliderLabel || ""} onChange={(e) => setContent({ ...content, calcSliderLabel: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                    </div>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Мін.</label>
+                        <input type="number" value={content.calcSliderMin || 0} onChange={(e) => setContent({ ...content, calcSliderMin: parseInt(e.target.value) })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Макс.</label>
+                        <input type="number" value={content.calcSliderMax || 0} onChange={(e) => setContent({ ...content, calcSliderMax: parseInt(e.target.value) })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Крок</label>
+                        <input type="number" value={content.calcSliderStep || 0} onChange={(e) => setContent({ ...content, calcSliderStep: parseInt(e.target.value) })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Суфікс повзунка (напр. "од.")</label>
+                      <input type="text" value={content.calcSliderSuffix || ""} onChange={(e) => setContent({ ...content, calcSliderSuffix: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Заголовок кнопок-пакетів</label>
+                      <input type="text" value={content.calcPackagesLabel || ""} onChange={(e) => setContent({ ...content, calcPackagesLabel: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Текст "Орієнтовна вартість"</label>
+                      <input type="text" value={content.calcResultLabel || ""} onChange={(e) => setContent({ ...content, calcResultLabel: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Префікс (від)</label>
+                        <input type="text" value={content.calcResultPrefix || ""} onChange={(e) => setContent({ ...content, calcResultPrefix: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Валюта (₴)</label>
+                        <input type="text" value={content.calcResultCurrency || ""} onChange={(e) => setContent({ ...content, calcResultCurrency: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Пакети калькулятора (JSON формат)</label>
+                  <p className="text-[10px] text-secondary-fixed-dim -mt-1">Масив об'єктів з полями name та multiplier (наприклад: <code>[{`{"name":"Base","multiplier":1}`}]</code>)</p>
+                  <textarea rows={4} value={content.calcPackagesJson || ""} onChange={(e) => setContent({ ...content, calcPackagesJson: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none font-mono text-xs" />
+                </div>
               </div>
             </div>
           </section>

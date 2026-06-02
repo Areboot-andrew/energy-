@@ -14,60 +14,48 @@ const Calculator = ({ onPriceChange }: CalculatorProps) => {
   const [multiplier, setMultiplier] = useState(1);
   const [total, setTotal] = useState(0);
   
-  const [config, setConfig] = useState({
-    basePrice: 7500,
-    sliderLabel: "Кількість кімнат",
-    sliderMin: 1,
-    sliderMax: 5,
-    sliderStep: 1,
-    sliderSuffix: " кімн.",
-    packagesLabel: "Рівень інсталяції",
-    packagesJson: "[{\"name\":\"Base\",\"multiplier\":1},{\"name\":\"Standard\",\"multiplier\":1.5},{\"name\":\"Premium\",\"multiplier\":2.5}]",
-    resultLabel: "Орієнтовна вартість",
-    resultPrefix: "від",
-    resultCurrency: "₴"
-  });
-
-  const [content, setContent] = useState({
+  const [content, setContent] = useState<any>({
     calculatorTitle: "Розрахуйте вартість *проєкту*",
     calculatorSub: "Отримайте попередню оцінку за 30 секунд",
-    calculatorButtonText: "Залишити заявку"
+    calculatorButtonText: "Залишити заявку",
+    calcBasePrice: 7500,
+    calcSliderLabel: "Кількість кімнат",
+    calcSliderMin: 1,
+    calcSliderMax: 5,
+    calcSliderStep: 1,
+    calcSliderSuffix: " кімн.",
+    calcPackagesLabel: "Рівень інсталяції",
+    calcPackagesJson: "[{\"name\":\"Base\",\"multiplier\":1},{\"name\":\"Standard\",\"multiplier\":1.5},{\"name\":\"Premium\",\"multiplier\":2.5}]",
+    calcResultLabel: "Орієнтовна вартість",
+    calcResultPrefix: "від",
+    calcResultCurrency: "₴"
   });
 
   const [packages, setPackages] = useState<{name: string, multiplier: number}[]>([]);
 
   useEffect(() => {
-    fetch("/api/calculator-config")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          setConfig(prev => ({ ...prev, ...data }));
-          try {
-            const parsed = JSON.parse(data.packagesJson || "[]");
-            if (parsed.length > 0) {
-              setPackages(parsed);
-              setMultiplier(parsed[0].multiplier); // Select first by default
-            }
-          } catch (e) {
-            console.error("Failed to parse packages", e);
-          }
-          // Set initial slider value if it's out of new bounds
-          if (sliderValue < (data.sliderMin || 1)) setSliderValue(data.sliderMin || 1);
-        }
-      })
-      .catch(err => console.error("Failed to fetch calculator config", err));
-      
     fetch("/api/content").then(res => res.json()).then(data => {
-      if (data) setContent(prev => ({ ...prev, ...data }));
+      if (data) {
+        setContent(prev => ({ ...prev, ...data }));
+        try {
+          const parsed = JSON.parse(data.calcPackagesJson || "[]");
+          if (parsed.length > 0) {
+            setPackages(parsed);
+            setMultiplier(parsed[0].multiplier); // Select first by default
+          }
+        } catch (e) {
+          console.error("Failed to parse calc packages", e);
+        }
+        if (sliderValue < (data.calcSliderMin || 1)) setSliderValue(data.calcSliderMin || 1);
+      }
     });
   }, []);
 
   useEffect(() => {
-    // Formula: SliderValue * BasePrice * PackageMultiplier
-    const newTotal = sliderValue * (config.basePrice || 0) * multiplier;
+    const newTotal = sliderValue * (content.calcBasePrice || 0) * multiplier;
     setTotal(newTotal);
     if (onPriceChange) onPriceChange(newTotal);
-  }, [sliderValue, multiplier, config.basePrice]);
+  }, [sliderValue, multiplier, content.calcBasePrice]);
 
   return (
     <section className="py-24 bg-surface-container-lowest px-margin-desktop" id="calculator">
@@ -79,24 +67,24 @@ const Calculator = ({ onPriceChange }: CalculatorProps) => {
         <div className="space-y-10">
           <div>
             <div className="flex justify-between mb-4">
-              <label className="text-on-surface font-label-md">{config.sliderLabel}</label>
+              <label className="text-on-surface font-label-md">{content.calcSliderLabel}</label>
               <span className="text-primary-fixed font-bold" id="room-val">
-                {sliderValue}{config.sliderSuffix}
+                {sliderValue}{content.calcSliderSuffix}
               </span>
             </div>
             <input 
               className="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-fixed" 
               id="room-slider" 
-              max={config.sliderMax} 
-              min={config.sliderMin} 
-              step={config.sliderStep} 
+              max={content.calcSliderMax} 
+              min={content.calcSliderMin} 
+              step={content.calcSliderStep} 
               type="range" 
               value={sliderValue}
               onChange={(e) => setSliderValue(parseInt(e.target.value))}
             />
           </div>
           <div>
-            <label className="text-on-surface font-label-md mb-4 block">{config.packagesLabel}</label>
+            <label className="text-on-surface font-label-md mb-4 block">{content.calcPackagesLabel}</label>
             <div className={`grid gap-4 ${packages.length === 2 ? 'grid-cols-2' : packages.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'}`}>
               {packages.map((pkg) => (
                 <button 
@@ -115,9 +103,9 @@ const Calculator = ({ onPriceChange }: CalculatorProps) => {
           </div>
           <div className="bg-background rounded-xl p-8 border border-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
-              <p className="text-secondary-fixed-dim text-sm uppercase tracking-widest">{config.resultLabel}</p>
+              <p className="text-secondary-fixed-dim text-sm uppercase tracking-widest">{content.calcResultLabel}</p>
               <div className="text-4xl md:text-5xl font-bold text-white mt-2">
-                {config.resultPrefix} <span className="text-primary-fixed" id="total-price">{total.toLocaleString()}</span> <span className="text-2xl">{config.resultCurrency}</span>
+                {content.calcResultPrefix} <span className="text-primary-fixed" id="total-price">{total.toLocaleString()}</span> <span className="text-2xl">{content.calcResultCurrency}</span>
               </div>
             </div>
             <ContactButton 

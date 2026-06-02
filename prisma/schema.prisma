@@ -296,6 +296,17 @@ model PageContent {
   calculatorTitle       String @default("Розрахуйте вартість *проєкту*")
   calculatorSub         String @default("Отримайте попередню оцінку за 30 секунд")
   calculatorButtonText  String @default("Залишити заявку")
+  calcBasePrice         Int    @default(7500)
+  calcSliderLabel       String @default("Кількість кімнат")
+  calcSliderMin         Int    @default(1)
+  calcSliderMax         Int    @default(5)
+  calcSliderStep        Int    @default(1)
+  calcSliderSuffix      String @default(" кімн.")
+  calcPackagesLabel     String @default("Рівень інсталяції")
+  calcPackagesJson      String @default("[{\"name\":\"Base\",\"multiplier\":1},{\"name\":\"Standard\",\"multiplier\":1.5},{\"name\":\"Premium\",\"multiplier\":2.5}]")
+  calcResultLabel       String @default("Орієнтовна вартість")
+  calcResultPrefix      String @default("від")
+  calcResultCurrency    String @default("₴")
   pricingSub            String @default("Ми пропонуємо чесні ціни за найвищу якість роботи. Виберіть пакет послуг або ознайомтеся з повним прайс-листом для детального розрахунку.")
   pricingButtonText     String @default("Дивитись повний прайс-лист")
   pricingPackagesJson   String @default("[{\"title\":\"Чорновий монтаж\",\"price\":\"від 150 ₴ / м.п.\",\"features\":[\"Штроблення без пилу\",\"Прокладання кабелю в гофрі\",\"Встановлення підрозетників\",\"Збірка тимчасового щита\"]},{\"title\":\"Електрика під ключ\",\"price\":\"від 800 ₴ / м²\",\"features\":[\"Повний комплекс робіт\",\"Збірка щита (Hager/ABB)\",\"Захист від перепадів напруги\",\"Встановлення розеток та світла\"]},{\"title\":\"Розумний дім\",\"price\":\"Індивідуально\",\"features\":[\"Проєктування системи\",\"Управління освітленням\",\"Клімат-контроль\",\"Система антипотоп\"]}]") @db.Text
@@ -327,25 +338,4 @@ model PageContent {
   footerCopyright       String @default("Професійні електромонтажні рішення.")
 }
 
-model CalculatorConfig {
-  id               String   @id @default("singleton")
-  basePrice        Int      @default(7500)
-  
-  // Slider config
-  sliderLabel      String   @default("Кількість кімнат")
-  sliderMin        Int      @default(1)
-  sliderMax        Int      @default(5)
-  sliderStep       Int      @default(1)
-  sliderSuffix     String   @default(" кімн.")
 
-  // Packages config
-  packagesLabel    String   @default("Рівень інсталяції")
-  packagesJson     String   @default("[{\"name\":\"Base\",\"multiplier\":1},{\"name\":\"Standard\",\"multiplier\":1.5},{\"name\":\"Premium\",\"multiplier\":2.5}]")
-  
-  // Result config
-  resultLabel      String   @default("Орієнтовна вартість")
-  resultPrefix     String   @default("від")
-  resultCurrency   String   @default("₴")
-
-  updatedAt        DateTime @updatedAt
-}
