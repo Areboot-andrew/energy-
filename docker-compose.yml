@@ -9,8 +9,14 @@ services:
       # These will be overridden by Coolify Environment Variables, but we provide defaults for local testing
       - NEXTAUTH_URL=http://localhost:3000
       - NEXTAUTH_SECRET=my_super_secret_key_123
+    volumes:
+      - volt_uploads:/app/public/uploads
     networks:
       - coolify
+
+volumes:
+  volt_uploads:
+    name: ${COOLIFY_PROJECT_UUID:-volt}_uploads
 
 networks:
   coolify:
