@@ -18,6 +18,12 @@ interface PageContent {
   pricingSeoTitle?: string;
   pricingSeoText?: string;
   pricingFeatures?: any;
+  termBackToHome?: string;
+  termService?: string;
+  termUnit?: string;
+  termPrice?: string;
+  termWhyUs?: string;
+  termPricingGuarantee?: string;
 }
 
 const defaultPrices: PriceItem[] = [
@@ -108,7 +114,7 @@ export default function PricingPage() {
     <main className="min-h-screen pt-32 pb-24 px-margin-desktop bg-background text-white">
       <div className="max-w-container-max mx-auto">
         <Link href="/" className="inline-block mb-8 text-primary-fixed hover:text-primary-fixed-dim transition-colors">
-          &larr; Повернутися на головну
+          &larr; {content?.termBackToHome || "Повернутися на головну"}
         </Link>
         
         <header className="mb-16">
@@ -148,9 +154,9 @@ export default function PricingPage() {
                   <table className="w-full text-left border-collapse min-w-[600px]">
                     <thead>
                       <tr className="border-b border-outline-variant/20">
-                        <th className="py-4 text-secondary-fixed-dim font-label-md w-1/2">Послуга</th>
-                        <th className="py-4 text-secondary-fixed-dim font-label-md">Одиниця</th>
-                        <th className="py-4 text-secondary-fixed-dim font-label-md text-right">Ціна (₴)</th>
+                        <th className="py-4 text-secondary-fixed-dim font-label-md w-1/2">{content?.termService || "Послуга"}</th>
+                        <th className="py-4 text-secondary-fixed-dim font-label-md">{content?.termUnit || "Одиниця"}</th>
+                        <th className="py-4 text-secondary-fixed-dim font-label-md text-right">{content?.termPrice || "Ціна (₴)"}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-outline-variant/10">
@@ -171,9 +177,9 @@ export default function PricingPage() {
         
         <section className="mt-24 relative">
           <div className="text-center mb-12">
-            <h3 className="font-headline-lg text-white mb-4">Чому обирають нас?</h3>
+            <h3 className="font-headline-lg text-white mb-4">{content?.termWhyUs || "Чому обирають нас?"}</h3>
             <p className="text-secondary-fixed-dim max-w-2xl mx-auto">
-              Ми гарантуємо прозорість, надійність та безпеку на кожному етапі співпраці.
+              {content?.termPricingGuarantee || "Ми гарантуємо прозорість, надійність та безпеку на кожному етапі співпраці."}
             </p>
           </div>
           

@@ -286,6 +286,24 @@ model PageContent {
   contactButtonText String  @default("Замовити дзвінок")
   terminology       String  @default("{}") // e.g. {"prices": "Інвойси"}
 
+  // Dictionary / Inner Pages Texts
+  termBackToHome       String @default("Повернутися на головну")
+  termServiceCategory  String @default("Преміум Послуга")
+  termEstimatedPrice   String @default("Орієнтовна Вартість")
+  termLeaveRequest     String @default("Залишити Заявку")
+  termComponents       String @default("Компоненти Системи")
+  termIncluded         String @default("Що Включено у Вартість")
+  termWhyUs            String @default("Чому Обирають Нас")
+  termReadyToStart     String @default("Готові розпочати проект?")
+  termReadyToStartSub  String @default("Залиште заявку на безкоштовну консультацію, і ми підберемо найкраще рішення для вашого об'єкту.")
+  termContactUs        String @default("Зв'язатися з нами")
+  termService          String @default("Послуга")
+  termUnit             String @default("Одиниця")
+  termPrice            String @default("Ціна (₴)")
+  termToAllProjects    String @default("До всіх проєктів")
+  termProjectGallery   String @default("Галерея проєкту")
+  termPricingGuarantee String @default("Ми гарантуємо прозорість, надійність та безпеку на кожному етапі співпраці.")
+
   // Editable Texts for Sections
   heroButton1Text       String @default("Безкоштовний прорахунок")
   heroButton2Text       String @default("Наші роботи")

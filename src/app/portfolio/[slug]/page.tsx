@@ -33,6 +33,10 @@ export default async function ProjectPage({ params }: Props) {
     include: { media: true }
   });
 
+  const content = await prisma.pageContent.findUnique({
+    where: { id: "singleton" }
+  });
+
   if (!project) {
     notFound();
   }
@@ -41,7 +45,7 @@ export default async function ProjectPage({ params }: Props) {
     <main className="min-h-screen bg-background text-on-background pb-16 pt-24 md:pb-24 md:pt-32">
       <div className="max-w-container-max mx-auto px-4 md:px-margin-desktop">
         <Link href="/portfolio" className="text-secondary-fixed-dim hover:text-white flex items-center gap-2 mb-6 md:mb-8 w-fit transition-colors">
-          <ArrowLeft size={18} /> До всіх проєктів
+          <ArrowLeft size={18} /> {content?.termToAllProjects || "До всіх проєктів"}
         </Link>
         
         {/* Header Section */}
@@ -83,7 +87,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Internal Media Gallery */}
         {project.media && project.media.length > 0 && (
           <div>
-            <h2 className="text-3xl font-bold text-white mb-8 border-b border-outline-variant/10 pb-4">Галерея проєкту</h2>
+            <h2 className="text-3xl font-bold text-white mb-8 border-b border-outline-variant/10 pb-4">{content?.termProjectGallery || "Галерея проєкту"}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {project.media.map((m) => {
                 const isVideo = m.type === "VIDEO" || m.url.includes("youtube.com") || m.url.includes("youtu.be");

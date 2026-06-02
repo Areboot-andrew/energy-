@@ -34,6 +34,10 @@ export default async function ServicePage({ params }: Props) {
     where: { slug },
   });
 
+  const content = await prisma.pageContent.findUnique({
+    where: { id: "singleton" }
+  });
+
   if (!service) {
     notFound();
   }
@@ -62,7 +66,7 @@ export default async function ServicePage({ params }: Props) {
                 <span className="material-symbols-outlined text-primary-fixed" style={{ fontVariationSettings: "'FILL' 1" }}>
                   {service.icon || 'bolt'}
                 </span>
-                <span className="text-on-surface-variant font-label-lg uppercase tracking-wider">Преміум Послуга</span>
+                <span className="text-on-surface-variant font-label-lg uppercase tracking-wider">{content?.termServiceCategory || "Преміум Послуга"}</span>
               </div>
               <h1 className="font-headline-xl text-4xl sm:text-5xl md:text-display-lg mb-4 md:mb-6 bg-gradient-to-br from-on-background to-on-surface-variant bg-clip-text text-transparent">
                 {service.title}
@@ -75,10 +79,10 @@ export default async function ServicePage({ params }: Props) {
             {service.estimatedPrice && (
               <div className="w-full md:w-80 shrink-0">
                 <div className="sticky top-32 bg-surface-container p-8 rounded-3xl border border-outline-variant/30 shadow-2xl backdrop-blur-md">
-                  <p className="text-on-surface-variant font-label-md mb-2 uppercase tracking-wide">Орієнтовна Вартість</p>
+                  <p className="text-on-surface-variant font-label-md mb-2 uppercase tracking-wide">{content?.termEstimatedPrice || "Орієнтовна Вартість"}</p>
                   <p className="text-4xl font-headline-lg text-primary-fixed mb-6">{service.estimatedPrice}</p>
                   <ContactButton className="block text-center bg-primary-fixed text-on-primary-fixed font-label-lg px-6 py-4 rounded-xl hover:opacity-90 transition-all hover:shadow-lg hover:shadow-primary-fixed/20">
-                    Залишити Заявку
+                    {content?.termLeaveRequest || "Залишити Заявку"}
                   </ContactButton>
                 </div>
               </div>
@@ -103,7 +107,7 @@ export default async function ServicePage({ params }: Props) {
                 <div className="bg-surface-container/50 p-8 rounded-3xl border border-outline-variant/20 hover:border-primary-fixed/30 transition-colors">
                   <h3 className="font-headline-md mb-6 flex items-center gap-3">
                     <span className="material-symbols-outlined text-primary-fixed">extension</span>
-                    Компоненти Системи
+                    {content?.termComponents || "Компоненти Системи"}
                   </h3>
                   <ul className="space-y-4">
                     {components.map((comp, idx) => (
@@ -124,7 +128,7 @@ export default async function ServicePage({ params }: Props) {
                 <div className="bg-surface-container/50 p-8 rounded-3xl border border-outline-variant/20 hover:border-primary-fixed/30 transition-colors">
                   <h3 className="font-headline-md mb-6 flex items-center gap-3">
                     <span className="material-symbols-outlined text-primary-fixed">check_circle</span>
-                    Що Включено у Вартість
+                    {content?.termIncluded || "Що Включено у Вартість"}
                   </h3>
                   <ul className="space-y-4">
                     {included.map((inc, idx) => (
@@ -146,7 +150,7 @@ export default async function ServicePage({ params }: Props) {
           {/* Advantages Section */}
           {advantages.length > 0 && (
             <section>
-              <h2 className="font-headline-lg mb-8">Чому Обирають Нас</h2>
+              <h2 className="font-headline-lg mb-8">{content?.termWhyUs || "Чому Обирають Нас"}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {advantages.map((adv, idx) => (
                   <div key={idx} className="group bg-surface-container hover:bg-surface-container-high transition-colors rounded-2xl p-6 border border-outline-variant/20 flex items-start gap-4">
@@ -170,10 +174,10 @@ export default async function ServicePage({ params }: Props) {
       <section className="py-12 md:py-16 px-4 md:px-margin-desktop max-w-container-max mx-auto">
         <div className="relative overflow-hidden bg-surface-container rounded-3xl p-6 md:p-16 border border-outline-variant/20 text-center max-w-4xl mx-auto">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-fixed to-transparent opacity-50" />
-          <h2 className="font-headline-lg text-on-background mb-6">Готові розпочати проект?</h2>
-          <p className="text-on-surface-variant mb-10 text-xl max-w-2xl mx-auto">Залиште заявку на безкоштовну консультацію, і ми підберемо найкраще рішення для вашого об'єкту.</p>
+          <h2 className="font-headline-lg text-on-background mb-6">{content?.termReadyToStart || "Готові розпочати проект?"}</h2>
+          <p className="text-on-surface-variant mb-10 text-xl max-w-2xl mx-auto">{content?.termReadyToStartSub || "Залиште заявку на безкоштовну консультацію, і ми підберемо найкраще рішення для вашого об'єкту."}</p>
           <ContactButton className="inline-flex items-center gap-2 bg-primary-fixed text-on-primary-fixed font-label-lg px-8 py-4 rounded-xl hover:opacity-90 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-fixed/20">
-            <span>Зв'язатися з нами</span>
+            <span>{content?.termContactUs || "Зв'язатися з нами"}</span>
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </ContactButton>
         </div>
