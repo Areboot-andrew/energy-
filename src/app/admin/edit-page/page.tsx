@@ -444,19 +444,7 @@ const PageEditor = () => {
                 <p className="text-xs text-secondary-fixed-dim mt-1">Використовуйте *зірочки*, щоб виділити слово жовтим кольором (напр., Усі *проєкти*).</p>
               </div>
               
-              <div className="pt-4 border-t border-outline-variant/10 space-y-4">
-                <h3 className="text-sm font-bold text-secondary-fixed-dim uppercase">SEO Опис під галереєю</h3>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Заголовок</label>
-                  <input type="text" value={content.portfolioSeoTitle || ""} onChange={(e) => setContent(prev => ({ ...prev, portfolioSeoTitle: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase text-secondary-fixed-dim">SEO Текст (Rich Text)</label>
-                  <div className="bg-background rounded-lg border border-outline-variant/30 text-white">
-                    <RichEditor value={content.portfolioSeoText || ""} onChange={(val) => setContent(prev => ({ ...prev, portfolioSeoText: val }))} placeholder="SEO текст для розділу портфоліо..." />
-                  </div>
-                </div>
-              </div>
+
             </div>
           </section>
 
@@ -706,8 +694,6 @@ const PageEditor = () => {
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Підзаголовок</label>
                 <textarea rows={2} value={content.contactsSub || ""} onChange={(e) => setContent(prev => ({ ...prev, contactsSub: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none resize-none" />
-              </div>
-            </div>
               </div>
             </div>
           </section>
