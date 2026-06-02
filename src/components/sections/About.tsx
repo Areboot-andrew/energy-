@@ -41,7 +41,7 @@ const About = () => {
           </motion.div>
         </div>
         <div className="space-y-8">
-          <h2 className="font-headline-xl">{content.aboutTitle}</h2>
+          <h2 className="font-headline-xl text-3xl md:text-4xl lg:text-headline-xl text-white mb-6">{content.aboutTitle}</h2>
           <div 
             className="text-secondary-fixed-dim font-body-lg leading-relaxed prose prose-invert prose-p:text-secondary-fixed-dim prose-a:text-primary-fixed"
             dangerouslySetInnerHTML={{ __html: content.aboutText }}

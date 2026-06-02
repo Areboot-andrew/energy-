@@ -30,7 +30,7 @@ const Gallery = () => {
         <div className="max-w-xl">
           <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">Наші проєкти</span>
           <div className="flex flex-wrap items-center gap-4">
-            <h2 className="font-headline-xl">Галерея виконаних робіт</h2>
+            <h2 className="font-headline-xl text-3xl md:text-4xl lg:text-headline-xl text-white mb-6">Галерея виконаних робіт</h2>
             <Link href="/gallery" className="text-primary-fixed font-bold hover:underline mb-4">Всі проєкти →</Link>
           </div>
         </div>
