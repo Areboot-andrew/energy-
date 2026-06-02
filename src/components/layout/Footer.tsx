@@ -21,6 +21,7 @@ const Footer = () => {
       if (data) {
         try { data.phones = JSON.parse(data.phones || "[]"); } catch { data.phones = []; }
         try { data.socials = JSON.parse(data.socials || "[]"); } catch { data.socials = []; }
+        try { data.navLinks = JSON.parse(data.navLinks || "[]"); } catch { data.navLinks = []; }
         setSettings(data);
       }
     });
@@ -70,11 +71,25 @@ const Footer = () => {
         <div className="space-y-6">
           <h4 className="text-white font-label-md uppercase tracking-widest">Швидкі посилання</h4>
           <div className="flex flex-col gap-3">
-            <Link className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="/#services">Послуги</Link>
-            <Link className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="/#pricing">Ціни</Link>
-            <Link className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="/portfolio">Наші роботи</Link>
-            <Link className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href="/standards">Стандарти якості</Link>
-            <ContactButton className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md text-left">Контакти</ContactButton>
+            {(settings.navLinks || [
+              { label: "Послуги", href: "/services", isVisible: true },
+              { label: "Ціни", href: "/pricing", isVisible: true },
+              { label: "Портфоліо", href: "/portfolio", isVisible: true },
+              { label: "Контакти", href: "/#contacts", isVisible: true },
+            ]).filter((item: any) => item.isVisible).map((item: any, idx: number) => {
+              if (item.href === "/#contacts" || item.label.toLowerCase() === "контакти") {
+                return (
+                  <ContactButton key={idx} className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md text-left">
+                    {item.label}
+                  </ContactButton>
+                );
+              }
+              return (
+                <Link key={idx} className="text-secondary-fixed-dim hover:text-primary-fixed transition-colors font-body-md" href={item.href}>
+                  {item.label}
+                </Link>
+              );
+            })}
             <div className="h-px bg-outline-variant/20 my-1" />
             {session ? (
               <Link className="text-primary-fixed hover:text-primary-fixed-dim transition-colors font-body-md flex items-center gap-2" href="/admin">

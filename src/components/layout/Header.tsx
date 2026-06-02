@@ -23,6 +23,7 @@ const Header = () => {
     fetch("/api/content").then(res => res.json()).then(data => {
       if (data) {
         try { data.phones = JSON.parse(data.phones || "[]"); } catch { data.phones = []; }
+        try { data.navLinks = JSON.parse(data.navLinks || "[]"); } catch { data.navLinks = []; }
         setContent(data);
       }
     });
@@ -45,16 +46,16 @@ const Header = () => {
         </Link>
         
         <div className="hidden md:flex items-center gap-8">
-          {[
-            { label: "Послуги", href: "/services" },
-            { label: "Ціни", href: "/pricing" },
-            { label: "Про нас", href: "/about" },
-            { label: "Портфоліо", href: "/portfolio" },
-            { label: "Блог", href: "/blog" },
-            { label: "Контакти", href: "/#contacts" },
-          ].map((item) => {
+          {(content.navLinks || [
+            { label: "Послуги", href: "/services", isVisible: true },
+            { label: "Ціни", href: "/pricing", isVisible: true },
+            { label: "Про нас", href: "/about", isVisible: true },
+            { label: "Портфоліо", href: "/portfolio", isVisible: true },
+            { label: "Блог", href: "/blog", isVisible: true },
+            { label: "Контакти", href: "/#contacts", isVisible: true },
+          ]).filter((item: any) => item.isVisible).map((item: any) => {
             const isActive = pathname === item.href;
-            if (item.label === "Контакти") {
+            if (item.href === "/#contacts" || item.label.toLowerCase() === "контакти") {
               return (
                 <ContactButton 
                   key={item.label}
@@ -128,16 +129,16 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-background border-b border-outline-variant/30 flex flex-col items-center py-6 gap-6 shadow-2xl animate-in slide-in-from-top-2">
-          {[
-            { label: "Послуги", href: "/services" },
-            { label: "Ціни", href: "/pricing" },
-            { label: "Про нас", href: "/about" },
-            { label: "Портфоліо", href: "/portfolio" },
-            { label: "Блог", href: "/blog" },
-            { label: "Контакти", href: "/#contacts" },
-          ].map((item) => {
+          {(content.navLinks || [
+            { label: "Послуги", href: "/services", isVisible: true },
+            { label: "Ціни", href: "/pricing", isVisible: true },
+            { label: "Про нас", href: "/about", isVisible: true },
+            { label: "Портфоліо", href: "/portfolio", isVisible: true },
+            { label: "Блог", href: "/blog", isVisible: true },
+            { label: "Контакти", href: "/#contacts", isVisible: true },
+          ]).filter((item: any) => item.isVisible).map((item: any) => {
             const isActive = pathname === item.href;
-            if (item.label === "Контакти") {
+            if (item.href === "/#contacts" || item.label.toLowerCase() === "контакти") {
               return (
                 <ContactButton 
                   key={item.label}

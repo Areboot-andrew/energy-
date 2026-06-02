@@ -5,30 +5,40 @@ import { ChevronRight, LogOut, LayoutDashboard, FileText, Settings, Users, Image
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [terminology, setTerminology] = useState<any>({});
+
+  useEffect(() => {
+    fetch("/api/content").then(res => res.json()).then(data => {
+      if (data && data.terminology) {
+        try { setTerminology(JSON.parse(data.terminology)); } catch {}
+      }
+    });
+  }, []);
 
   const handleLogout = () => {
     signOut({ callbackUrl: "/" });
   };
 
   const menuItems = [
-    { id: "dashboard", label: "Дашборд", icon: <LayoutDashboard size={18} />, href: "/admin" },
-    { id: "edit-page", label: "Головна", icon: <Edit3 size={18} />, href: "/admin/edit-page" },
-    { id: "about", label: "Про нас", icon: <FileText size={18} />, href: "/admin/about" },
-    { id: "services", label: "Послуги", icon: <LayoutDashboard size={18} />, href: "/admin/services" },
-    { id: "how-we-work", label: "Як ми працюємо", icon: <FileText size={18} />, href: "/admin/how-we-work" },
-    { id: "standards", label: "Стандарти", icon: <FileText size={18} />, href: "/admin/standards" },
-    { id: "faq", label: "FAQ", icon: <FileText size={18} />, href: "/admin/faq" },
-    { id: "portfolio", label: "Портфоліо", icon: <ImageIcon size={18} />, href: "/admin/portfolio" },
-    { id: "blog", label: "Блог", icon: <FileText size={18} />, href: "/admin/blog" },
-    { id: "requests", label: "Заявки", icon: <Users size={18} />, href: "/admin/requests" },
-    { id: "projects", label: "Проєкти Клієнтів", icon: <LayoutDashboard size={18} />, href: "/admin/projects" },
-    { id: "prices", label: "Ціни", icon: <Settings size={18} />, href: "/admin/prices" },
-    { id: "settings", label: "Налаштування", icon: <Settings size={18} />, href: "/admin/settings" },
+    { id: "dashboard", label: terminology.dashboard || "Дашборд", icon: <LayoutDashboard size={18} />, href: "/admin" },
+    { id: "structure", label: terminology.structure || "Структура сайту", icon: <Globe size={18} />, href: "/admin/structure" },
+    { id: "edit-page", label: terminology.homePage || "Головна", icon: <Edit3 size={18} />, href: "/admin/edit-page" },
+    { id: "about", label: terminology.aboutPage || "Про нас", icon: <FileText size={18} />, href: "/admin/about" },
+    { id: "services", label: terminology.services || "Послуги", icon: <LayoutDashboard size={18} />, href: "/admin/services" },
+    { id: "how-we-work", label: terminology.howWeWork || "Як ми працюємо", icon: <FileText size={18} />, href: "/admin/how-we-work" },
+    { id: "standards", label: terminology.standards || "Стандарти", icon: <FileText size={18} />, href: "/admin/standards" },
+    { id: "faq", label: terminology.faq || "FAQ", icon: <FileText size={18} />, href: "/admin/faq" },
+    { id: "portfolio", label: terminology.portfolio || "Портфоліо", icon: <ImageIcon size={18} />, href: "/admin/portfolio" },
+    { id: "blog", label: terminology.blog || "Блог", icon: <FileText size={18} />, href: "/admin/blog" },
+    { id: "requests", label: terminology.requests || "Заявки", icon: <Users size={18} />, href: "/admin/requests" },
+    { id: "projects", label: terminology.projects || "Проєкти Клієнтів", icon: <LayoutDashboard size={18} />, href: "/admin/projects" },
+    { id: "prices", label: terminology.prices || "Ціни", icon: <Settings size={18} />, href: "/admin/prices" },
+    { id: "settings", label: terminology.settings || "Налаштування", icon: <Settings size={18} />, href: "/admin/settings" },
   ];
 
   return (

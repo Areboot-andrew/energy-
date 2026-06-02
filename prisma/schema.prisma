@@ -268,6 +268,23 @@ model PageContent {
   // SEO & Analytics
   googleAnalyticsId String?
   googleSiteVerification String?
+
+  // --- SITE STRUCTURE & BOILERPLATE ---
+  showHero          Boolean @default(true)
+  showServices      Boolean @default(true)
+  showHowWeWork     Boolean @default(true)
+  showCalculator    Boolean @default(true)
+  showPricing       Boolean @default(true)
+  showPortfolio     Boolean @default(true)
+  showVideoBlog     Boolean @default(true)
+  showBlog          Boolean @default(true)
+  showAbout         Boolean @default(true)
+  showFAQ           Boolean @default(true)
+  showContacts      Boolean @default(true)
+
+  navLinks          String  @default("[{\"id\":\"services\",\"label\":\"Послуги\",\"href\":\"/services\",\"isVisible\":true},{\"id\":\"pricing\",\"label\":\"Ціни\",\"href\":\"/pricing\",\"isVisible\":true},{\"id\":\"about\",\"label\":\"Про нас\",\"href\":\"/about\",\"isVisible\":true},{\"id\":\"portfolio\",\"label\":\"Портфоліо\",\"href\":\"/portfolio\",\"isVisible\":true},{\"id\":\"blog\",\"label\":\"Блог\",\"href\":\"/blog\",\"isVisible\":true},{\"id\":\"contacts\",\"label\":\"Контакти\",\"href\":\"/#contacts\",\"isVisible\":true}]")
+  contactButtonText String  @default("Замовити дзвінок")
+  terminology       String  @default("{}") // e.g. {"prices": "Інвойси"}
 }
 
 model CalculatorConfig {
