@@ -183,7 +183,7 @@ const PageEditor = () => {
                 value={content.heroImage}
                 onChange={(url) => setContent(prev => ({ ...prev, heroImage: url }))}
               />
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant/10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-outline-variant/10">
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Текст кнопки 1</label>
                   <input type="text" value={content.heroButton1Text || ""} onChange={(e) => setContent(prev => ({ ...prev, heroButton1Text: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
@@ -220,7 +220,7 @@ const PageEditor = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Значок: Цифра (напр. 10+)</label>
                   <input
@@ -337,7 +337,7 @@ const PageEditor = () => {
                       <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Лейбл повзунка</label>
                       <input type="text" value={content.calcSliderLabel || ""} onChange={(e) => setContent({ ...content, calcSliderLabel: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
                     </div>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Мін.</label>
                         <input type="number" value={content.calcSliderMin || 0} onChange={(e) => setContent({ ...content, calcSliderMin: parseInt(e.target.value) })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
@@ -366,7 +366,7 @@ const PageEditor = () => {
                       <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Текст "Орієнтовна вартість"</label>
                       <input type="text" value={content.calcResultLabel || ""} onChange={(e) => setContent({ ...content, calcResultLabel: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-secondary-fixed-dim uppercase">Префікс (від)</label>
                         <input type="text" value={content.calcResultPrefix || ""} onChange={(e) => setContent({ ...content, calcResultPrefix: e.target.value })} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
@@ -392,7 +392,7 @@ const PageEditor = () => {
           <section className="bg-surface-container p-8 rounded-xl border border-outline-variant/20 space-y-6">
             <h2 className="text-xl font-bold text-white border-b border-outline-variant/10 pb-4">Секція: Портфоліо</h2>
             <div className="space-y-6">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase text-secondary-fixed-dim">Бейдж (напр. Галерея)</label>
                   <input type="text" value={content.portfolioBadge || ""} onChange={(e) => setContent(prev => ({ ...prev, portfolioBadge: e.target.value }))} className="w-full bg-background border border-outline-variant/30 rounded-lg px-4 py-3 text-white focus:border-primary-fixed outline-none" />
