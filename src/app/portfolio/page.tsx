@@ -43,9 +43,9 @@ export default async function PortfolioPage() {
           <Link href="/" className="text-secondary-fixed-dim hover:text-white flex items-center gap-2 mb-6 w-fit">
             <span>←</span> На головну
           </Link>
-          <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">Галерея</span>
+          <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">{content?.portfolioBadge || "Галерея"}</span>
           <HighlightedTitle 
-            text={content?.portfolioTitle || "Усі *проєкти*"} 
+            text={content?.allProjectsPageTitle || "Усі *проєкти*"} 
             className="font-headline-xl text-4xl md:text-5xl lg:text-6xl text-white" 
             as="h1" 
           />

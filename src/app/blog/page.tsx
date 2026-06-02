@@ -43,7 +43,7 @@ const BlogListingPage = () => {
         </Link>
         
         <div className="mb-16">
-          <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">База знань</span>
+          <span className="text-primary-fixed font-label-md tracking-widest uppercase mb-4 block">{content?.blogBadge || "База знань"}</span>
           <HighlightedTitle 
             text={content?.blogTitle || "*Блог* та корисні поради"} 
             className="font-display-lg text-4xl md:text-5xl lg:text-6xl text-white mb-6" 
